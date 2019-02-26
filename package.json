@@ -16,6 +16,23 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/taisuke-j/progress-ring-component.git"
+  },
+  "author": "taisuke-j",
+  "keywords": [
+    "progress-ring",
+    "progress",
+    "ring",
+    "donut",
+    "web-component",
+    "stencil"
+  ],
+  "bugs": {
+    "url": "https://github.com/taisuke-j/progress-ring-component/issues"
+  },
+  "homepage": "https://github.com/taisuke-j/progress-ring-component#readme",
   "dependencies": {
     "easing-animation-frames": "0.0.8"
   },

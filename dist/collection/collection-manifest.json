@@ -1,0 +1,98 @@
+{
+  "components": [
+    {
+      "tag": "progress-ring",
+      "dependencies": [],
+      "componentClass": "ProgressRing",
+      "componentPath": "components/progress-ring/progress-ring.js",
+      "styles": {
+        "$": {
+          "stylePaths": [
+            "components/progress-ring/progress-ring.css"
+          ]
+        }
+      },
+      "props": [
+        {
+          "name": "decimalSize",
+          "type": "Number",
+          "attr": "decimal-size",
+          "watch": [
+            "decimalSizeUpdated"
+          ]
+        },
+        {
+          "name": "disableDigits",
+          "type": "Boolean",
+          "attr": "disable-digits"
+        },
+        {
+          "name": "duration",
+          "type": "Number",
+          "attr": "duration",
+          "watch": [
+            "durationtUpdated"
+          ]
+        },
+        {
+          "name": "easingType",
+          "type": "String",
+          "attr": "easing-type",
+          "watch": [
+            "easingTypeUpdated"
+          ]
+        },
+        {
+          "name": "intSize",
+          "type": "Number",
+          "attr": "int-size",
+          "watch": [
+            "intSizeUpdated"
+          ]
+        },
+        {
+          "name": "invertColors",
+          "type": "Boolean",
+          "attr": "invert-colors",
+          "watch": [
+            "invertColorsUpdated"
+          ]
+        },
+        {
+          "name": "percent",
+          "type": "Number",
+          "mutable": true,
+          "reflectToAttr": true,
+          "attr": "percent",
+          "watch": [
+            "percentUpdated"
+          ]
+        },
+        {
+          "name": "radius",
+          "type": "Number",
+          "attr": "radius",
+          "watch": [
+            "radiusUpdated"
+          ]
+        },
+        {
+          "name": "strokeWidth",
+          "type": "Number",
+          "attr": "stroke-width",
+          "watch": [
+            "strokeWidthUpdated"
+          ]
+        }
+      ],
+      "shadow": true
+    }
+  ],
+  "collections": [],
+  "compiler": {
+    "name": "@stencil/core",
+    "version": "0.16.2",
+    "typescriptVersion": "3.2.2"
+  },
+  "bundles": []
+}

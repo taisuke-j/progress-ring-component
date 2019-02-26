@@ -12,6 +12,7 @@ This is an animated web component showing progress in percentage. It internally 
   <template>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="./demo/demo-01.html">
+    <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
@@ -30,6 +31,7 @@ This component works reactively in a unidirectional fashion. When the `percent` 
   <template>
     <script src="../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="./demo/demo-02.html">
+    <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
@@ -46,9 +48,9 @@ This component works reactively in a unidirectional fashion. When the `percent` 
   var button1 = document.querySelector('#button-1');
   var button2 = document.querySelector('#button-2');
   var button3 = document.querySelector('#button-3');
-  button1.addEventListener('click', function() {ring.setAttribute('percent', 30)});
-  button2.addEventListener('click', function() {ring.setAttribute('percent', 60)});
-  button3.addEventListener('click', function() {ring.setAttribute('percent', 90)});
+  button1.addEventListener('click', function() { ring.setAttribute('percent', 30) });
+  button2.addEventListener('click', function() { ring.setAttribute('percent', 60) });
+  button3.addEventListener('click', function() { ring.setAttribute('percent', 90) });
 </script>
 ```
 There are several ways to integrate this web component into your project.
@@ -76,7 +78,7 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-import { defineCustomElements } from ‘progress-ring-component/dist/loader';
+import { defineCustomElements } from 'progress-ring-component/dist/loader';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
@@ -96,5 +98,6 @@ It’s essentially the same with other frameworks like `Angular` and `Vue` (usin
 | decimalSize | number | intSize * 0.7 | Font size of decimals
 | disableDigits | boolean | false | Hides digits
 | invertColors | boolean | false | Inverts the color scheme
+
 
 **easingType**: `backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn`, `sineOut`
