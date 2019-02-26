@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
+  <title>Demo 2</title>
+  <script src='https://unpkg.com/progress-ring-component/latest/dist/progressring.js'></script>
+</head>
+<body>
+  <progress-ring id='demo-2' percent='10'></progress-ring>
+  <div style="width: 150px; text-align: center;">
+    <button id='button-1'>30%</button>
+    <button id='button-2'>60%</button>
+    <button id='button-3'>90%</button>
+  </div>
+  <script>
+    var ring = document.querySelector('#demo-2');
+    var button1 = document.querySelector('#button-1');
+    var button2 = document.querySelector('#button-2');
+    var button3 = document.querySelector('#button-3');
+    button1.addEventListener('click', function() {ring.setAttribute('percent', 30)});
+    button2.addEventListener('click', function() {ring.setAttribute('percent', 60)});
+    button3.addEventListener('click', function() {ring.setAttribute('percent', 90)});
+  </script>
+</body>
+</html>

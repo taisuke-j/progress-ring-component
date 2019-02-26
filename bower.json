@@ -1,0 +1,9 @@
+{
+  "name": "progress-ring-component",
+  "description": "Animated web component showing progress in percentage",
+  "keywords": [
+    "progress-ring",
+    "web-component",
+    "stencil"
+  ]
+}
