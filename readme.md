@@ -56,7 +56,7 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 There are several ways to integrate this web component into your project.
 
 ### Script tag
-Put a script tag `<script src='https://unpkg.com/progress-ring-component/latest/dist/progressring.js'></script>` in the head of your `index.html`.
+Put a script tag `<script src='https://unpkg.com/progress-ring-component/dist/progressring.js'></script>` in the head of your `index.html`.
 ```
 <!DOCTYPE html>
 <html lang="en">
