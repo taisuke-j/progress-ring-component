@@ -1,6 +1,6 @@
 {
   "name": "progress-ring-component",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Animated web component showing progress in percentage",
   "module": "dist/esm/index.js",
   "main": "dist/index.js",
