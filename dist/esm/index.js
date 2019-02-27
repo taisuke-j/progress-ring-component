@@ -1,1 +1,1 @@
-export * from './es2017/index.js';
+export * from './es5/index.js';

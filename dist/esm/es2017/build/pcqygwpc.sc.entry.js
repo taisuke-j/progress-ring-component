@@ -1,4 +1,4 @@
-const h = window.ProgressRing.h;
+import { h } from '../progressring.core.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -372,24 +372,16 @@ function easingAnimationFrames ({
 
 class ProgressRing {
     constructor() {
-        /**
-         * Shape
-         */
         this.radius = 80;
         this.strokeWidth = 10;
         this.setShapeSettings = ({ radius = this.radius, strokeWidth = this.strokeWidth }) => {
-            // Caches calculation results
             this.normalizedRadius = radius - Math.floor(strokeWidth / 2);
             this.circumference = this.normalizedRadius * 2 * Math.PI;
         };
-        /**
-         * Text
-         */
         this.intSize = 30;
         this.decimalSize = Math.floor(this.intSize * 0.7);
         this.disableDigits = false;
         this.setTextSettings = ({ intSize = this.intSize, decimalSize = this.decimalSize }) => {
-            // Caches calculation results
             this.textOffset = (intSize - decimalSize) / 4;
         };
         this.parsePercentText = (percent) => {
@@ -402,10 +394,9 @@ class ProgressRing {
             '#ff4f40',
             '#ffcd40',
             '#30bf7a',
-            '#66a0ff' // blue
+            '#66a0ff'
         ];
         this.setColorsSettings = ({ invertColors = this.invertColors }) => {
-            // Caches calculation results
             const colors = Object.assign({}, this.colors);
             this.colors = invertColors ? colors.reverse() : colors;
         };
@@ -427,31 +418,24 @@ class ProgressRing {
             this.ringBackground.style.stroke = color;
             this.percentText.style.fill = color;
         };
-        /**
-         * Animation
-         */
         this.percent = 0;
         this.duration = 4000;
         this.easingType = 'quartInOut';
         this.start = 0;
         this.progress = 0;
         this.isLoaded = false;
-        // Called for every requestAnimationFrame
         this.setProgress = ({ progress, stopFrames, restartFrames }) => {
-            // Stops the animation if the component
             if (!this.isLoaded && stopFrames) {
                 stopFrames();
                 return;
             }
             this.progress = progress;
             this.restartFrames = restartFrames;
-            // Shape
             const currentPercent = ((this.internalPercent - this.start) * progress) + this.start;
             const offset = currentPercent >= 100 ?
                 0 :
                 this.circumference - (currentPercent / 100 * this.circumference);
-            this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
-            // Text
+            this.ring.style.strokeDashoffset = String(offset);
             const parsedPercentText = this.parsePercentText(currentPercent);
             this.intText.innerHTML = parsedPercentText[0];
             this.decimalText.innerHTML = parsedPercentText[1];
@@ -495,17 +479,14 @@ class ProgressRing {
     easingTypeUpdated() {
         this.restartProgress();
     }
-    // Called every time the percent attribute gets updated
     restartProgress() {
         if (!this.restartFrames) {
             return;
         }
-        // Resets the progresss to 0 and set the start to be the previous percent
         const currentPercent = ((this.internalPercent - this.start) * this.progress) + this.start;
         this.internalPercent = this.percent;
         this.progress = 0;
         this.start = currentPercent;
-        // Restarts the template function
         const restartSettings = {
             restartDuration: this.duration,
             restartEasingType: this.easingType,
@@ -513,16 +494,12 @@ class ProgressRing {
         };
         this.restartFrames(restartSettings);
     }
-    /**
-     * Lifecycle Methods
-     */
     componentWillLoad() {
         if (this.percent < 0) {
             this.percent = 0;
             return;
         }
         this.isLoaded = true;
-        // We need internal percent, which is not reactive to prop changes
         this.internalPercent = this.percent;
         this.setShapeSettings({
             radius: this.radius,
@@ -612,7 +589,7 @@ class ProgressRing {
             "watchCallbacks": ["strokeWidthUpdated"]
         }
     }; }
-    static get style() { return "circle {\n  -webkit-transform: rotate(-90deg);\n  transform: rotate(-90deg);\n  -webkit-transform-origin: 50% 50%;\n  transform-origin: 50% 50%;\n}"; }
+    static get style() { return "circle.sc-progress-ring{-webkit-transform:rotate(-90deg);transform:rotate(-90deg);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}"; }
 }
 
 export { ProgressRing };
