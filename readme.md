@@ -10,7 +10,7 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <link rel='import' href='https://unpkg.com/progress-ring-component@0.0.4/demo/demo-01.html'>
+    <script src='https://unpkg.com/progress-ring-component@0.0.4/dist/progressring.js'></script>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -28,7 +28,7 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <link rel='import' href='https://unpkg.com/progress-ring-component@0.0.4/demo/demo-02.html'>
+    <script src='https://unpkg.com/progress-ring-component@0.0.4/dist/progressring.js'></script>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
