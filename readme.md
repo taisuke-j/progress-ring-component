@@ -3,15 +3,14 @@
 
 # Progress Ring Component
 
-This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. 
+This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations.
 
 ## How to use
 <!--
 ```
 <custom-element-demo>
   <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="./demo/demo-01.html">
+    <link rel='import' href='https://unpkg.com/progress-ring-component@0.0.3/demo/demo-01.html'>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -22,15 +21,14 @@ This is an animated web component showing progress in percentage. It internally 
 <progress-ring percent='60'></progress-ring>
 <progress-ring percent='90'></progress-ring>
 ```
-There is only one mandatory property `percent`, which declares the ending percentage in animation. You can also use `radius` prop to change the size of the ring, and `storkeWidth` to change the thickness of the ring. The full list of properties can be found below.
+There is only one mandatory property, `percent`, which declares the ending percentage in animation. You can also use `radius` prop to change the size of the ring, and `storkeWidth` to change the thickness of the ring. The full list of properties can be found below.
 
 This component works reactively in a unidirectional fashion. When the `percent` changes, it stops the current animation and resumes it with new percentage. There is pre-defined color scheme (`red (< 25%)` -> `yellow (< 50%)` -> `green (< 75%)` -> `blue (>= 75%)`).
 <!--
 ```
 <custom-element-demo>
   <template>
-    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="./demo/demo-02.html">
+    <link rel='import' href='https://unpkg.com/progress-ring-component@0.0.3/demo/demo-02.html'>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -59,18 +57,18 @@ There are several ways to integrate this web component into your project.
 Put a script tag `<script src='https://unpkg.com/progress-ring-component/dist/progressring.js'></script>` in the head of your `index.html`.
 ```
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
   <head>
-    <script src='https://unpkg.com/progress-ring-component/latest/dist/progressring.js'></script>
+    <script src='https://unpkg.com/progress-ring-component/dist/progressring.js'></script>
   </head>
   <body>
-    <progress-ring percent=’50’></progress-ring>
+    <progress-ring percent='50'></progress-ring>
   </body>
 </html>
 ```
 
 ### React
-If you are using `create-react-app` starter, you can include `defineCustomElements(window)` in `index.js`.
+If you are using `create-react-app` starter, first you need to `npm i -S progress-ring-component`, and you can include `defineCustomElements(window)` in `index.js`.
 ```
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -84,7 +82,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
 defineCustomElements(window);
 ```
-It’s essentially the same with other frameworks like `Angular` and `Vue` (using `defineCustomElements(window)`).
+It's essentially the same with other frameworks like `Angular` and `Vue` (using `defineCustomElements(window)`).
 
 ## Properties
 | Property | Type | Default | Description |

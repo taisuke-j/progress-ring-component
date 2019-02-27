@@ -3,6 +3,9 @@
   "description": "Animated web component showing progress in percentage",
   "keywords": [
     "progress-ring",
+    "progress",
+    "ring",
+    "donut",
     "web-component",
     "stencil"
   ]
