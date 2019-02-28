@@ -10,9 +10,6 @@ export class ProgressRing {
         this.intSize = 30;
         this.decimalSize = Math.floor(this.intSize * 0.7);
         this.disableDigits = false;
-        this.setTextSettings = ({ intSize = this.intSize, decimalSize = this.decimalSize }) => {
-            this.textOffset = (intSize - decimalSize) / 4;
-        };
         this.parsePercentText = (percent) => {
             if (percent <= 0) {
                 return ['0', '00'];
@@ -80,16 +77,6 @@ export class ProgressRing {
             strokeWidth: newValue
         });
     }
-    intSizeUpdated(newValue) {
-        this.setTextSettings({
-            intSize: newValue
-        });
-    }
-    decimalSizeUpdated(newValue) {
-        this.setTextSettings({
-            decimalSize: newValue
-        });
-    }
     invertColorsUpdated(newValue) {
         this.setColorsSettings({
             invertColors: newValue
@@ -134,10 +121,6 @@ export class ProgressRing {
             radius: this.radius,
             strokeWidth: this.strokeWidth
         });
-        this.setTextSettings({
-            intSize: this.intSize,
-            decimalSize: this.decimalSize
-        });
         this.setColorsSettings({
             invertColors: this.invertColors
         });
@@ -162,10 +145,10 @@ export class ProgressRing {
             h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }),
             h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }),
             !this.disableDigits &&
-                h("text", { x: '50%', y: '50%', "dominant-baseline": 'middle', "text-anchor": 'middle', "font-size": this.intSize, ref: (el) => this.percentText = el },
+                h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el },
                     h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }),
                     h("tspan", { class: 'decimalPointText' }, "."),
-                    h("tspan", { "font-size": this.decimalSize, dy: this.textOffset, ref: (el) => this.decimalText = el, class: 'decimalText' }),
+                    h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }),
                     h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
     }
     static get is() { return "progress-ring"; }
@@ -173,8 +156,7 @@ export class ProgressRing {
     static get properties() { return {
         "decimalSize": {
             "type": Number,
-            "attr": "decimal-size",
-            "watchCallbacks": ["decimalSizeUpdated"]
+            "attr": "decimal-size"
         },
         "disableDigits": {
             "type": Boolean,
@@ -192,8 +174,7 @@ export class ProgressRing {
         },
         "intSize": {
             "type": Number,
-            "attr": "int-size",
-            "watchCallbacks": ["intSizeUpdated"]
+            "attr": "int-size"
         },
         "invertColors": {
             "type": Boolean,

@@ -50,29 +50,6 @@ export class ProgressRing {
   @Prop() intSize = 30;
   @Prop() decimalSize: number = Math.floor(this.intSize * 0.7);
   @Prop() disableDigits = false;
-  private textOffset: number;
-
-  @Watch('intSize')
-  intSizeUpdated(newValue: number) {
-    this.setTextSettings({
-      intSize: newValue
-    })
-  }
-
-  @Watch('decimalSize')
-  decimalSizeUpdated(newValue: number) {
-    this.setTextSettings({
-      decimalSize: newValue
-    })
-  }
-
-  private setTextSettings = ({
-    intSize = this.intSize,
-    decimalSize = this.decimalSize
-  }) => {
-    // Caches calculation results
-    this.textOffset = (intSize - decimalSize) / 4;
-  }
 
   private parsePercentText = (percent: number) => {
     if (percent <= 0) {
@@ -221,11 +198,6 @@ export class ProgressRing {
       strokeWidth: this.strokeWidth
     });
 
-    this.setTextSettings({
-      intSize: this.intSize,
-      decimalSize: this.decimalSize
-    });
-
     this.setColorsSettings({
       invertColors: this.invertColors
     });
@@ -290,14 +262,14 @@ export class ProgressRing {
           <text
             x='50%'
             y='50%'
-            dominant-baseline='middle'
             text-anchor='middle'
+            dy='0.5ex'
             font-size={this.intSize}
             ref={(el: SVGTextElement)=> this.percentText = el}
           >
             <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
             <tspan class='decimalPointText'>.</tspan>
-            <tspan font-size={this.decimalSize} dy={this.textOffset} ref={(el: SVGTSpanElement) => this.decimalText = el} class='decimalText'></tspan>
+            <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class='decimalText'></tspan>
             <tspan font-size={this.decimalSize} class='percentText'>%</tspan>
           </text>
         }

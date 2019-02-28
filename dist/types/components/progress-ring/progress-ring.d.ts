@@ -17,10 +17,6 @@ export declare class ProgressRing {
     intSize: number;
     decimalSize: number;
     disableDigits: boolean;
-    private textOffset;
-    intSizeUpdated(newValue: number): void;
-    decimalSizeUpdated(newValue: number): void;
-    private setTextSettings;
     private parsePercentText;
     /**
      * Colors

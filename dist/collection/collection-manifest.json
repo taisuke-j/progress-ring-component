@@ -16,10 +16,7 @@
         {
           "name": "decimalSize",
           "type": "Number",
-          "attr": "decimal-size",
-          "watch": [
-            "decimalSizeUpdated"
-          ]
+          "attr": "decimal-size"
         },
         {
           "name": "disableDigits",
@@ -45,10 +42,7 @@
         {
           "name": "intSize",
           "type": "Number",
-          "attr": "int-size",
-          "watch": [
-            "intSizeUpdated"
-          ]
+          "attr": "int-size"
         },
         {
           "name": "invertColors",
