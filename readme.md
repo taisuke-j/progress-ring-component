@@ -13,7 +13,7 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.7/dist/progressring.js'></script>
+    <script src='https://unpkg.com/progress-ring-component@0.0.8/dist/progressring.js'></script>
     <style>progress-ring { font-family: sans-serif; }</style>
     <next-code-block></next-code-block>
   </template>
@@ -32,8 +32,11 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.7/dist/progressring.js'></script>
-    <style>progress-ring { font-family: sans-serif; }</style>
+    <script src='https://unpkg.com/progress-ring-component@0.0.8/dist/progressring.js'></script>
+    <style>
+      progress-ring { font-family: sans-serif; }
+      buttons { width: 150px; text-align: center; }
+    </style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
@@ -42,9 +45,11 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```html
 <progress-ring percent='10'></progress-ring>
 
-<button id='button-1'>30%</button>
-<button id='button-2'>60%</button>
-<button id='button-3'>90%</button>
+<div class='buttons'>
+  <button id='button-1'>30%</button>
+  <button id='button-2'>60%</button>
+  <button id='button-3'>90%</button>
+</div>
 
 <script>
   var ring = document.querySelector('progress-ring');
@@ -104,3 +109,7 @@ It's essentially the same with other frameworks like `Angular` and `Vue` (using 
 
 
 **easingType**: `backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn`, `sineOut`
+
+### Browser Support
+
+Internet Explorer is not supported.
