@@ -13,7 +13,7 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.8/dist/progressring.js'></script>
+    <script src='https://unpkg.com/progress-ring-component@0.0.9/dist/progressring.js'></script>
     <style>progress-ring { font-family: sans-serif; }</style>
     <next-code-block></next-code-block>
   </template>
@@ -32,7 +32,7 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.8/dist/progressring.js'></script>
+    <script src='https://unpkg.com/progress-ring-component@0.0.9/dist/progressring.js'></script>
     <style>
       progress-ring { font-family: sans-serif; }
       buttons { width: 150px; text-align: center; }
@@ -99,17 +99,17 @@ It's essentially the same with other frameworks like `Angular` and `Vue` (using 
 | --- | --- | --- | --- |
 | percent | number | 0 | Percentage value
 | radius | number | 80 | Radius of the ring
-| strokeWidth | number | 10 | Thickness of the ring
+| stroke-width | number | 10 | Thickness of the ring
 | duration | number | 4000 | Animation duration in miliseconds
-| easingType | string | `quartInOut` | Easing animation function name
-| intSize | number | 30 | Font size of integer
-| decimalSize | number | intSize * 0.7 | Font size of decimals
-| disableDigits | boolean | false | Hides digits
-| invertColors | boolean | false | Inverts the color scheme
+| easing-type | string | `quartInOut` | Easing animation function name
+| int-size | number | 30 | Font size of integer
+| decimal-size | number | intSize * 0.7 | Font size of decimals
+| disable-digits | boolean | false | Hides digits
+| invert-colors | boolean | false | Inverts the color scheme
 
 
 **easingType**: `backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn`, `sineOut`
 
-### Browser Support
+## Browser Support
 
 Internet Explorer is not supported.

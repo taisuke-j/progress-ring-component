@@ -1,4 +1,4 @@
-import { Component, Prop, Watch } from '@stencil/core';
+import { Component, Prop, State, Watch } from '@stencil/core';
 import easingAnimationFrames, {
   EasingType,
   restartFramesFunction,
@@ -12,7 +12,6 @@ import easingAnimationFrames, {
   shadow: true
 })
 export class ProgressRing {
-
   /**
    * Shape
    */
@@ -61,13 +60,15 @@ export class ProgressRing {
   /**
    * Colors
    */
-  @Prop() invertColors: boolean;
-  private colors = [
+  @Prop() invertColors = false;
+  @State() colors: string[];
+  private internalColors = [
     '#ff4f40', // red
     '#ffcd40', // yellow
     '#30bf7a', // green
     '#66a0ff'  // blue
   ];
+  private internalColorsReversed = [...this.internalColors].reverse();
 
   @Watch('invertColors')
   invertColorsUpdated(newValue: boolean) {
@@ -80,8 +81,9 @@ export class ProgressRing {
     invertColors = this.invertColors
   }) => {
     // Caches calculation results
-    const colors = { ...this.colors };
-    this.colors = invertColors ? colors.reverse() : colors;
+    this.colors = invertColors ? 
+      this.internalColorsReversed :
+      this.internalColors;
   }
 
   private setColors = (percent: number) => {
@@ -258,7 +260,6 @@ export class ProgressRing {
           ref={(el: SVGCircleElement)=> this.ring = el}
           class='ring'
         />
-        {!this.disableDigits &&
           <text
             x='50%'
             y='50%'
@@ -266,6 +267,7 @@ export class ProgressRing {
             dy='0.5ex'
             font-size={this.intSize}
             ref={(el: SVGTextElement)=> this.percentText = el}
+            class={this.disableDigits ? 'hide' : null}
           >
             <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
             <tspan class='decimalPointText'>.</tspan>

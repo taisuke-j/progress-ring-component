@@ -16,15 +16,18 @@ export class ProgressRing {
             }
             return percent.toFixed(1).split('.');
         };
-        this.colors = [
+        this.invertColors = false;
+        this.internalColors = [
             '#ff4f40',
             '#ffcd40',
             '#30bf7a',
             '#66a0ff'
         ];
+        this.internalColorsReversed = [...this.internalColors].reverse();
         this.setColorsSettings = ({ invertColors = this.invertColors }) => {
-            const colors = Object.assign({}, this.colors);
-            this.colors = invertColors ? colors.reverse() : colors;
+            this.colors = invertColors ?
+                this.internalColorsReversed :
+                this.internalColors;
         };
         this.setColors = (percent) => {
             let color;
@@ -144,16 +147,19 @@ export class ProgressRing {
         return (h("svg", { height: this.radius * 2, width: this.radius * 2 },
             h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }),
             h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }),
-            !this.disableDigits &&
-                h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el },
-                    h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }),
-                    h("tspan", { class: 'decimalPointText' }, "."),
-                    h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }),
-                    h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
+            h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null },
+                h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }),
+                h("tspan", { class: 'decimalPointText' }, "."),
+                h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }),
+                h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%")),
+            "}"));
     }
     static get is() { return "progress-ring"; }
     static get encapsulation() { return "shadow"; }
     static get properties() { return {
+        "colors": {
+            "state": true
+        },
         "decimalSize": {
             "type": Number,
             "attr": "decimal-size"

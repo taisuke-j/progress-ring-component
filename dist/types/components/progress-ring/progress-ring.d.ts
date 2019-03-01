@@ -22,7 +22,9 @@ export declare class ProgressRing {
      * Colors
      */
     invertColors: boolean;
-    private colors;
+    colors: string[];
+    private internalColors;
+    private internalColorsReversed;
     invertColorsUpdated(newValue: boolean): void;
     private setColorsSettings;
     private setColors;

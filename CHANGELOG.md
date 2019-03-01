@@ -6,3 +6,6 @@
 
 ## 0.0.8 (2019-02-28)
 - Updated inline demo style
+
+## 0.0.9 (2019-03-01)
+- Fixed invertColors and disableDigits issues

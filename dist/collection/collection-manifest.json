@@ -79,6 +79,11 @@
           ]
         }
       ],
+      "states": [
+        {
+          "name": "colors"
+        }
+      ],
       "shadow": true
     }
   ],
