@@ -9,3 +9,6 @@
 
 ## 0.0.9 (2019-03-01)
 - Fixed invertColors and disableDigits issues
+
+## 0.0.10 (2019-03-02)
+- Updated integration guide on readme
