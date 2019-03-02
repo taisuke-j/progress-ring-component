@@ -12,3 +12,6 @@
 
 ## 0.0.10 (2019-03-02)
 - Updated integration guide on readme
+
+## 0.0.11 (2019-03-02)
+- Fixed typo on readme

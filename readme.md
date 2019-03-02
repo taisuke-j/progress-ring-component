@@ -4,7 +4,7 @@
 
 # Progress Ring Component
 
-This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. The component is compiled with [Stencil](https://stenciljs.com/).
+This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/).
 1. [Demo 1](https://unpkg.com/progress-ring-component/demo/demo-01.html)
 1. [Demo 2](https://unpkg.com/progress-ring-component/demo/demo-02.html)
 
@@ -13,7 +13,7 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.10/dist/progressring.js'></script>
+    <script src='https://unpkg.com/progress-ring-component@0.0.11/dist/progressring.js'></script>
     <style>progress-ring { font-family: sans-serif; }</style>
     <next-code-block></next-code-block>
   </template>
@@ -32,7 +32,7 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.10/dist/progressring.js'></script>
+    <script src='https://unpkg.com/progress-ring-component@0.0.11/dist/progressring.js'></script>
     <style>
       progress-ring { font-family: sans-serif; }
       buttons { width: 150px; text-align: center; }
@@ -94,7 +94,7 @@ defineCustomElements(window);
 ```
 It's essentially the same with other frameworks like `Angular` and `Vue` (using `defineCustomElements(window)`).
 
-For more details about framework integration, please see (Stencil doc)[https://stenciljs.com/docs/overview](Progress Ring Component is compiled with Stencil.)
+For more details about framework integration, please see [Stencil doc](https://stenciljs.com/docs/overview) (Progress Ring Component is compiled with Stencil.)
 
 ## Properties
 | Property | Type | Default | Description |
