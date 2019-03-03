@@ -6,7 +6,12 @@
     "progress",
     "ring",
     "donut",
-    "web-component",
-    "stencil"
+    "web-components",
+    "stencil",
+    "requestanimationframe",
+    "raf",
+    "animation",
+    "transition",
+    "pwa"
   ]
 }

@@ -15,3 +15,6 @@
 
 ## 0.0.11 (2019-03-02)
 - Fixed typo on readme
+
+## 0.0.12 (2019-03-03)
+- Added CSS transition effects

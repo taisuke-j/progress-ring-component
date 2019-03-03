@@ -576,7 +576,7 @@ class ProgressRing {
             "watchCallbacks": ["strokeWidthUpdated"]
         }
     }; }
-    static get style() { return "circle.sc-progress-ring{-webkit-transform:rotate(-90deg);transform:rotate(-90deg);-webkit-transform-origin:50% 50%;transform-origin:50% 50%}.hide.sc-progress-ring{display:none}"; }
+    static get style() { return "circle{-webkit-transform:rotate(-90deg);transform:rotate(-90deg);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:stroke .8s ease 0s;transition:stroke .8s ease 0s}text{-webkit-transition:fill .8s ease 0s;transition:fill .8s ease 0s}.hide{display:none}"; }
 }
 
 export { ProgressRing };

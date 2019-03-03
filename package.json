@@ -26,8 +26,13 @@
     "progress",
     "ring",
     "donut",
-    "web-component",
-    "stencil"
+    "web-components",
+    "stencil",
+    "requestanimationframe",
+    "raf",
+    "animation",
+    "transition",
+    "pwa"
   ],
   "bugs": {
     "url": "https://github.com/taisuke-j/progress-ring-component/issues"
