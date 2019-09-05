@@ -1,4 +1,3 @@
-import '../../stencil.core';
 import { EasingType } from 'easing-animation-frames';
 export declare class ProgressRing {
     /**
@@ -39,17 +38,18 @@ export declare class ProgressRing {
     private progress;
     private restartFrames;
     private isLoaded;
+    private complete;
     percentUpdated(): void;
     durationtUpdated(): void;
     easingTypeUpdated(): void;
     private setProgress;
-    restartProgress(): void;
+    private restartProgress;
+    private completeCallback;
     /**
      * Lifecycle Methods
      */
     componentWillLoad(): void;
     componentDidLoad(): void;
-    componentDidUpdate(): void;
     componentDidUnload(): void;
     /**
      * JSX
@@ -59,5 +59,5 @@ export declare class ProgressRing {
     private percentText;
     private intText;
     private decimalText;
-    render(): JSX.Element;
+    render(): any;
 }

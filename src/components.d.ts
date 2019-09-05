@@ -5,16 +5,12 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 import {
   EasingType,
 } from 'easing-animation-frames';
 
-
 export namespace Components {
-
   interface ProgressRing {
     'decimalSize': number;
     'disableDigits': boolean;
@@ -38,7 +34,23 @@ export namespace Components {
     'radius': number;
     'strokeWidth': number;
   }
-  interface ProgressRingAttributes extends StencilHTMLAttributes {
+}
+
+declare global {
+
+
+  interface HTMLProgressRingElement extends Components.ProgressRing, HTMLStencilElement {}
+  var HTMLProgressRingElement: {
+    prototype: HTMLProgressRingElement;
+    new (): HTMLProgressRingElement;
+  };
+  interface HTMLElementTagNameMap {
+    'progress-ring': HTMLProgressRingElement;
+  }
+}
+
+declare namespace LocalJSX {
+  interface ProgressRing extends JSXBase.HTMLAttributes<HTMLProgressRingElement> {
     'decimalSize'?: number;
     'disableDigits'?: boolean;
     'duration'?: number;
@@ -61,39 +73,19 @@ export namespace Components {
     'radius'?: number;
     'strokeWidth'?: number;
   }
+
+  interface IntrinsicElements {
+    'progress-ring': ProgressRing;
+  }
 }
 
-declare global {
-  interface StencilElementInterfaces {
-    'ProgressRing': Components.ProgressRing;
-  }
-
-  interface StencilIntrinsicElements {
-    'progress-ring': Components.ProgressRingAttributes;
-  }
+export { LocalJSX as JSX };
 
 
-  interface HTMLProgressRingElement extends Components.ProgressRing, HTMLStencilElement {}
-  var HTMLProgressRingElement: {
-    prototype: HTMLProgressRingElement;
-    new (): HTMLProgressRingElement;
-  };
-
-  interface HTMLElementTagNameMap {
-    'progress-ring': HTMLProgressRingElement
-  }
-
-  interface ElementTagNameMap {
-    'progress-ring': HTMLProgressRingElement;
-  }
-
-
+declare module "@stencil/core" {
   export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
   }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+

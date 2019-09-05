@@ -1,2 +1,0 @@
-// ProgressRing: Host Data, ES Module/es5 Target
-export var COMPONENTS = [["progress-ring","49uqaxcv",1,[["colors",16],["decimalSize",1,0,"decimal-size",8],["disableDigits",1,0,"disable-digits",4],["duration",1,0,1,8],["easingType",1,0,"easing-type",2],["intSize",1,0,"int-size",8],["invertColors",1,0,"invert-colors",4],["percent",2,1,1,8],["radius",1,0,1,8],["strokeWidth",1,0,"stroke-width",8]],1]]

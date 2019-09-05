@@ -1,4 +1,4 @@
-import { Component, Prop, State, Watch } from '@stencil/core';
+import { Component, Prop, State, Watch, h } from '@stencil/core';
 import easingAnimationFrames, {
   EasingType,
   restartFramesFunction,
@@ -113,6 +113,7 @@ export class ProgressRing {
   private progress = 0;
   private restartFrames: restartFramesFunction;
   private isLoaded = false;
+  private complete = false;
 
   @Watch('percent')
   percentUpdated() {
@@ -158,10 +159,16 @@ export class ProgressRing {
     const parsedPercentText = this.parsePercentText(currentPercent);
     this.intText.innerHTML = parsedPercentText[0];
     this.decimalText.innerHTML = parsedPercentText[1];
+
+    // Colors
+    if (this.complete) {
+      // No color transitions for the initial animation
+      this.setColors(currentPercent);
+    }
   }
 
   // Called every time the percent attribute gets updated
-  restartProgress() {
+  private restartProgress = () => {
     if (!this.restartFrames) {
       return;
     }
@@ -181,6 +188,12 @@ export class ProgressRing {
     this.restartFrames(restartSettings);
   }
 
+  private completeCallback = () => {
+    if (!this.complete) {
+      this.complete = true
+    }
+  }
+
   /**
    * Lifecycle Methods
    */
@@ -189,8 +202,6 @@ export class ProgressRing {
       this.percent = 0;
       return;
     }
-
-    this.isLoaded = true;
 
     // We need internal percent, which is not reactive to prop changes
     this.internalPercent = this.percent;
@@ -203,22 +214,20 @@ export class ProgressRing {
     this.setColorsSettings({
       invertColors: this.invertColors
     });
+  }
+
+  componentDidLoad() {
+    this.isLoaded = true;
+    this.setColors(this.percent);
 
     const animationSettings: easingAnimationFramesOptions = {
       duration: this.duration,
       easingType: this.easingType,
-      template: this.setProgress
+      template: this.setProgress,
+      complete: this.completeCallback
     };
 
     easingAnimationFrames(animationSettings);
-  }
-
-  componentDidLoad() {
-    this.setColors(this.percent)
-  }
-
-  componentDidUpdate() {
-    this.setColors(this.percent)
   }
  
   componentDidUnload() {
@@ -260,21 +269,20 @@ export class ProgressRing {
           ref={(el: SVGCircleElement)=> this.ring = el}
           class='ring'
         />
-          <text
-            x='50%'
-            y='50%'
-            text-anchor='middle'
-            dy='0.5ex'
-            font-size={this.intSize}
-            ref={(el: SVGTextElement)=> this.percentText = el}
-            class={this.disableDigits ? 'hide' : null}
-          >
-            <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
-            <tspan class='decimalPointText'>.</tspan>
-            <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class='decimalText'></tspan>
-            <tspan font-size={this.decimalSize} class='percentText'>%</tspan>
-          </text>
-        }
+        <text
+          x='50%'
+          y='50%'
+          text-anchor='middle'
+          dy='0.5ex'
+          font-size={this.intSize}
+          ref={(el: SVGTextElement)=> this.percentText = el}
+          class={this.disableDigits ? 'hide' : null}
+        >
+          <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
+          <tspan class='decimalPointText'>.</tspan>
+          <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class='decimalText'></tspan>
+          <tspan font-size={this.decimalSize} class='percentText'>%</tspan>
+        </text>
       </svg>
     )
   }

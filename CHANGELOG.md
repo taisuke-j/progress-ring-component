@@ -18,3 +18,7 @@
 
 ## 0.0.12 (2019-03-03)
 - Added CSS transition effects
+
+## 0.0.13 (2019-09-05)
+- Updated dependencies
+- Made enhancement to the transitions
