@@ -1,6 +1,6 @@
 {
   "name": "progress-ring-component",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Animated web component showing progress in percentage",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
