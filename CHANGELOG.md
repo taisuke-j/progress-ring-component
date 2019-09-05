@@ -24,4 +24,4 @@
 - Made enhancement to the transitions
 
 ## 1.0.0 (2019-09-05)
-- Fixed a transition issue with restart before completing the initial animation loop 
+- Fixed a transition issue with restart before completing the initial animation loop
