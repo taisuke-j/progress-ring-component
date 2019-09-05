@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const core = require('./core-fa22df8c.js');
+const core = require('./core-21cccdc9.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -486,7 +486,8 @@ const ProgressRing = class {
             const restartSettings = {
                 restartDuration: this.duration,
                 restartEasingType: this.easingType,
-                restartTemplate: this.setProgress
+                restartTemplate: this.setProgress,
+                restartComplete: this.completeCallback
             };
             this.restartFrames(restartSettings);
         };
@@ -567,7 +568,7 @@ const ProgressRing = class {
         "duration": ["durationtUpdated"],
         "easingType": ["easingTypeUpdated"]
     }; }
-    static get style() { return "circle {\n  -webkit-transform: rotate(-90deg);\n  transform: rotate(-90deg);\n  -webkit-transform-origin: 50% 50%;\n  transform-origin: 50% 50%;\n  -webkit-transition: stroke 0.4s ease 0s;\n  transition: stroke 0.4s ease 0s;\n}\ntext {\n  -webkit-transition: fill 0.6s ease 0s;\n  transition: fill 0.6s ease 0s;\n}\n.hide {\n  display: none;\n}"; }
+    static get style() { return "circle{-webkit-transform:rotate(-90deg);transform:rotate(-90deg);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:stroke .4s ease 0s;transition:stroke .4s ease 0s}text{-webkit-transition:fill .6s ease 0s;transition:fill .6s ease 0s}.hide{display:none}"; }
 };
 
 exports.progress_ring = ProgressRing;

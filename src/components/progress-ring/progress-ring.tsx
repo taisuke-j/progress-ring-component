@@ -183,7 +183,8 @@ export class ProgressRing {
     const restartSettings: restartFramesOptions = {
       restartDuration: this.duration,
       restartEasingType: this.easingType,
-      restartTemplate: this.setProgress
+      restartTemplate: this.setProgress,
+      restartComplete: this.completeCallback
     };
     this.restartFrames(restartSettings);
   }

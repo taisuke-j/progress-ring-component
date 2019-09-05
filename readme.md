@@ -13,7 +13,8 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.13/dist/progressring.js'></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.0/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.0/dist/progressring/progressring.js"></script>
     <style>progress-ring { font-family: sans-serif; }</style>
     <next-code-block></next-code-block>
   </template>
@@ -32,7 +33,8 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <script src='https://unpkg.com/progress-ring-component@0.0.13/dist/progressring.js'></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.0/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.0/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { font-family: sans-serif; }
       buttons { width: 150px; text-align: center; }
@@ -64,12 +66,13 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 There are several ways to integrate this web component into your project.
 
 ### Script tag
-Put a script tag `<script src='https://unpkg.com/progress-ring-component/dist/progressring.js'></script>` in the head of your `index.html`.
+Place two script tags `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` and `<script nomodule="" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.js"></script>` in the head of your `index.html`.
 ```
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <script src='https://unpkg.com/progress-ring-component/dist/progressring.js'></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.js"></script>
   </head>
   <body>
     <progress-ring percent='50'></progress-ring>

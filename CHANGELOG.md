@@ -22,3 +22,6 @@
 ## 0.0.13 (2019-09-05)
 - Updated dependencies
 - Made enhancement to the transitions
+
+## 1.0.0 (2019-09-05)
+- Fixed a transition issue with restart before completing the initial animation loop 

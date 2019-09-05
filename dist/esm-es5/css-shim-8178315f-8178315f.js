@@ -320,7 +320,9 @@ function resolveValues(selectors) {
     return propsValues;
 }
 function getSelectors(root, index) {
-    if (index === void 0) { index = 0; }
+    if (index === void 0) {
+        index = 0;
+    }
     if (!root.rules) {
         return [];
     }
