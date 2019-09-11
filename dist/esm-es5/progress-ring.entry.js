@@ -334,7 +334,7 @@ var ProgressRing = /** @class */ (function () {
         this.disableDigits = false;
         this.parsePercentText = function (percent) {
             if (percent <= 0) {
-                return ['0', '00'];
+                return ['0', '0'];
             }
             return percent.toFixed(1).split('.');
         };

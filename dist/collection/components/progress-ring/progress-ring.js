@@ -20,7 +20,7 @@ export class ProgressRing {
         this.disableDigits = false;
         this.parsePercentText = (percent) => {
             if (percent <= 0) {
-                return ['0', '00'];
+                return ['0', '0'];
             }
             return percent.toFixed(1).split('.');
         };
