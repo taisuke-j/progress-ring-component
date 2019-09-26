@@ -439,16 +439,19 @@ var ProgressRing = /** @class */ (function () {
         this.setShapeSettings({
             radius: newValue
         });
+        this.restartProgress();
     };
     class_1.prototype.strokeWidthUpdated = function (newValue) {
         this.setShapeSettings({
             strokeWidth: newValue
         });
+        this.restartProgress();
     };
     class_1.prototype.invertColorsUpdated = function (newValue) {
         this.setColorsSettings({
             invertColors: newValue
         });
+        this.restartProgress();
     };
     class_1.prototype.percentUpdated = function () {
         if (this.percent < 0) {

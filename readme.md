@@ -13,8 +13,8 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.1/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.1/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.js"></script>
     <style>progress-ring { font-family: sans-serif; }</style>
     <next-code-block></next-code-block>
   </template>
@@ -33,8 +33,8 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.1/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.1/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { font-family: sans-serif; }
       buttons { width: 150px; text-align: center; }

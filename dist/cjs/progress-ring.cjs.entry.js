@@ -501,16 +501,19 @@ const ProgressRing = class {
         this.setShapeSettings({
             radius: newValue
         });
+        this.restartProgress();
     }
     strokeWidthUpdated(newValue) {
         this.setShapeSettings({
             strokeWidth: newValue
         });
+        this.restartProgress();
     }
     invertColorsUpdated(newValue) {
         this.setColorsSettings({
             invertColors: newValue
         });
+        this.restartProgress();
     }
     percentUpdated() {
         if (this.percent < 0) {

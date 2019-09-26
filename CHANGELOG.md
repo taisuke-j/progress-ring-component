@@ -28,3 +28,6 @@
 
 ## 1.0.1 (2019-09-11)
 - Fixed decimals issue for zero percent
+
+## 1.0.2 (2019-09-26)
+- Added missing implementation of restartProgress in several places

@@ -25,6 +25,7 @@ export class ProgressRing {
     this.setShapeSettings({
       radius: newValue
     })
+    this.restartProgress()
   }
 
   @Watch('strokeWidth')
@@ -32,6 +33,7 @@ export class ProgressRing {
     this.setShapeSettings({
       strokeWidth: newValue
     })
+    this.restartProgress()
   }
 
   private setShapeSettings = ({
@@ -75,6 +77,7 @@ export class ProgressRing {
     this.setColorsSettings({
       invertColors: newValue
     })
+    this.restartProgress()
   }
 
   private setColorsSettings = ({
