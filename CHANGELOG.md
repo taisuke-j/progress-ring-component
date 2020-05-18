@@ -31,3 +31,6 @@
 
 ## 1.0.2 (2019-09-26)
 - Added missing implementation of restartProgress in several places
+
+## 1.0.3 (2020-05-18)
+- Updated dependencies

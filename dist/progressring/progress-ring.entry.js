@@ -1,8 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-const core = require('./core-21cccdc9.js');
+import { r as registerInstance, h } from './index-ac7c96be.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -170,6 +166,7 @@ function sineOut(t) {
 }
 
 const eases = /*#__PURE__*/Object.freeze({
+  __proto__: null,
   backInOut: backInOut,
   backIn: backIn,
   backOut: backOut,
@@ -377,9 +374,11 @@ function easingAnimationFrames ({
   requestId = raf(frame);
 }
 
+const progressRingCss = "circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.hide{display:none}";
+
 const ProgressRing = class {
     constructor(hostRef) {
-        core.registerInstance(this, hostRef);
+        registerInstance(this, hostRef);
         /**
          * Shape
          */
@@ -561,7 +560,7 @@ const ProgressRing = class {
         this.isLoaded = false;
     }
     render() {
-        return (core.h("svg", { height: this.radius * 2, width: this.radius * 2 }, core.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), core.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), core.h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null }, core.h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), core.h("tspan", { class: 'decimalPointText' }, "."), core.h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), core.h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
+        return (h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), h("tspan", { class: 'decimalPointText' }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
     }
     static get watchers() { return {
         "radius": ["radiusUpdated"],
@@ -571,7 +570,7 @@ const ProgressRing = class {
         "duration": ["durationtUpdated"],
         "easingType": ["easingTypeUpdated"]
     }; }
-    static get style() { return "circle{-webkit-transform:rotate(-90deg);transform:rotate(-90deg);-webkit-transform-origin:50% 50%;transform-origin:50% 50%;-webkit-transition:stroke .4s ease 0s;transition:stroke .4s ease 0s}text{-webkit-transition:fill .6s ease 0s;transition:fill .6s ease 0s}.hide{display:none}"; }
 };
+ProgressRing.style = progressRingCss;
 
-exports.progress_ring = ProgressRing;
+export { ProgressRing as progress_ring };

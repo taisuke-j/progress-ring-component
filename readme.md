@@ -13,8 +13,8 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.3/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.3/dist/progressring/progressring.js"></script>
     <style>progress-ring { font-family: sans-serif; }</style>
     <next-code-block></next-code-block>
   </template>
@@ -22,9 +22,9 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 -->
 ```html
-<progress-ring percent='30'></progress-ring>
-<progress-ring percent='60'></progress-ring>
-<progress-ring percent='90'></progress-ring>
+<progress-ring percent="30"></progress-ring>
+<progress-ring percent="60"></progress-ring>
+<progress-ring percent="90"></progress-ring>
 ```
 There is only one mandatory property, `percent`, which declares the ending percentage in animation. You can also use `radius` prop to change the size of the ring, and `storkeWidth` to change the thickness of the ring. The full list of properties can be found below.
 
@@ -33,8 +33,8 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.2/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.3/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.3/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { font-family: sans-serif; }
       buttons { width: 150px; text-align: center; }
@@ -45,59 +45,45 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 -->
 ```html
-<progress-ring percent='10'></progress-ring>
+<progress-ring percent="10"></progress-ring>
 
-<div class='buttons'>
-  <button id='button-1'>30%</button>
-  <button id='button-2'>60%</button>
-  <button id='button-3'>90%</button>
+<div class="buttons">
+  <button id="buttonOne">30%</button>
+  <button id="buttonTwo">60%</button>
+  <button id="buttonThree">90%</button>
 </div>
 
 <script>
-  var ring = document.querySelector('progress-ring');
-  var button1 = document.querySelector('#button-1');
-  var button2 = document.querySelector('#button-2');
-  var button3 = document.querySelector('#button-3');
-  button1.addEventListener('click', function() { ring.setAttribute('percent', 30) });
-  button2.addEventListener('click', function() { ring.setAttribute('percent', 60) });
-  button3.addEventListener('click', function() { ring.setAttribute('percent', 90) });
+  const ring = document.querySelector("progress-ring");
+  const buttonOne = document.querySelector("#buttonOne");
+  const buttonTwo = document.querySelector("#buttonTwo");
+  const buttonThree = document.querySelector("#buttonThree");
+
+  buttonOne.addEventListener("click", () => { ring.setAttribute("percent", 30) });
+  buttonTwo.addEventListener("click", () => { ring.setAttribute("percent", 60) });
+  buttonThree.addEventListener("click", () => { ring.setAttribute("percent", 90) });
 </script>
 ```
-There are several ways to integrate this web component into your project.
+
+You can either directly import the component in script tag or integrate it into the framework you're using for the project.
 
 ### Script tag
 Place two script tags `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` and `<script nomodule="" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.js"></script>` in the head of your `index.html`.
-```
+```html
 <!DOCTYPE html>
-<html lang='en'>
+<html>
   <head>
     <script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>
     <script nomodule="" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.js"></script>
   </head>
   <body>
-    <progress-ring percent='50'></progress-ring>
+    <progress-ring percent="50"></progress-ring>
   </body>
 </html>
 ```
 
-### React
-If you are using `create-react-app` starter, first you need to `npm i -S progress-ring-component`, and you can include `defineCustomElements(window)` in `index.js`.
-```
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-
-import { defineCustomElements } from 'progress-ring-component/dist/loader';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-registerServiceWorker();
-defineCustomElements(window);
-```
-It's essentially the same with other frameworks like `Angular` and `Vue` (using `defineCustomElements(window)`).
-
-For more details about framework integration, please see [Stencil doc](https://stenciljs.com/docs/overview) (Progress Ring Component is compiled with Stencil).
+### Framework Integration
+If you are integrating this component into a framework such as React or Vue, please see [Stencil doc](https://stenciljs.com/docs/overview) for information.
 
 ## Properties
 | Property | Type | Default | Description |
@@ -113,8 +99,5 @@ For more details about framework integration, please see [Stencil doc](https://s
 | invert-colors | boolean | false | Inverts the color scheme
 
 
-**easingType**: `backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn`, `sineOut`
-
-## Browser Support
-
-Internet Explorer is not supported.
+### easingType
+`backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn`, `sineOut`
