@@ -68,13 +68,12 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 You can either directly import the component in script tag or integrate it into the framework you're using for the project.
 
 ### Script tag
-Place two script tags `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` and `<script nomodule="" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.js"></script>` in the head of your `index.html`.
+Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` in the head of your `index.html`.
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.js"></script>
   </head>
   <body>
     <progress-ring percent="50"></progress-ring>
