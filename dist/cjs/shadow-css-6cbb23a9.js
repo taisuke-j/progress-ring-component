@@ -1,5 +1,7 @@
+'use strict';
+
 /*
- Stencil Client Platform v1.13.0 | MIT Licensed | https://stenciljs.com
+ Stencil Client Platform v2.6.0 | MIT Licensed | https://stenciljs.com
  */
 /**
  * @license
@@ -380,4 +382,4 @@ const scopeCss = (cssText, scopeId, commentOriginalSelector) => {
     return cssText;
 };
 
-export { scopeCss };
+exports.scopeCss = scopeCss;

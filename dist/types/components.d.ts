@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
-import { EasingType, } from "easing-animation-frames";
+import { EasingType } from "easing-animation-frames";
 export namespace Components {
     interface ProgressRing {
         "decimalSize": number;

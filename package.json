@@ -2,8 +2,8 @@
   "name": "progress-ring-component",
   "version": "1.0.3",
   "description": "Animated web component showing progress in percentage",
-  "module": "dist/index.mjs",
-  "main": "dist/index.js",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs.js",
   "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
@@ -13,8 +13,8 @@
   "scripts": {
     "build": "stencil build --docs",
     "start": "stencil build --dev --watch --serve",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll"
+    "test": "stencil test --e2e",
+    "test.watch": "stencil test --e2e --watchAll"
   },
   "repository": {
     "type": "git",
@@ -42,12 +42,12 @@
     "easing-animation-frames": "1.0.0"
   },
   "devDependencies": {
-    "@stencil/core": "~1.13.0",
-    "@types/jest": "25.2.2",
-    "@types/puppeteer": "2.1.0",
+    "@stencil/core": "~2.6.0",
+    "@types/jest": "26.0.23",
+    "@types/puppeteer": "5.4.3",
     "jest": "26.0.1",
     "jest-cli": "26.0.1",
-    "puppeteer": "3.1.0"
+    "puppeteer": "10.0.0"
   },
   "license": "MIT"
 }

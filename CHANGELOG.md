@@ -34,3 +34,6 @@
 
 ## 1.0.3 (2020-05-18)
 - Updated dependencies
+
+## 1.0.4 (2021-06-10)
+- Upgraded Stencil version to 2.6

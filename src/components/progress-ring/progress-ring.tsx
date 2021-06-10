@@ -108,7 +108,7 @@ export class ProgressRing {
   /**
    * Animation
    */
-  @Prop({ reflectToAttr: true, mutable: true }) percent = 0;
+  @Prop({ reflect: true, mutable: true }) percent = 0;
   @Prop() duration = 4000;
   @Prop() easingType: EasingType = 'quartInOut';
   private internalPercent: number;
@@ -234,7 +234,7 @@ export class ProgressRing {
     easingAnimationFrames(animationSettings);
   }
  
-  componentDidUnload() {
+  disconnectedCallback() {
     this.isLoaded = false;
   }
 

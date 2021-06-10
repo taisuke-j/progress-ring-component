@@ -1,0 +1,11 @@
+circle {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+  transition: stroke 0.4s ease 0s;
+}
+text {
+  transition: fill 0.6s ease 0s;
+}
+.hide {
+  display: none;
+}

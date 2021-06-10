@@ -1,4 +1,8 @@
-import { r as registerInstance, h } from './index-f2463307.js';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+const index = require('./index-9d4ac253.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -378,7 +382,7 @@ const progressRingCss = "circle{transform:rotate(-90deg);transform-origin:50% 50
 
 const ProgressRing = class {
   constructor(hostRef) {
-    registerInstance(this, hostRef);
+    index.registerInstance(this, hostRef);
     /**
      * Shape
      */
@@ -560,7 +564,7 @@ const ProgressRing = class {
     this.isLoaded = false;
   }
   render() {
-    return (h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), h("tspan", { class: 'decimalPointText' }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
+    return (index.h("svg", { height: this.radius * 2, width: this.radius * 2 }, index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), index.h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null }, index.h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), index.h("tspan", { class: 'decimalPointText' }, "."), index.h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), index.h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],
@@ -573,4 +577,4 @@ const ProgressRing = class {
 };
 ProgressRing.style = progressRingCss;
 
-export { ProgressRing as progress_ring };
+exports.progress_ring = ProgressRing;
