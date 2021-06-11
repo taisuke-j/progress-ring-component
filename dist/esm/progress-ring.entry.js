@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-f2463307.js';
+import { r as registerInstance, h } from './index-e94f1903.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -445,15 +445,17 @@ const ProgressRing = class {
     this.start = 0;
     this.progress = 0;
     this.isLoaded = false;
+    this.isDisconnected = false;
     this.complete = false;
     // Called for every requestAnimationFrame
-    this.setProgress = ({ progress, stopFrames, restartFrames }) => {
-      // Stops the animation if the component
-      if (!this.isLoaded && stopFrames) {
+    this.setProgress = ({ progress, stopFrames, resumeFrames, restartFrames, }) => {
+      // Stops the animation if the component is disconnected from the DOM
+      if (this.isDisconnected && stopFrames) {
         stopFrames();
         return;
       }
       this.progress = progress;
+      this.resumeFrames = resumeFrames;
       this.restartFrames = restartFrames;
       // Shape
       const currentPercent = ((this.internalPercent - this.start) * progress) + this.start;
@@ -556,8 +558,17 @@ const ProgressRing = class {
     };
     easingAnimationFrames(animationSettings);
   }
+  connectedCallback() {
+    if (this.isLoaded) {
+      // If the component is already loaded, that means it was loaded but
+      // disconnected from the DOM and then connected to the DOM again
+      this.isDisconnected = false;
+      // Resumes animation that is still in progress
+      this.resumeFrames();
+    }
+  }
   disconnectedCallback() {
-    this.isLoaded = false;
+    this.isDisconnected = true;
   }
   render() {
     return (h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), h("tspan", { class: 'decimalPointText' }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));

@@ -37,3 +37,6 @@
 
 ## 1.0.4 (2021-06-10)
 - Upgraded Stencil version to 2.6
+
+## 1.0.5 (2021-06-12)
+- Fixed animations not resuming after getting reattached to DOM

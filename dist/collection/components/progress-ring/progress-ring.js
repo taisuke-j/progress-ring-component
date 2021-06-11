@@ -68,15 +68,17 @@ export class ProgressRing {
     this.start = 0;
     this.progress = 0;
     this.isLoaded = false;
+    this.isDisconnected = false;
     this.complete = false;
     // Called for every requestAnimationFrame
-    this.setProgress = ({ progress, stopFrames, restartFrames }) => {
-      // Stops the animation if the component
-      if (!this.isLoaded && stopFrames) {
+    this.setProgress = ({ progress, stopFrames, resumeFrames, restartFrames, }) => {
+      // Stops the animation if the component is disconnected from the DOM
+      if (this.isDisconnected && stopFrames) {
         stopFrames();
         return;
       }
       this.progress = progress;
+      this.resumeFrames = resumeFrames;
       this.restartFrames = restartFrames;
       // Shape
       const currentPercent = ((this.internalPercent - this.start) * progress) + this.start;
@@ -179,8 +181,17 @@ export class ProgressRing {
     };
     easingAnimationFrames(animationSettings);
   }
+  connectedCallback() {
+    if (this.isLoaded) {
+      // If the component is already loaded, that means it was loaded but
+      // disconnected from the DOM and then connected to the DOM again
+      this.isDisconnected = false;
+      // Resumes animation that is still in progress
+      this.resumeFrames();
+    }
+  }
   disconnectedCallback() {
-    this.isLoaded = false;
+    this.isDisconnected = true;
   }
   render() {
     return (h("svg", { height: this.radius * 2, width: this.radius * 2 },

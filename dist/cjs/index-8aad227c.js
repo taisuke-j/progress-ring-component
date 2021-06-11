@@ -1,3 +1,25 @@
+'use strict';
+
+function _interopNamespace(e) {
+  if (e && e.__esModule) return e;
+  var n = Object.create(null);
+  if (e) {
+    Object.keys(e).forEach(function (k) {
+      if (k !== 'default') {
+        var d = Object.getOwnPropertyDescriptor(e, k);
+        Object.defineProperty(n, k, d.get ? d : {
+          enumerable: true,
+          get: function () {
+            return e[k];
+          }
+        });
+      }
+    });
+  }
+  n['default'] = e;
+  return Object.freeze(n);
+}
+
 const NAMESPACE = 'progressring';
 
 let scopeId;
@@ -835,6 +857,7 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
                 hostRef.$flags$ |= 128 /* isWatchReady */;
             }
             endNewInstance();
+            fireConnectedCallback(hostRef.$lazyInstance$);
         }
         if (Cstr.style) {
             // this component has styles but we haven't registered them yet
@@ -861,6 +884,11 @@ const initializeComponent = async (elm, hostRef, cmpMeta, hmrVersionId, Cstr) =>
     }
     else {
         schedule();
+    }
+};
+const fireConnectedCallback = (instance) => {
+    {
+        safeCall(instance, 'connectedCallback');
     }
 };
 const connectedCallback = (elm) => {
@@ -900,6 +928,10 @@ const connectedCallback = (elm) => {
             {
                 initializeComponent(elm, hostRef, cmpMeta);
             }
+        }
+        else {
+            // fire off connectedCallback() on component instance
+            fireConnectedCallback(hostRef.$lazyInstance$);
         }
         endConnected();
     }
@@ -1034,11 +1066,11 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     if (module) {
         return module[exportName];
     }
-    return import(
+    return Promise.resolve().then(function () { return /*#__PURE__*/_interopNamespace(require(
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
-    `./${bundleId}.entry.js${''}`).then(importedModule => {
+    `./${bundleId}.entry.js${''}`)); }).then(importedModule => {
         {
             cmpModules.set(bundleId, importedModule);
         }
@@ -1089,4 +1121,7 @@ const flush = () => {
 const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
 const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
-export { bootstrapLazy as b, h, promiseResolve as p, registerInstance as r };
+exports.bootstrapLazy = bootstrapLazy;
+exports.h = h;
+exports.promiseResolve = promiseResolve;
+exports.registerInstance = registerInstance;
