@@ -40,3 +40,8 @@
 
 ## 1.0.5 (2021-06-12)
 - Fixed animations not resuming after getting reattached to DOM
+
+## 1.0.6 (2021-11-08)
+- Upgraded Stencil version to 2.10
+- Disabling e2e test until stencil supports jest v27
+- Updated README to include framework integration guide

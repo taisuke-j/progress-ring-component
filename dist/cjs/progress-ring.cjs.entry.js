@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-8aad227c.js');
+const index = require('./index-0f38156b.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -380,7 +380,7 @@ function easingAnimationFrames ({
 
 const progressRingCss = "circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.hide{display:none}";
 
-const ProgressRing = class {
+let ProgressRing = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
     /**

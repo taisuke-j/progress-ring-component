@@ -1,4 +1,3 @@
-
 export * from '../types/components';
 export interface CustomElementsDefineOptions {
   exclude?: string[];
