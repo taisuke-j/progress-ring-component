@@ -50,4 +50,4 @@
 - Changed percent prop to percentage prop
 - Added roundLinecap prop
 - Removed decimal digits for 0 percent
-- Integrated slotted html
+- Integrated slotted elements
