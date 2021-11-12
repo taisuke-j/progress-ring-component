@@ -23,7 +23,7 @@ export namespace Components {
         /**
           * Animation
          */
-        "percent": number;
+        "percentage": number;
         /**
           * Shape
          */
@@ -59,7 +59,7 @@ declare namespace LocalJSX {
         /**
           * Animation
          */
-        "percent"?: number;
+        "percentage"?: number;
         /**
           * Shape
          */

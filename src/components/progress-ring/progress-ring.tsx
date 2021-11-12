@@ -54,11 +54,11 @@ export class ProgressRing {
   @Prop() decimalSize: number = Math.floor(this.intSize * 0.7);
   @Prop() disableDigits = false;
 
-  private parsePercentText = (percent: number) => {
-    if (percent <= 0) {
+  private parsePercentageText = (percentage: number) => {
+    if (percentage <= 0) {
       return ['0', '0'];
     }
-    return percent.toFixed(1).split('.');
+    return percentage.toFixed(1).split('.');
   }
 
   /**
@@ -91,29 +91,29 @@ export class ProgressRing {
       this.internalColors;
   }
 
-  private setColors = (percent: number) => {
+  private setColors = (percentage: number) => {
     let color: string;
-    if (percent <= 25) {
+    if (percentage <= 25) {
       color = this.colors[0];
-    } else if (percent <= 50) {
+    } else if (percentage <= 50) {
       color = this.colors[1];
-    } else if (percent <= 75) {
+    } else if (percentage <= 75) {
       color = this.colors[2];
     } else {
       color = this.colors[3];
     }
     this.ring.style.stroke = color;
     this.ringBackground.style.stroke = color;
-    this.percentText.style.fill = color;
+    this.percentageText.style.fill = color;
   }
 
   /**
    * Animation
    */
-  @Prop({ reflect: true, mutable: true }) percent = 0;
+  @Prop({ reflect: true, mutable: true }) percentage = 0;
   @Prop() duration = 4000;
   @Prop() easingType: EasingType = 'quartInOut';
-  private internalPercent: number;
+  private internalPercentage: number;
   private start = 0;
   private progress = 0;
   private resumeFrames: resumeFramesFunction;
@@ -122,10 +122,10 @@ export class ProgressRing {
   private isDisconnected = false;
   private complete = false;
 
-  @Watch('percent')
-  percentUpdated() {
-    if (this.percent < 0) {
-      this.percent = 0;
+  @Watch('percentage')
+  percentageUpdated() {
+    if (this.percentage < 0) {
+      this.percentage = 0;
       return;
     }
     this.restartProgress()
@@ -158,35 +158,35 @@ export class ProgressRing {
     this.restartFrames = restartFrames;
 
     // Shape
-    const currentPercent = ((this.internalPercent - this.start) * progress) + this.start;
-    const offset = currentPercent >= 100 ?
+    const currentPercentage = ((this.internalPercentage - this.start) * progress) + this.start;
+    const offset = currentPercentage >= 100 ?
       0 :
-      this.circumference - (currentPercent / 100 * this.circumference);
+      this.circumference - (currentPercentage / 100 * this.circumference);
     this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
 
     // Text
-    const parsedPercentText = this.parsePercentText(currentPercent);
-    this.intText.innerHTML = parsedPercentText[0];
-    this.decimalText.innerHTML = parsedPercentText[1];
+    const parsedPercentageText = this.parsePercentageText(currentPercentage);
+    this.intText.innerHTML = parsedPercentageText[0];
+    this.decimalText.innerHTML = parsedPercentageText[1];
 
     // Colors
     if (this.complete) {
       // No color transitions for the initial animation
-      this.setColors(currentPercent);
+      this.setColors(currentPercentage);
     }
   }
 
-  // Called every time the percent attribute gets updated
+  // Called every time the percentage attribute gets updated
   private restartProgress = () => {
     if (!this.restartFrames) {
       return;
     }
 
-    // Resets the progresss to 0 and set the start to be the previous percent
-    const currentPercent = ((this.internalPercent - this.start) * this.progress) + this.start;
-    this.internalPercent = this.percent;
+    // Resets the progresss to 0 and set the start to be the previous percentage
+    const currentPercentage = ((this.internalPercentage - this.start) * this.progress) + this.start;
+    this.internalPercentage = this.percentage;
     this.progress = 0;
-    this.start = currentPercent;
+    this.start = currentPercentage;
 
     // Restarts the template function
     const restartSettings: restartFramesOptions = {
@@ -208,13 +208,13 @@ export class ProgressRing {
    * Lifecycle Methods
    */
   componentWillLoad() {
-    if (this.percent < 0) {
-      this.percent = 0;
+    if (this.percentage < 0) {
+      this.percentage = 0;
       return;
     }
 
-    // We need internal percent, which is not reactive to prop changes
-    this.internalPercent = this.percent;
+    // We need internal percentage, which is not reactive to prop changes
+    this.internalPercentage = this.percentage;
 
     this.setShapeSettings({
       radius: this.radius,
@@ -228,7 +228,7 @@ export class ProgressRing {
 
   componentDidLoad() {
     this.isLoaded = true;
-    this.setColors(this.percent);
+    this.setColors(this.percentage);
 
     const animationSettings: easingAnimationFramesOptions = {
       duration: this.duration,
@@ -260,7 +260,7 @@ export class ProgressRing {
    */
   private ringBackground: SVGCircleElement;
   private ring: SVGCircleElement;
-  private percentText: SVGTextElement;
+  private percentageText: SVGTextElement;
   private intText: SVGTSpanElement;
   private decimalText: SVGTSpanElement;
     
@@ -296,13 +296,13 @@ export class ProgressRing {
           text-anchor='middle'
           dy='0.5ex'
           font-size={this.intSize}
-          ref={(el: SVGTextElement)=> this.percentText = el}
+          ref={(el: SVGTextElement)=> this.percentageText = el}
           class={this.disableDigits ? 'hide' : null}
         >
           <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
           <tspan class='decimalPointText'>.</tspan>
           <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class='decimalText'></tspan>
-          <tspan font-size={this.decimalSize} class='percentText'>%</tspan>
+          <tspan font-size={this.decimalSize} class='percentageText'>%</tspan>
         </text>
       </svg>
     )

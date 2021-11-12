@@ -9,8 +9,8 @@ describe('progress-ring', () => {
   });
   it('should render textContent', async () => {
     const page = await newE2EPage();
-    await page.setContent('<progress-ring percent="30"></progress-ring>');
-    const element = await page.find('progress-ring >>> .percentText');
+    await page.setContent('<progress-ring percentage="30"></progress-ring>');
+    const element = await page.find('progress-ring >>> .percentageText');
     expect(element.textContent).toEqualText('%');
   });
 });

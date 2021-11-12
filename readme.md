@@ -22,13 +22,13 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 -->
 ```html
-<progress-ring percent="30"></progress-ring>
-<progress-ring percent="60"></progress-ring>
-<progress-ring percent="90"></progress-ring>
+<progress-ring percentage="30"></progress-ring>
+<progress-ring percentage="60"></progress-ring>
+<progress-ring percentage="90"></progress-ring>
 ```
-There is only one mandatory property, `percent`, which declares the ending percentage in animation. You can also use `radius` prop to change the size of the ring, and `storkeWidth` to change the thickness of the ring. The full list of properties can be found below.
+There is only one mandatory property, `percentage`, which declares the ending percentage in animation. You can also use `radius` prop to change the size of the ring, and `storkeWidth` to change the thickness of the ring. The full list of properties can be found below.
 
-This component works reactively in a unidirectional fashion. When the `percent` changes, it stops the current animation and resumes it with new percentage. There is pre-defined color scheme (`red (< 25%)` -> `yellow (< 50%)` -> `green (< 75%)` -> `blue (>= 75%)`).
+This component works reactively in a unidirectional fashion. When the `percentage` changes, it stops the current animation and resumes it with new percentage. There is pre-defined color scheme (`red (< 25%)` -> `yellow (< 50%)` -> `green (< 75%)` -> `blue (>= 75%)`).
 <!--
 ```
 <custom-element-demo>
@@ -45,7 +45,7 @@ This component works reactively in a unidirectional fashion. When the `percent` 
 ```
 -->
 ```html
-<progress-ring percent="10"></progress-ring>
+<progress-ring percentage="10"></progress-ring>
 
 <div class="buttons">
   <button id="buttonOne">30%</button>
@@ -59,9 +59,9 @@ This component works reactively in a unidirectional fashion. When the `percent` 
   const buttonTwo = document.querySelector("#buttonTwo");
   const buttonThree = document.querySelector("#buttonThree");
 
-  buttonOne.addEventListener("click", () => { ring.setAttribute("percent", 30) });
-  buttonTwo.addEventListener("click", () => { ring.setAttribute("percent", 60) });
-  buttonThree.addEventListener("click", () => { ring.setAttribute("percent", 90) });
+  buttonOne.addEventListener("click", () => { ring.setAttribute("percentage", 30) });
+  buttonTwo.addEventListener("click", () => { ring.setAttribute("percentage", 60) });
+  buttonThree.addEventListener("click", () => { ring.setAttribute("percentage", 90) });
 </script>
 ```
 
@@ -76,7 +76,7 @@ Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-c
     <script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>
   </head>
   <body>
-    <progress-ring percent="50"></progress-ring>
+    <progress-ring percentage="50"></progress-ring>
   </body>
 </html>
 ```
@@ -148,7 +148,7 @@ new Vue({
 ## Properties
 | Property | Type | Default | Description |
 | --- | --- | --- | --- |
-| percent | number | 0 | Percentage value
+| percentage | number | 0 | Percentage value
 | radius | number | 80 | Radius of the ring
 | stroke-width | number | 10 | Thickness of the ring
 | duration | number | 4000 | Animation duration in miliseconds

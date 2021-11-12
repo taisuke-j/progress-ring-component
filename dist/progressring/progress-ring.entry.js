@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-5663a5f4.js';
+import { r as registerInstance, h } from './index-21caf744.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -395,11 +395,11 @@ let ProgressRing = class {
     this.intSize = 30;
     this.decimalSize = Math.floor(this.intSize * 0.7);
     this.disableDigits = false;
-    this.parsePercentText = (percent) => {
-      if (percent <= 0) {
+    this.parsePercentageText = (percentage) => {
+      if (percentage <= 0) {
         return ['0', '0'];
       }
-      return percent.toFixed(1).split('.');
+      return percentage.toFixed(1).split('.');
     };
     /**
      * Colors
@@ -418,15 +418,15 @@ let ProgressRing = class {
         this.internalColorsReversed :
         this.internalColors;
     };
-    this.setColors = (percent) => {
+    this.setColors = (percentage) => {
       let color;
-      if (percent <= 25) {
+      if (percentage <= 25) {
         color = this.colors[0];
       }
-      else if (percent <= 50) {
+      else if (percentage <= 50) {
         color = this.colors[1];
       }
-      else if (percent <= 75) {
+      else if (percentage <= 75) {
         color = this.colors[2];
       }
       else {
@@ -434,12 +434,12 @@ let ProgressRing = class {
       }
       this.ring.style.stroke = color;
       this.ringBackground.style.stroke = color;
-      this.percentText.style.fill = color;
+      this.percentageText.style.fill = color;
     };
     /**
      * Animation
      */
-    this.percent = 0;
+    this.percentage = 0;
     this.duration = 4000;
     this.easingType = 'quartInOut';
     this.start = 0;
@@ -458,31 +458,31 @@ let ProgressRing = class {
       this.resumeFrames = resumeFrames;
       this.restartFrames = restartFrames;
       // Shape
-      const currentPercent = ((this.internalPercent - this.start) * progress) + this.start;
-      const offset = currentPercent >= 100 ?
+      const currentPercentage = ((this.internalPercentage - this.start) * progress) + this.start;
+      const offset = currentPercentage >= 100 ?
         0 :
-        this.circumference - (currentPercent / 100 * this.circumference);
+        this.circumference - (currentPercentage / 100 * this.circumference);
       this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
       // Text
-      const parsedPercentText = this.parsePercentText(currentPercent);
-      this.intText.innerHTML = parsedPercentText[0];
-      this.decimalText.innerHTML = parsedPercentText[1];
+      const parsedPercentageText = this.parsePercentageText(currentPercentage);
+      this.intText.innerHTML = parsedPercentageText[0];
+      this.decimalText.innerHTML = parsedPercentageText[1];
       // Colors
       if (this.complete) {
         // No color transitions for the initial animation
-        this.setColors(currentPercent);
+        this.setColors(currentPercentage);
       }
     };
-    // Called every time the percent attribute gets updated
+    // Called every time the percentage attribute gets updated
     this.restartProgress = () => {
       if (!this.restartFrames) {
         return;
       }
-      // Resets the progresss to 0 and set the start to be the previous percent
-      const currentPercent = ((this.internalPercent - this.start) * this.progress) + this.start;
-      this.internalPercent = this.percent;
+      // Resets the progresss to 0 and set the start to be the previous percentage
+      const currentPercentage = ((this.internalPercentage - this.start) * this.progress) + this.start;
+      this.internalPercentage = this.percentage;
       this.progress = 0;
-      this.start = currentPercent;
+      this.start = currentPercentage;
       // Restarts the template function
       const restartSettings = {
         restartDuration: this.duration,
@@ -516,9 +516,9 @@ let ProgressRing = class {
     });
     this.restartProgress();
   }
-  percentUpdated() {
-    if (this.percent < 0) {
-      this.percent = 0;
+  percentageUpdated() {
+    if (this.percentage < 0) {
+      this.percentage = 0;
       return;
     }
     this.restartProgress();
@@ -533,12 +533,12 @@ let ProgressRing = class {
    * Lifecycle Methods
    */
   componentWillLoad() {
-    if (this.percent < 0) {
-      this.percent = 0;
+    if (this.percentage < 0) {
+      this.percentage = 0;
       return;
     }
-    // We need internal percent, which is not reactive to prop changes
-    this.internalPercent = this.percent;
+    // We need internal percentage, which is not reactive to prop changes
+    this.internalPercentage = this.percentage;
     this.setShapeSettings({
       radius: this.radius,
       strokeWidth: this.strokeWidth
@@ -549,7 +549,7 @@ let ProgressRing = class {
   }
   componentDidLoad() {
     this.isLoaded = true;
-    this.setColors(this.percent);
+    this.setColors(this.percentage);
     const animationSettings = {
       duration: this.duration,
       easingType: this.easingType,
@@ -571,13 +571,13 @@ let ProgressRing = class {
     this.isDisconnected = true;
   }
   render() {
-    return (h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentText = el, class: this.disableDigits ? 'hide' : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), h("tspan", { class: 'decimalPointText' }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), h("tspan", { "font-size": this.decimalSize, class: 'percentText' }, "%"))));
+    return (h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', ref: (el) => this.ring = el, class: 'ring' }), h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? 'hide' : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), h("tspan", { class: 'decimalPointText' }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), h("tspan", { "font-size": this.decimalSize, class: 'percentageText' }, "%"))));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],
     "strokeWidth": ["strokeWidthUpdated"],
     "invertColors": ["invertColorsUpdated"],
-    "percent": ["percentUpdated"],
+    "percentage": ["percentageUpdated"],
     "duration": ["durationtUpdated"],
     "easingType": ["easingTypeUpdated"]
   }; }
