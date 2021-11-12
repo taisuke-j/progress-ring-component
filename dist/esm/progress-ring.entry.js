@@ -374,7 +374,7 @@ function easingAnimationFrames ({
   requestId = raf(frame);
 }
 
-const progressRingCss = ".root{position:relative;display:inline-block}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.hide{display:none}.slot{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center}";
+const progressRingCss = ".root{position:relative;display:inline-block}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.slot{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center}.hide{display:none}";
 
 let ProgressRing = class {
   constructor(hostRef) {
@@ -395,6 +395,7 @@ let ProgressRing = class {
     this.intSize = 30;
     this.decimalSize = Math.floor(this.intSize * 0.7);
     this.disableDigits = false;
+    this.disableDecimals = false;
     this.parsePercentageText = (percentage) => {
       if (percentage <= 0) {
         return ["0", "0"];
@@ -581,7 +582,7 @@ let ProgressRing = class {
     this.isDisconnected = true;
   }
   render() {
-    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: (this.isZeroPercent() || this.disableDigits) ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }), h("tspan", { class: "decimalPointText" }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: "decimalText" }), h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), h("div", { class: "slot" }, h("slot", null))));
+    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }), h("tspan", { "font-size": this.intSize, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText" }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText" }), h("tspan", { "font-size": this.decimalSize / 2 }, " "), h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), h("div", { class: "slot" }, h("slot", null))));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],

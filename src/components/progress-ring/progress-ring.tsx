@@ -53,6 +53,7 @@ export class ProgressRing {
   @Prop() intSize = 30;
   @Prop() decimalSize: number = Math.floor(this.intSize * 0.7);
   @Prop() disableDigits = false;
+  @Prop() disableDecimals = false;
 
   private parsePercentageText = (percentage: number) => {
     if (percentage <= 0) {
@@ -312,11 +313,12 @@ export class ProgressRing {
             dy="0.5ex"
             font-size={this.intSize}
             ref={(el: SVGTextElement)=> this.percentageText = el}
-            class={(this.isZeroPercent() || this.disableDigits) ? "hide" : null}
+            class={this.disableDigits ? "hide" : null}
           >
             <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class="intText"></tspan>
-            <tspan class="decimalPointText">.</tspan>
-            <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class="decimalText"></tspan>
+            <tspan font-size={this.intSize} class={(this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText"}>.</tspan>
+            <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class={(this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText"}></tspan>
+            <tspan font-size={this.decimalSize / 2}> </tspan>
             <tspan font-size={this.decimalSize} class="percentageText">%</tspan>
           </text>
         </svg>

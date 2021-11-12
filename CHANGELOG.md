@@ -51,3 +51,7 @@
 - Added roundLinecap prop
 - Removed decimal digits for 0 percent
 - Integrated slotted elements
+
+## 1.0.8 (2021-11-12)
+- Fixed zero percent issue (digits gets hidden)
+- Added disable-decimals

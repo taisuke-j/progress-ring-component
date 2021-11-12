@@ -18,6 +18,7 @@ export class ProgressRing {
     this.intSize = 30;
     this.decimalSize = Math.floor(this.intSize * 0.7);
     this.disableDigits = false;
+    this.disableDecimals = false;
     this.parsePercentageText = (percentage) => {
       if (percentage <= 0) {
         return ["0", "0"];
@@ -208,10 +209,11 @@ export class ProgressRing {
       h("svg", { height: this.radius * 2, width: this.radius * 2 },
         h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }),
         h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }),
-        h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: (this.isZeroPercent() || this.disableDigits) ? "hide" : null },
+        h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? "hide" : null },
           h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }),
-          h("tspan", { class: "decimalPointText" }, "."),
-          h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: "decimalText" }),
+          h("tspan", { "font-size": this.intSize, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText" }, "."),
+          h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText" }),
+          h("tspan", { "font-size": this.decimalSize / 2 }, " "),
           h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))),
       h("div", { class: "slot" },
         h("slot", null))));
@@ -312,6 +314,24 @@ export class ProgressRing {
         "text": ""
       },
       "attribute": "disable-digits",
+      "reflect": false,
+      "defaultValue": "false"
+    },
+    "disableDecimals": {
+      "type": "boolean",
+      "mutable": false,
+      "complexType": {
+        "original": "boolean",
+        "resolved": "boolean",
+        "references": {}
+      },
+      "required": false,
+      "optional": false,
+      "docs": {
+        "tags": [],
+        "text": ""
+      },
+      "attribute": "disable-decimals",
       "reflect": false,
       "defaultValue": "false"
     },

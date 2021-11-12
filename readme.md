@@ -173,6 +173,7 @@ new Vue({
 | int-size | number | 30 | Font size of integer
 | decimal-size | number | intSize * 0.7 | Font size of decimals
 | disable-digits | boolean | false | Hides digits
+| disable-decimals | boolean | false | Hides decimal places
 | invert-colors | boolean | false | Inverts the color scheme
 
 

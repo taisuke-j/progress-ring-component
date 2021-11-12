@@ -9,6 +9,7 @@ import { EasingType } from "easing-animation-frames";
 export namespace Components {
     interface ProgressRing {
         "decimalSize": number;
+        "disableDecimals": boolean;
         "disableDigits": boolean;
         "duration": number;
         "easingType": EasingType;
@@ -49,6 +50,7 @@ declare global {
 declare namespace LocalJSX {
     interface ProgressRing {
         "decimalSize"?: number;
+        "disableDecimals"?: boolean;
         "disableDigits"?: boolean;
         "duration"?: number;
         "easingType"?: EasingType;
