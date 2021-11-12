@@ -89,7 +89,7 @@ Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-c
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.9/dist/progressring/progressring.esm.js"></script>
   </head>
   <body>
     <progress-ring percentage="50"></progress-ring>
