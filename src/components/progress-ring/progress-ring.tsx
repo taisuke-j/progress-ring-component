@@ -61,6 +61,10 @@ export class ProgressRing {
     return percentage.toFixed(1).split('.');
   }
 
+  private isZeroPercent = () => {
+    return this.percentage === 0;
+  }
+
   /**
    * Style
    */
@@ -303,7 +307,7 @@ export class ProgressRing {
           dy='0.5ex'
           font-size={this.intSize}
           ref={(el: SVGTextElement)=> this.percentageText = el}
-          class={this.disableDigits ? 'hide' : null}
+          class={(this.isZeroPercent() || this.disableDigits) ? 'hide' : null}
         >
           <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
           <tspan class='decimalPointText'>.</tspan>
