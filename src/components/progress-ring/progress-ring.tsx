@@ -62,6 +62,11 @@ export class ProgressRing {
   }
 
   /**
+   * Style
+   */
+   @Prop() roundLinecap = false;
+
+  /**
    * Colors
    */
   @Prop() invertColors = false;
@@ -287,6 +292,7 @@ export class ProgressRing {
           stroke-width={this.strokeWidth}
           stroke-dasharray={`${this.circumference} ${this.circumference}`}
           fill='transparent'
+          stroke-linecap={this.roundLinecap ? "round" : "butt" }
           ref={(el: SVGCircleElement)=> this.ring = el}
           class='ring'
         />

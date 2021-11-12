@@ -151,6 +151,7 @@ new Vue({
 | percentage | number | 0 | Percentage value
 | radius | number | 80 | Radius of the ring
 | stroke-width | number | 10 | Thickness of the ring
+| round-linecap | boolean | false | Addes rounded linecap to the ring
 | duration | number | 4000 | Animation duration in miliseconds
 | easing-type | string | `quartInOut` | Easing animation function name
 | int-size | number | 30 | Font size of integer

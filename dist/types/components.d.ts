@@ -28,6 +28,10 @@ export namespace Components {
           * Shape
          */
         "radius": number;
+        /**
+          * Style
+         */
+        "roundLinecap": boolean;
         "strokeWidth": number;
     }
 }
@@ -64,6 +68,10 @@ declare namespace LocalJSX {
           * Shape
          */
         "radius"?: number;
+        /**
+          * Style
+         */
+        "roundLinecap"?: boolean;
         "strokeWidth"?: number;
     }
     interface IntrinsicElements {
