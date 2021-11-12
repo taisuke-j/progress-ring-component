@@ -55,3 +55,6 @@
 ## 1.0.8 (2021-11-12)
 - Fixed zero percent issue (digits gets hidden)
 - Added disable-decimals
+
+## 1.0.9 (2021-11-12)
+- Fixed broken demo
