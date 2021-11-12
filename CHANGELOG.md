@@ -45,3 +45,9 @@
 - Upgraded Stencil version to 2.10
 - Disabling e2e test until stencil supports jest v27
 - Updated README to include framework integration guide
+
+## 1.0.7 (2021-11-12)
+- Changed percent prop to percentage prop
+- Added roundLinecap prop
+- Removed decimal digits for 0 percent
+- Integrated slotted html

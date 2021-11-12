@@ -5,36 +5,52 @@
 # Progress Ring Component
 
 This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/).
+
 1. [Demo 1](https://unpkg.com/progress-ring-component/demo/demo-01.html)
 1. [Demo 2](https://unpkg.com/progress-ring-component/demo/demo-02.html)
 
 ## How to use
+
+![Demo 1](docs/images/demo-1.gif)
+
 <!--
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.6/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.6/dist/progressring/progressring.js"></script>
-    <style>progress-ring { font-family: sans-serif; }</style>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.7/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.7/dist/progressring/progressring.js"></script>
+    <style>
+      progress-ring { font-family: sans-serif; }
+      .slotted-text-1 { color: #66a0ff; font-size: 18px; }
+    </style>
     <next-code-block></next-code-block>
   </template>
 </custom-element-demo>
 ```
 -->
 ```html
-<progress-ring percentage="30"></progress-ring>
-<progress-ring percentage="60"></progress-ring>
-<progress-ring percentage="90"></progress-ring>
+<progress-ring percentage="30" duration="5000"></progress-ring>
+<progress-ring percentage="60" round-linecap="true"></progress-ring>
+<progress-ring percentage="90" duration="3000" disable-digits="true">
+  <p class="slotted-text-1">9/10<br>Complete</p>
+</progress-ring>
 ```
+
 There is only one mandatory property, `percentage`, which declares the ending percentage in animation. You can also use `radius` prop to change the size of the ring, and `storkeWidth` to change the thickness of the ring. The full list of properties can be found below.
 
+You can also place custom HTML elements within the component's `<progress-ring></<progress-ring>` tag as [HTMLSlotElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement), which you have full control on for styling.
+
 This component works reactively in a unidirectional fashion. When the `percentage` changes, it stops the current animation and resumes it with new percentage. There is pre-defined color scheme (`red (< 25%)` -> `yellow (< 50%)` -> `green (< 75%)` -> `blue (>= 75%)`).
+
+
+![Demo 2](docs/images/demo-2.gif)
+
 <!--
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.6/dist/progressring/progressring.esm.js"></script>
-    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.6/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.7/dist/progressring/progressring.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/progress-ring-component@1.0.7/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { font-family: sans-serif; }
       buttons { width: 150px; text-align: center; }

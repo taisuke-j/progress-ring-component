@@ -1,4 +1,4 @@
-import { Component, Prop, State, Watch, h } from '@stencil/core';
+import { Component, Prop, State, Watch, h } from "@stencil/core";
 import easingAnimationFrames, {
   EasingType,
   restartFramesFunction,
@@ -6,11 +6,11 @@ import easingAnimationFrames, {
   templateOptions,
   resumeFramesFunction,
   restartFramesOptions,
-} from 'easing-animation-frames';
+} from "easing-animation-frames";
 
 @Component({
-  tag: 'progress-ring',
-  styleUrl: 'progress-ring.css',
+  tag: "progress-ring",
+  styleUrl: "progress-ring.css",
   shadow: true
 })
 export class ProgressRing {
@@ -22,7 +22,7 @@ export class ProgressRing {
   private normalizedRadius: number;
   private circumference: number;
 
-  @Watch('radius')
+  @Watch("radius")
   radiusUpdated(newValue: number) {
     this.setShapeSettings({
       radius: newValue
@@ -30,7 +30,7 @@ export class ProgressRing {
     this.restartProgress()
   }
 
-  @Watch('strokeWidth')
+  @Watch("strokeWidth")
   strokeWidthUpdated(newValue: number) {
     this.setShapeSettings({
       strokeWidth: newValue
@@ -56,9 +56,9 @@ export class ProgressRing {
 
   private parsePercentageText = (percentage: number) => {
     if (percentage <= 0) {
-      return ['0', '0'];
+      return ["0", "0"];
     }
-    return percentage.toFixed(1).split('.');
+    return percentage.toFixed(1).split(".");
   }
 
   private isZeroPercent = () => {
@@ -68,7 +68,11 @@ export class ProgressRing {
   /**
    * Style
    */
-   @Prop() roundLinecap = false;
+  @Prop() roundLinecap = false;
+
+  private getLinecap = () => {
+    return this.roundLinecap ? "round" : "butt";
+  }
 
   /**
    * Colors
@@ -76,14 +80,14 @@ export class ProgressRing {
   @Prop() invertColors = false;
   @State() colors: string[];
   private internalColors = [
-    '#ff4f40', // red
-    '#ffcd40', // yellow
-    '#30bf7a', // green
-    '#66a0ff'  // blue
+    "#ff4f40", // red
+    "#ffcd40", // yellow
+    "#30bf7a", // green
+    "#66a0ff"  // blue
   ];
   private internalColorsReversed = [...this.internalColors].reverse();
 
-  @Watch('invertColors')
+  @Watch("invertColors")
   invertColorsUpdated(newValue: boolean) {
     this.setColorsSettings({
       invertColors: newValue
@@ -121,7 +125,7 @@ export class ProgressRing {
    */
   @Prop({ reflect: true, mutable: true }) percentage = 0;
   @Prop() duration = 4000;
-  @Prop() easingType: EasingType = 'quartInOut';
+  @Prop() easingType: EasingType = "quartInOut";
   private internalPercentage: number;
   private start = 0;
   private progress = 0;
@@ -131,7 +135,7 @@ export class ProgressRing {
   private isDisconnected = false;
   private complete = false;
 
-  @Watch('percentage')
+  @Watch("percentage")
   percentageUpdated() {
     if (this.percentage < 0) {
       this.percentage = 0;
@@ -140,12 +144,12 @@ export class ProgressRing {
     this.restartProgress()
   }
 
-  @Watch('duration')
+  @Watch("duration")
   durationtUpdated() {
     this.restartProgress()
   }
 
-  @Watch('easingType')
+  @Watch("easingType")
   easingTypeUpdated() {
     this.restartProgress()
   }
@@ -275,46 +279,51 @@ export class ProgressRing {
     
   render() {
     return (
-      <svg
-        height={this.radius * 2}
-        width={this.radius * 2}
-      >
-        <circle
-          cx={this.radius}
-          cy={this.radius}
-          r={this.normalizedRadius}
-          stroke-width={this.strokeWidth}
-          fill='transparent'
-          opacity='0.1'
-          ref={(el: SVGCircleElement)=> this.ringBackground = el}
-          class='background-ring'
-        />
-        <circle
-          cx={this.radius}
-          cy={this.radius}
-          r={this.normalizedRadius}
-          stroke-width={this.strokeWidth}
-          stroke-dasharray={`${this.circumference} ${this.circumference}`}
-          fill='transparent'
-          stroke-linecap={this.roundLinecap ? "round" : "butt" }
-          ref={(el: SVGCircleElement)=> this.ring = el}
-          class='ring'
-        />
-        <text
-          x='50%'
-          y='50%'
-          text-anchor='middle'
-          dy='0.5ex'
-          font-size={this.intSize}
-          ref={(el: SVGTextElement)=> this.percentageText = el}
-          class={(this.isZeroPercent() || this.disableDigits) ? 'hide' : null}
+      <div class="root">
+        <svg
+          height={this.radius * 2}
+          width={this.radius * 2}
         >
-          <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class='intText'></tspan>
-          <tspan class='decimalPointText'>.</tspan>
-          <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class='decimalText'></tspan>
-          <tspan font-size={this.decimalSize} class='percentageText'>%</tspan>
-        </text>
-      </svg>
+          <circle
+            cx={this.radius}
+            cy={this.radius}
+            r={this.normalizedRadius}
+            stroke-width={this.strokeWidth}
+            fill="transparent"
+            opacity="0.1"
+            ref={(el: SVGCircleElement)=> this.ringBackground = el}
+            class="background-ring"
+          />
+          <circle
+            cx={this.radius}
+            cy={this.radius}
+            r={this.normalizedRadius}
+            stroke-width={this.strokeWidth}
+            stroke-dasharray={`${this.circumference} ${this.circumference}`}
+            fill="transparent"
+            stroke-linecap={this.getLinecap()}
+            ref={(el: SVGCircleElement)=> this.ring = el}
+            class="ring"
+          />
+          <text
+            x="50%"
+            y="50%"
+            text-anchor="middle"
+            dy="0.5ex"
+            font-size={this.intSize}
+            ref={(el: SVGTextElement)=> this.percentageText = el}
+            class={(this.isZeroPercent() || this.disableDigits) ? "hide" : null}
+          >
+            <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class="intText"></tspan>
+            <tspan class="decimalPointText">.</tspan>
+            <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class="decimalText"></tspan>
+            <tspan font-size={this.decimalSize} class="percentageText">%</tspan>
+          </text>
+        </svg>
+        <div class="slot">
+          <slot />
+        </div>
+      </div> 
     )
   }
 }

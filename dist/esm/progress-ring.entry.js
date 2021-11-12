@@ -1,4 +1,4 @@
-import { r as registerInstance, h } from './index-21caf744.js';
+import { r as registerInstance, h } from './index-fc00933e.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -374,7 +374,7 @@ function easingAnimationFrames ({
   requestId = raf(frame);
 }
 
-const progressRingCss = "circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.hide{display:none}";
+const progressRingCss = ".root{position:relative;display:inline-block}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.hide{display:none}.slot{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center}";
 
 let ProgressRing = class {
   constructor(hostRef) {
@@ -397,23 +397,29 @@ let ProgressRing = class {
     this.disableDigits = false;
     this.parsePercentageText = (percentage) => {
       if (percentage <= 0) {
-        return ['0', '0'];
+        return ["0", "0"];
       }
-      return percentage.toFixed(1).split('.');
+      return percentage.toFixed(1).split(".");
+    };
+    this.isZeroPercent = () => {
+      return this.percentage === 0;
     };
     /**
      * Style
      */
     this.roundLinecap = false;
+    this.getLinecap = () => {
+      return this.roundLinecap ? "round" : "butt";
+    };
     /**
      * Colors
      */
     this.invertColors = false;
     this.internalColors = [
-      '#ff4f40',
-      '#ffcd40',
-      '#30bf7a',
-      '#66a0ff' // blue
+      "#ff4f40",
+      "#ffcd40",
+      "#30bf7a",
+      "#66a0ff" // blue
     ];
     this.internalColorsReversed = [...this.internalColors].reverse();
     this.setColorsSettings = ({ invertColors = this.invertColors }) => {
@@ -445,7 +451,7 @@ let ProgressRing = class {
      */
     this.percentage = 0;
     this.duration = 4000;
-    this.easingType = 'quartInOut';
+    this.easingType = "quartInOut";
     this.start = 0;
     this.progress = 0;
     this.isLoaded = false;
@@ -575,7 +581,7 @@ let ProgressRing = class {
     this.isDisconnected = true;
   }
   render() {
-    return (h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: 'transparent', opacity: '0.1', ref: (el) => this.ringBackground = el, class: 'background-ring' }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: 'transparent', "stroke-linecap": this.roundLinecap ? "round" : "butt", ref: (el) => this.ring = el, class: 'ring' }), h("text", { x: '50%', y: '50%', "text-anchor": 'middle', dy: '0.5ex', "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? 'hide' : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: 'intText' }), h("tspan", { class: 'decimalPointText' }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: 'decimalText' }), h("tspan", { "font-size": this.decimalSize, class: 'percentageText' }, "%"))));
+    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: (this.isZeroPercent() || this.disableDigits) ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }), h("tspan", { class: "decimalPointText" }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: "decimalText" }), h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), h("div", { class: "slot" }, h("slot", null))));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],
