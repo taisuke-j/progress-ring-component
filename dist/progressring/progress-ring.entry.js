@@ -1,8 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-const index = require('./index-eff130e6.js');
+import { r as registerInstance, h } from './index-d310ab1e.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -206,9 +202,9 @@ const eases = /*#__PURE__*/Object.freeze({
 
 // Polyfills
 const raf = (typeof window !== 'undefined' && window.requestAnimationFrame)
-  ? window.requestAnimationFrame : (callback => setTimeout(callback, 1000 / 60));
+  ? window.requestAnimationFrame : ((callback) => setTimeout(callback, 1000 / 60));
 const caf = (typeof window !== 'undefined' && window.cancelAnimationFrame)
-  ? window.cancelAnimationFrame : (id => clearTimeout(id));
+  ? window.cancelAnimationFrame : ((id) => clearTimeout(id));
 
 /**
  * EASING ANIMATION FRAMES
@@ -223,12 +219,12 @@ const defaultOptions = {
   easingType: 'cubicInOut',
 };
 
-function easingAnimationFrames ({
+const easingAnimationFrames = ({
   easingType = defaultOptions.easingType,
   duration = defaultOptions.duration,
   template,
   complete = null,
-} = {}) {
+} = {}) => {
   if (!template) {
     return;
   }
@@ -241,12 +237,10 @@ function easingAnimationFrames ({
 
   // Managing progress
   let requestId = null;
+  let currentTime = null;
   let startTime = null;
   let passedTime = 0;
   let progress = 0;
-  let stopFrames = null;
-  let resumeFrames = null;
-  let restartFrames = null;
 
   // Stop, resume and restart
   let framesComplete = false;
@@ -254,10 +248,14 @@ function easingAnimationFrames ({
   let framesResumed = false;
   let framesRestarted = false;
 
+  let stopFrames = null;
+  let resumeFrames = null;
+  let restartFrames = null;
+
   // Callback function for every requestAnimationFrame
   const frame = (timestamp) => {
     // The latter fallback is for setTimeout and unit tests
-    const currentTime = timestamp || new Date().getTime();
+    currentTime = timestamp || new Date().getTime();
     if (framesResumed) {
       startTime = currentTime - passedTime;
       framesResumed = false;
@@ -274,18 +272,13 @@ function easingAnimationFrames ({
       // Progress value (from 0 to 1) based on the time passed
       progress = easingFunc(passedTime / framesDuration);
 
-      try {
-        // Render the frame
-        templateFunc({
-          progress,
-          stopFrames,
-          resumeFrames,
-          restartFrames,
-        });
-      } catch (e) {
-        console.error(e); // eslint-disable-line no-console
-        caf(requestId);
-      }
+      templateFunc({
+        progress,
+        stopFrames,
+        resumeFrames,
+        restartFrames,
+      });
+
       return;
     }
 
@@ -298,6 +291,7 @@ function easingAnimationFrames ({
 
       // Restart
       raf(frame);
+
       return;
     }
 
@@ -374,15 +368,20 @@ function easingAnimationFrames ({
     }
   };
 
-  // Start the transtion
-  requestId = raf(frame);
-}
+  try {
+    // Start the transtion
+    requestId = raf(frame);
+  } catch (e) {
+    console.error(e); // eslint-disable-line no-console
+    caf(requestId);
+  }
+};
 
 const progressRingCss = ".root{position:relative;display:inline-block}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.slot{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center}.hide{display:none}";
 
 let ProgressRing = class {
   constructor(hostRef) {
-    index.registerInstance(this, hostRef);
+    registerInstance(this, hostRef);
     /**
      * Shape
      */
@@ -586,7 +585,7 @@ let ProgressRing = class {
     this.isDisconnected = true;
   }
   render() {
-    return (index.h("div", { class: "root" }, index.h("svg", { height: this.radius * 2, width: this.radius * 2 }, index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }), index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }), index.h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? "hide" : null }, index.h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }), index.h("tspan", { "font-size": this.intSize, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText" }, "."), index.h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText" }), index.h("tspan", { "font-size": this.decimalSize / 2 }, " "), index.h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), index.h("div", { class: "slot" }, index.h("slot", null))));
+    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }), h("tspan", { "font-size": this.intSize, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText" }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText" }), h("tspan", { "font-size": this.decimalSize / 2 }, " "), h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), h("div", { class: "slot" }, h("slot", null))));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],
@@ -599,4 +598,4 @@ let ProgressRing = class {
 };
 ProgressRing.style = progressRingCss;
 
-exports.progress_ring = ProgressRing;
+export { ProgressRing as progress_ring };

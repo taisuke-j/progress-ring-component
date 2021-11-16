@@ -1,11 +1,11 @@
 import { Component, Prop, State, Watch, h } from "@stencil/core";
 import easingAnimationFrames, {
   EasingType,
-  restartFramesFunction,
-  easingAnimationFramesOptions,
-  templateOptions,
-  resumeFramesFunction,
-  restartFramesOptions,
+  RestartFramesFunction,
+  EasingAnimationFramesOptions,
+  TemplateOptions,
+  ResumeFramesFunction,
+  RestartFramesOptions,
 } from "easing-animation-frames";
 
 @Component({
@@ -130,8 +130,8 @@ export class ProgressRing {
   private internalPercentage: number;
   private start = 0;
   private progress = 0;
-  private resumeFrames: resumeFramesFunction;
-  private restartFrames: restartFramesFunction;
+  private resumeFrames: ResumeFramesFunction;
+  private restartFrames: RestartFramesFunction;
   private isLoaded = false;
   private isDisconnected = false;
   private complete = false;
@@ -161,7 +161,7 @@ export class ProgressRing {
     stopFrames,
     resumeFrames,
     restartFrames,
-  }: templateOptions) => {
+  }: TemplateOptions) => {
     // Stops the animation if the component is disconnected from the DOM
     if (this.isDisconnected && stopFrames) {
       stopFrames();
@@ -203,7 +203,7 @@ export class ProgressRing {
     this.start = currentPercentage;
 
     // Restarts the template function
-    const restartSettings: restartFramesOptions = {
+    const restartSettings: RestartFramesOptions = {
       restartDuration: this.duration,
       restartEasingType: this.easingType,
       restartTemplate: this.setProgress,
@@ -244,7 +244,7 @@ export class ProgressRing {
     this.isLoaded = true;
     this.setColors(this.percentage);
 
-    const animationSettings: easingAnimationFramesOptions = {
+    const animationSettings: EasingAnimationFramesOptions = {
       duration: this.duration,
       easingType: this.easingType,
       template: this.setProgress,

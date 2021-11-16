@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/taisuke-j/progress-ring-component#readme",
   "dependencies": {
-    "easing-animation-frames": "1.0.1"
+    "easing-animation-frames": "1.0.2"
   },
   "devDependencies": {
     "@stencil/core": "~2.10.0",

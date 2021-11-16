@@ -58,3 +58,6 @@
 
 ## 1.0.9 (2021-11-12)
 - Fixed broken demo
+
+## 1.0.10 (2021-11-16)
+- Updated easing-animation-frames version to 1.0.2
