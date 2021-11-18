@@ -3,7 +3,7 @@
 
 # Progress Ring Component
 
-This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/).
+This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/), and is **framework agnostic**. It works with React, Vue, Angular or even without any Javascript framework.
 
 1. [Demo 1](https://unpkg.com/progress-ring-component@1.0.13/demo/demo-01.html)
 1. [Demo 2](https://unpkg.com/progress-ring-component@1.0.13/demo/demo-02.html)
@@ -42,8 +42,6 @@ There is only one mandatory property, `percentage`, which declares the ending pe
 You can also place custom HTML elements within the component's `<progress-ring></<progress-ring>` tag as [HTMLSlotElement](https://developer.mozilla.org/en-US/docs/Web/API/HTMLSlotElement), which you have full control on for styling.
 
 This component works reactively in a unidirectional fashion. When the `percentage` changes, it stops the current animation and resumes it with new percentage. There is pre-defined color scheme (`red (< 25%)` -> `yellow (< 50%)` -> `blue (< 75%)` -> `green (>= 75%)`).
-
-This component is **framework agnostic**. It works with React, Vue, Angular or even without any Javascript framework.
 
 ![Demo 2](docs/images/demo-2.gif)
 
