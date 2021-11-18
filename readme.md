@@ -43,6 +43,8 @@ You can also place custom HTML elements within the component's `<progress-ring><
 
 This component works reactively in a unidirectional fashion. When the `percentage` changes, it stops the current animation and resumes it with new percentage. There is pre-defined color scheme (`red (< 25%)` -> `yellow (< 50%)` -> `blue (< 75%)` -> `green (>= 75%)`).
 
+This component is **framework agnostic**. It works with React, Vue, Angular or even without any Javascript framework.
+
 ![Demo 2](docs/images/demo-2.gif)
 
 <!--
