@@ -1,4 +1,8 @@
-import { r as registerInstance, h } from './index-d310ab1e.js';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+const index = require('./index-2bc2e39b.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -201,10 +205,14 @@ const eases = /*#__PURE__*/Object.freeze({
 });
 
 // Polyfills
-const raf = (typeof window !== 'undefined' && window.requestAnimationFrame)
-  ? window.requestAnimationFrame : ((callback) => setTimeout(callback, 1000 / 60));
-const caf = (typeof window !== 'undefined' && window.cancelAnimationFrame)
-  ? window.cancelAnimationFrame : ((id) => clearTimeout(id));
+const raf =
+  typeof window !== "undefined" && window.requestAnimationFrame
+    ? window.requestAnimationFrame
+    : (callback) => setTimeout(callback, 1000 / 60);
+const caf =
+  typeof window !== "undefined" && window.cancelAnimationFrame
+    ? window.cancelAnimationFrame
+    : (id) => clearTimeout(id);
 
 /**
  * EASING ANIMATION FRAMES
@@ -216,7 +224,7 @@ const caf = (typeof window !== 'undefined' && window.cancelAnimationFrame)
 
 const defaultOptions = {
   duration: 4000,
-  easingType: 'cubicInOut',
+  easingType: "cubicInOut",
 };
 
 const easingAnimationFrames = ({
@@ -225,6 +233,7 @@ const easingAnimationFrames = ({
   template,
   complete = null,
 } = {}) => {
+  // template is the only required parameter
   if (!template) {
     return;
   }
@@ -377,27 +386,47 @@ const easingAnimationFrames = ({
   }
 };
 
-const progressRingCss = ".root{position:relative;display:inline-block}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}.slot{position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-align:center}.hide{display:none}";
+const progressRingCss = ".root{display:inline-block;position:relative}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}slot{display:flex;align-items:center;justify-content:center;position:absolute;left:0;top:0;width:100%;height:100%;text-align:center}.hide{display:none}";
 
 let ProgressRing = class {
   constructor(hostRef) {
-    registerInstance(this, hostRef);
+    index.registerInstance(this, hostRef);
+    this.prcProgress = index.createEvent(this, "prcProgress", 7);
+    this.prcStart = index.createEvent(this, "prcStart", 7);
+    this.prcComplete = index.createEvent(this, "prcComplete", 7);
+    this.prcStop = index.createEvent(this, "prcStop", 7);
+    this.prcResume = index.createEvent(this, "prcResume", 7);
+    this.prcRestart = index.createEvent(this, "prcRestart", 7);
+    // SHAPE
     /**
-     * Shape
+     * Radius of the ring
      */
     this.radius = 80;
+    /**
+     * Thickness of the ring
+     */
     this.strokeWidth = 10;
-    this.setShapeSettings = ({ radius = this.radius, strokeWidth = this.strokeWidth }) => {
+    this.setShapeSettings = ({ radius = this.radius, strokeWidth = this.strokeWidth, }) => {
       // Caches calculation results
       this.normalizedRadius = radius - Math.floor(strokeWidth / 2);
       this.circumference = this.normalizedRadius * 2 * Math.PI;
     };
+    // TEXT
     /**
-     * Text
+     * Font size of the integer
      */
     this.intSize = 30;
+    /**
+     * Font size of the decimal places
+     */
     this.decimalSize = Math.floor(this.intSize * 0.7);
+    /**
+     * Hide digits
+     */
     this.disableDigits = false;
+    /**
+     * Hide decimal places
+     */
     this.disableDecimals = false;
     this.parsePercentageText = (percentage) => {
       if (percentage <= 0) {
@@ -408,29 +437,31 @@ let ProgressRing = class {
     this.isZeroPercent = () => {
       return this.percentage === 0;
     };
+    // STYLE
     /**
-     * Style
+     * Addes rounded linecap to the ring
      */
     this.roundLinecap = false;
     this.getLinecap = () => {
       return this.roundLinecap ? "round" : "butt";
     };
+    // COLORS
     /**
-     * Colors
+     * Inverts the color scheme
      */
     this.invertColors = false;
     this.internalColors = [
       "#ff4f40",
       "#ffcd40",
-      "#30bf7a",
-      "#66a0ff" // blue
+      "#66a0ff",
+      "#30bf7a", // green
     ];
     this.internalColorsReversed = [...this.internalColors].reverse();
     this.setColorsSettings = ({ invertColors = this.invertColors }) => {
       // Caches calculation results
-      this.colors = invertColors ?
-        this.internalColorsReversed :
-        this.internalColors;
+      this.colors = invertColors
+        ? this.internalColorsReversed
+        : this.internalColors;
     };
     this.setColors = (percentage) => {
       let color;
@@ -450,11 +481,18 @@ let ProgressRing = class {
       this.ringBackground.style.stroke = color;
       this.percentageText.style.fill = color;
     };
+    // ANIMATION
     /**
-     * Animation
+     * Percentage value (mandatory)
      */
     this.percentage = 0;
+    /**
+     * Animation duration in miliseconds           |
+     */
     this.duration = 4000;
+    /**
+     * Easing animation function name
+     */
     this.easingType = "quartInOut";
     this.start = 0;
     this.progress = 0;
@@ -464,18 +502,26 @@ let ProgressRing = class {
     // Called for every requestAnimationFrame
     this.setProgress = ({ progress, stopFrames, resumeFrames, restartFrames, }) => {
       // Stops the animation if the component is disconnected from the DOM
-      if (this.isDisconnected && stopFrames) {
+      if (this.isDisconnected && typeof stopFrames === "function") {
         stopFrames();
+        // Emits stop event
+        if (this.eventId !== undefined) {
+          this.prcStop.emit({ id: this.eventId });
+        }
         return;
+      }
+      // Emits progress change event
+      if (this.eventId !== undefined) {
+        this.prcProgress.emit({ id: this.eventId, value: progress });
       }
       this.progress = progress;
       this.resumeFrames = resumeFrames;
       this.restartFrames = restartFrames;
       // Shape
-      const currentPercentage = ((this.internalPercentage - this.start) * progress) + this.start;
-      const offset = currentPercentage >= 100 ?
-        0 :
-        this.circumference - (currentPercentage / 100 * this.circumference);
+      const currentPercentage = (this.internalPercentage - this.start) * progress + this.start;
+      const offset = currentPercentage >= 100
+        ? 0
+        : this.circumference - (currentPercentage / 100) * this.circumference;
       this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
       // Text
       const parsedPercentageText = this.parsePercentageText(currentPercentage);
@@ -489,11 +535,15 @@ let ProgressRing = class {
     };
     // Called every time the percentage attribute gets updated
     this.restartProgress = () => {
-      if (!this.restartFrames) {
+      if (typeof this.restartFrames !== "function") {
         return;
       }
+      // Emits restart event
+      if (this.eventId !== undefined) {
+        this.prcRestart.emit({ id: this.eventId });
+      }
       // Resets the progresss to 0 and set the start to be the previous percentage
-      const currentPercentage = ((this.internalPercentage - this.start) * this.progress) + this.start;
+      const currentPercentage = (this.internalPercentage - this.start) * this.progress + this.start;
       this.internalPercentage = this.percentage;
       this.progress = 0;
       this.start = currentPercentage;
@@ -502,31 +552,35 @@ let ProgressRing = class {
         restartDuration: this.duration,
         restartEasingType: this.easingType,
         restartTemplate: this.setProgress,
-        restartComplete: this.completeCallback
+        restartComplete: this.completeCallback,
       };
       this.restartFrames(restartSettings);
     };
     this.completeCallback = () => {
       if (!this.complete) {
         this.complete = true;
+        // Emits complete event
+        if (this.eventId !== undefined) {
+          this.prcComplete.emit({ id: this.eventId });
+        }
       }
     };
   }
   radiusUpdated(newValue) {
     this.setShapeSettings({
-      radius: newValue
+      radius: newValue,
     });
     this.restartProgress();
   }
   strokeWidthUpdated(newValue) {
     this.setShapeSettings({
-      strokeWidth: newValue
+      strokeWidth: newValue,
     });
     this.restartProgress();
   }
   invertColorsUpdated(newValue) {
     this.setColorsSettings({
-      invertColors: newValue
+      invertColors: newValue,
     });
     this.restartProgress();
   }
@@ -555,10 +609,10 @@ let ProgressRing = class {
     this.internalPercentage = this.percentage;
     this.setShapeSettings({
       radius: this.radius,
-      strokeWidth: this.strokeWidth
+      strokeWidth: this.strokeWidth,
     });
     this.setColorsSettings({
-      invertColors: this.invertColors
+      invertColors: this.invertColors,
     });
   }
   componentDidLoad() {
@@ -568,7 +622,7 @@ let ProgressRing = class {
       duration: this.duration,
       easingType: this.easingType,
       template: this.setProgress,
-      complete: this.completeCallback
+      complete: this.completeCallback,
     };
     easingAnimationFrames(animationSettings);
   }
@@ -577,6 +631,10 @@ let ProgressRing = class {
       // If the component is already loaded, that means it was loaded but
       // disconnected from the DOM and then connected to the DOM again
       this.isDisconnected = false;
+      // Emits complete event
+      if (this.eventId !== undefined) {
+        this.prcResume.emit({ id: this.eventId });
+      }
       // Resumes animation that is still in progress
       this.resumeFrames();
     }
@@ -585,7 +643,11 @@ let ProgressRing = class {
     this.isDisconnected = true;
   }
   render() {
-    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => this.ringBackground = el, class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => this.ring = el, class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => this.percentageText = el, class: this.disableDigits ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => this.intText = el, class: "intText" }), h("tspan", { "font-size": this.intSize, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText" }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => this.decimalText = el, class: (this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText" }), h("tspan", { "font-size": this.decimalSize / 2 }, " "), h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), h("div", { class: "slot" }, h("slot", null))));
+    return (index.h("div", { class: "root" }, index.h("svg", { height: this.radius * 2, width: this.radius * 2 }, index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => (this.ringBackground = el), class: "background-ring" }), index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => (this.ring = el), class: "ring" }), index.h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => (this.percentageText = el), class: this.disableDigits ? "hide" : null }, index.h("tspan", { "font-size": this.intSize, ref: (el) => (this.intText = el), class: "intText" }), index.h("tspan", { "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
+        ? "hide"
+        : "decimalPointText" }, "."), index.h("tspan", { "font-size": this.decimalSize, ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
+        ? "hide"
+        : "decimalText" }), index.h("tspan", { "font-size": this.decimalSize / 2 }, " "), index.h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), index.h("slot", null)));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],
@@ -598,4 +660,4 @@ let ProgressRing = class {
 };
 ProgressRing.style = progressRingCss;
 
-export { ProgressRing as progress_ring };
+exports.progress_ring = ProgressRing;

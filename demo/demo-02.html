@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <title>Demo 2</title>
-  <script type="module" src="https://unpkg.com/progress-ring-component@1.0.10/dist/progressring/progressring.esm.js"></script>
-  <style>progress-ring { font-family: sans-serif; }</style>
+  <script type="module" src="https://unpkg.com/progress-ring-component@1.0.11/dist/progressring/progressring.esm.js"></script>
+  <style>
+    progress-ring { font-family: sans-serif; }
+    .buttons { width: 150px; text-align: center; }
+    button { margin-right: 10px; }
+  </style>
 </head>
 <body>
   <progress-ring percentage="10"></progress-ring>
 
-  <div style="width: 150px; text-align: center;">
+  <div class="buttons">
     <button id="buttonOne">30%</button>
     <button id="buttonTwo">60%</button>
     <button id="buttonThree">90%</button>

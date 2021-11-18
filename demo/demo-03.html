@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>Demo 3</title>
+  <script type="module" src="https://unpkg.com/progress-ring-component@1.0.11/dist/progressring/progressring.esm.js"></script>
+  <style>
+    progress-ring { font-family: sans-serif; }
+    .points { color: #66a0ff; font-size: 18px; font-weight: bold; }
+    .comment { position: absolute; left: 0; bottom: 30px; width: 100%;  color: #e2d06e; font-size: 14px; font-weight: bold; opacity: 0; transition: .6s; }
+    .complete { bottom: 40px; opacity: 1; }
+    .bye { bottom: 50px; opacity: 0; }
+  </style>
+</head>
+<body>
+  <progress-ring percentage="70" disable-digits="true" round-linecap="true" id="ring1" event-id="ring1">
+    <div class="points"></div>
+    <div class="comment">GREAT!</div>
+  </progress-ring>
+
+  <script>
+    let pointsElement;
+    let commentElement;
+
+    // Callback function for every progress change (from 0 to 1)
+    const progressEventCallback = (event) => {
+      if (event.detail.id !== "ring1") {
+        return;
+      }
+      if (!pointsElement) {
+        pointsElement = document.querySelector("#ring1").shadowRoot.querySelector("slot").assignedNodes()[1];
+      }
+      pointsElement.innerHTML = `${Math.floor(270 * event.detail.value)} Points`;
+    }
+
+    // Callback function to run when the animation finishes
+    const completeEventCallback = (event) => {
+      if (event.detail.id !== "ring1") {
+        return;
+      }
+      if (!commentElement) {
+        commentElement = document.querySelector("#ring1").shadowRoot.querySelector("slot").assignedNodes()[3];
+      }
+      commentElement.classList.add("complete");
+      setTimeout(() => {
+        commentElement.classList.add("bye");
+      }, 1000);
+    }
+
+    // Register eventLiteners
+    document.addEventListener("prcProgress", progressEventCallback);
+    document.addEventListener("prcComplete", completeEventCallback);
+  </script>
+</body>
+</html>

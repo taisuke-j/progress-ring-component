@@ -1,4 +1,13 @@
-import { Component, Prop, State, Watch, h } from "@stencil/core";
+/* eslint-disable @stencil/decorators-style */
+import {
+  Component,
+  Prop,
+  State,
+  Watch,
+  h,
+  Event,
+  EventEmitter,
+} from "@stencil/core";
 import easingAnimationFrames, {
   EasingType,
   RestartFramesFunction,
@@ -8,16 +17,30 @@ import easingAnimationFrames, {
   RestartFramesOptions,
 } from "easing-animation-frames";
 
+export interface EventPayload {
+  id: string;
+}
+
+export interface ProgressEventPayload {
+  id: string;
+  value: number;
+}
+
 @Component({
   tag: "progress-ring",
   styleUrl: "progress-ring.css",
-  shadow: true
+  shadow: true,
 })
 export class ProgressRing {
+  // SHAPE
+
   /**
-   * Shape
+   * Radius of the ring
    */
   @Prop() radius = 80;
+  /**
+   * Thickness of the ring
+   */
   @Prop() strokeWidth = 10;
   private normalizedRadius: number;
   private circumference: number;
@@ -25,34 +48,45 @@ export class ProgressRing {
   @Watch("radius")
   radiusUpdated(newValue: number) {
     this.setShapeSettings({
-      radius: newValue
-    })
-    this.restartProgress()
+      radius: newValue,
+    });
+    this.restartProgress();
   }
 
   @Watch("strokeWidth")
   strokeWidthUpdated(newValue: number) {
     this.setShapeSettings({
-      strokeWidth: newValue
-    })
-    this.restartProgress()
+      strokeWidth: newValue,
+    });
+    this.restartProgress();
   }
 
   private setShapeSettings = ({
     radius = this.radius,
-    strokeWidth = this.strokeWidth
+    strokeWidth = this.strokeWidth,
   }) => {
     // Caches calculation results
     this.normalizedRadius = radius - Math.floor(strokeWidth / 2);
     this.circumference = this.normalizedRadius * 2 * Math.PI;
-  }
+  };
+
+  // TEXT
 
   /**
-   * Text
+   * Font size of the integer
    */
   @Prop() intSize = 30;
+  /**
+   * Font size of the decimal places
+   */
   @Prop() decimalSize: number = Math.floor(this.intSize * 0.7);
+  /**
+   * Hide digits
+   */
   @Prop() disableDigits = false;
+  /**
+   * Hide decimal places
+   */
   @Prop() disableDecimals = false;
 
   private parsePercentageText = (percentage: number) => {
@@ -60,50 +94,52 @@ export class ProgressRing {
       return ["0", "0"];
     }
     return percentage.toFixed(1).split(".");
-  }
+  };
 
   private isZeroPercent = () => {
     return this.percentage === 0;
-  }
+  };
+
+  // STYLE
 
   /**
-   * Style
+   * Addes rounded linecap to the ring
    */
   @Prop() roundLinecap = false;
 
   private getLinecap = () => {
     return this.roundLinecap ? "round" : "butt";
-  }
+  };
+
+  // COLORS
 
   /**
-   * Colors
+   * Inverts the color scheme
    */
   @Prop() invertColors = false;
   @State() colors: string[];
   private internalColors = [
     "#ff4f40", // red
     "#ffcd40", // yellow
+    "#66a0ff", // blue
     "#30bf7a", // green
-    "#66a0ff"  // blue
   ];
   private internalColorsReversed = [...this.internalColors].reverse();
 
   @Watch("invertColors")
   invertColorsUpdated(newValue: boolean) {
     this.setColorsSettings({
-      invertColors: newValue
-    })
-    this.restartProgress()
+      invertColors: newValue,
+    });
+    this.restartProgress();
   }
 
-  private setColorsSettings = ({
-    invertColors = this.invertColors
-  }) => {
+  private setColorsSettings = ({ invertColors = this.invertColors }) => {
     // Caches calculation results
-    this.colors = invertColors ? 
-      this.internalColorsReversed :
-      this.internalColors;
-  }
+    this.colors = invertColors
+      ? this.internalColorsReversed
+      : this.internalColors;
+  };
 
   private setColors = (percentage: number) => {
     let color: string;
@@ -119,13 +155,23 @@ export class ProgressRing {
     this.ring.style.stroke = color;
     this.ringBackground.style.stroke = color;
     this.percentageText.style.fill = color;
-  }
+  };
+
+  // ANIMATION
 
   /**
-   * Animation
+   * Percentage value (mandatory)
    */
   @Prop({ reflect: true, mutable: true }) percentage = 0;
+
+  /**
+   * Animation duration in miliseconds           |
+   */
   @Prop() duration = 4000;
+
+  /**
+   * Easing animation function name
+   */
   @Prop() easingType: EasingType = "quartInOut";
   private internalPercentage: number;
   private start = 0;
@@ -142,17 +188,17 @@ export class ProgressRing {
       this.percentage = 0;
       return;
     }
-    this.restartProgress()
+    this.restartProgress();
   }
 
   @Watch("duration")
   durationtUpdated() {
-    this.restartProgress()
+    this.restartProgress();
   }
 
   @Watch("easingType")
   easingTypeUpdated() {
-    this.restartProgress()
+    this.restartProgress();
   }
 
   // Called for every requestAnimationFrame
@@ -163,19 +209,32 @@ export class ProgressRing {
     restartFrames,
   }: TemplateOptions) => {
     // Stops the animation if the component is disconnected from the DOM
-    if (this.isDisconnected && stopFrames) {
+    if (this.isDisconnected && typeof stopFrames === "function") {
       stopFrames();
+
+      // Emits stop event
+      if (this.eventId !== undefined) {
+        this.prcStop.emit({ id: this.eventId });
+      }
       return;
     }
+
+    // Emits progress change event
+    if (this.eventId !== undefined) {
+      this.prcProgress.emit({ id: this.eventId, value: progress });
+    }
+
     this.progress = progress;
     this.resumeFrames = resumeFrames;
     this.restartFrames = restartFrames;
 
     // Shape
-    const currentPercentage = ((this.internalPercentage - this.start) * progress) + this.start;
-    const offset = currentPercentage >= 100 ?
-      0 :
-      this.circumference - (currentPercentage / 100 * this.circumference);
+    const currentPercentage =
+      (this.internalPercentage - this.start) * progress + this.start;
+    const offset =
+      currentPercentage >= 100
+        ? 0
+        : this.circumference - (currentPercentage / 100) * this.circumference;
     this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
 
     // Text
@@ -188,16 +247,22 @@ export class ProgressRing {
       // No color transitions for the initial animation
       this.setColors(currentPercentage);
     }
-  }
+  };
 
   // Called every time the percentage attribute gets updated
   private restartProgress = () => {
-    if (!this.restartFrames) {
+    if (typeof this.restartFrames !== "function") {
       return;
     }
 
+    // Emits restart event
+    if (this.eventId !== undefined) {
+      this.prcRestart.emit({ id: this.eventId });
+    }
+
     // Resets the progresss to 0 and set the start to be the previous percentage
-    const currentPercentage = ((this.internalPercentage - this.start) * this.progress) + this.start;
+    const currentPercentage =
+      (this.internalPercentage - this.start) * this.progress + this.start;
     this.internalPercentage = this.percentage;
     this.progress = 0;
     this.start = currentPercentage;
@@ -207,16 +272,57 @@ export class ProgressRing {
       restartDuration: this.duration,
       restartEasingType: this.easingType,
       restartTemplate: this.setProgress,
-      restartComplete: this.completeCallback
+      restartComplete: this.completeCallback,
     };
     this.restartFrames(restartSettings);
-  }
+  };
 
   private completeCallback = () => {
     if (!this.complete) {
-      this.complete = true
+      this.complete = true;
+
+      // Emits complete event
+      if (this.eventId !== undefined) {
+        this.prcComplete.emit({ id: this.eventId });
+      }
     }
-  }
+  };
+
+  // EVENTS
+
+  /**
+   * Unique ID for the event listeners
+   */
+  @Prop() eventId?: string;
+  /**
+   * Animation progress value to be emitted (from 0 to 1)
+   */
+  @Event({ bubbles: true, composed: true })
+  prcProgress: EventEmitter<ProgressEventPayload>;
+  /**
+   * OnStart event of the animation
+   */
+  @Event({ bubbles: true, composed: true })
+  prcStart: EventEmitter<EventPayload>;
+  /**
+   * OnComplete event of the animation
+   */
+  @Event({ bubbles: true, composed: true })
+  prcComplete: EventEmitter<EventPayload>;
+  /**
+   * OnStop event of the animation
+   */
+  @Event({ bubbles: true, composed: true }) prcStop: EventEmitter<EventPayload>;
+  /**
+   * OnResume event of the animation
+   */
+  @Event({ bubbles: true, composed: true })
+  prcResume: EventEmitter<EventPayload>;
+  /**
+   * OnRestart event of the animation
+   */
+  @Event({ bubbles: true, composed: true })
+  prcRestart: EventEmitter<EventPayload>;
 
   /**
    * Lifecycle Methods
@@ -232,11 +338,11 @@ export class ProgressRing {
 
     this.setShapeSettings({
       radius: this.radius,
-      strokeWidth: this.strokeWidth
+      strokeWidth: this.strokeWidth,
     });
 
     this.setColorsSettings({
-      invertColors: this.invertColors
+      invertColors: this.invertColors,
     });
   }
 
@@ -248,7 +354,7 @@ export class ProgressRing {
       duration: this.duration,
       easingType: this.easingType,
       template: this.setProgress,
-      complete: this.completeCallback
+      complete: this.completeCallback,
     };
 
     easingAnimationFrames(animationSettings);
@@ -260,11 +366,16 @@ export class ProgressRing {
       // disconnected from the DOM and then connected to the DOM again
       this.isDisconnected = false;
 
+      // Emits complete event
+      if (this.eventId !== undefined) {
+        this.prcResume.emit({ id: this.eventId });
+      }
+
       // Resumes animation that is still in progress
       this.resumeFrames();
     }
   }
- 
+
   disconnectedCallback() {
     this.isDisconnected = true;
   }
@@ -277,14 +388,11 @@ export class ProgressRing {
   private percentageText: SVGTextElement;
   private intText: SVGTSpanElement;
   private decimalText: SVGTSpanElement;
-    
+
   render() {
     return (
       <div class="root">
-        <svg
-          height={this.radius * 2}
-          width={this.radius * 2}
-        >
+        <svg height={this.radius * 2} width={this.radius * 2}>
           <circle
             cx={this.radius}
             cy={this.radius}
@@ -292,7 +400,7 @@ export class ProgressRing {
             stroke-width={this.strokeWidth}
             fill="transparent"
             opacity="0.1"
-            ref={(el: SVGCircleElement)=> this.ringBackground = el}
+            ref={(el: SVGCircleElement) => (this.ringBackground = el)}
             class="background-ring"
           />
           <circle
@@ -303,7 +411,7 @@ export class ProgressRing {
             stroke-dasharray={`${this.circumference} ${this.circumference}`}
             fill="transparent"
             stroke-linecap={this.getLinecap()}
-            ref={(el: SVGCircleElement)=> this.ring = el}
+            ref={(el: SVGCircleElement) => (this.ring = el)}
             class="ring"
           />
           <text
@@ -312,20 +420,41 @@ export class ProgressRing {
             text-anchor="middle"
             dy="0.5ex"
             font-size={this.intSize}
-            ref={(el: SVGTextElement)=> this.percentageText = el}
+            ref={(el: SVGTextElement) => (this.percentageText = el)}
             class={this.disableDigits ? "hide" : null}
           >
-            <tspan font-size={this.intSize} ref={(el: SVGTSpanElement) => this.intText = el} class="intText"></tspan>
-            <tspan font-size={this.intSize} class={(this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalPointText"}>.</tspan>
-            <tspan font-size={this.decimalSize} ref={(el: SVGTSpanElement) => this.decimalText = el} class={(this.isZeroPercent() || this.disableDecimals) ? "hide" : "decimalText"}></tspan>
+            <tspan
+              font-size={this.intSize}
+              ref={(el: SVGTSpanElement) => (this.intText = el)}
+              class="intText"
+            ></tspan>
+            <tspan
+              font-size={this.intSize}
+              class={
+                this.isZeroPercent() || this.disableDecimals
+                  ? "hide"
+                  : "decimalPointText"
+              }
+            >
+              .
+            </tspan>
+            <tspan
+              font-size={this.decimalSize}
+              ref={(el: SVGTSpanElement) => (this.decimalText = el)}
+              class={
+                this.isZeroPercent() || this.disableDecimals
+                  ? "hide"
+                  : "decimalText"
+              }
+            ></tspan>
             <tspan font-size={this.decimalSize / 2}> </tspan>
-            <tspan font-size={this.decimalSize} class="percentageText">%</tspan>
+            <tspan font-size={this.decimalSize} class="percentageText">
+              %
+            </tspan>
           </text>
         </svg>
-        <div class="slot">
-          <slot />
-        </div>
-      </div> 
-    )
+        <slot />
+      </div>
+    );
   }
 }

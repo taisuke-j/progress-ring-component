@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0">
-  <title>Stencil Component Starter</title>
+  <title>Progress Ring Component</title>
   <script type="module" src="/build/progressring.esm.js"></script>
   <script nomodule src="/build/progressring.js"></script>
   <style>
-    progress-ring { font-family: sans-serif; }
-    .slotted-text-1 { color: #66a0ff; font-size: 18px; }
+    progress-ring { margin-right: 10px; font-family: sans-serif; }
+    .completed-count { color: #30bf7a; font-size: 18px; }
   </style>
 </head>
 <body>
-  <progress-ring percentage="30" duration="5000"></progress-ring>
+  <progress-ring percentage="30"></progress-ring>
   <progress-ring percentage="60" round-linecap="true"></progress-ring>
-  <progress-ring percentage="90" duration="3000" disable-digits="true">
-    <p class="slotted-text-1">9/10<br>Complete</p>
+  <progress-ring percentage="90" disable-digits="true">
+    <p class="completed-count">9/10<br>Complete</p>
   </progress-ring>
 </body>
 </html>
