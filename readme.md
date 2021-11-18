@@ -5,9 +5,9 @@
 
 This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/).
 
-1. [Demo 1](https://unpkg.com/progress-ring-component@1.0.12/demo/demo-01.html)
-1. [Demo 2](https://unpkg.com/progress-ring-component@1.0.12/demo/demo-02.html)
-1. [Demo 3](https://unpkg.com/progress-ring-component@1.0.12/demo/demo-03.html)
+1. [Demo 1](https://unpkg.com/progress-ring-component@1.0.13/demo/demo-01.html)
+1. [Demo 2](https://unpkg.com/progress-ring-component@1.0.13/demo/demo-02.html)
+1. [Demo 3](https://unpkg.com/progress-ring-component@1.0.13/demo/demo-03.html)
 
 ## How to use
 
@@ -17,8 +17,8 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.12/dist/progressring/progressring.esm.js"></script>
-    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.12/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.13/dist/progressring/progressring.esm.js"></script>
+    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.13/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { margin-right: 10px; font-family: sans-serif; }
       .completed-count { color: #30bf7a; font-size: 18px; }
@@ -49,8 +49,8 @@ This component works reactively in a unidirectional fashion. When the `percentag
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.12/dist/progressring/progressring.esm.js"></script>
-    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.12/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.13/dist/progressring/progressring.esm.js"></script>
+    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.13/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { margin-right: 10px; font-family: sans-serif; }
       .buttons { width: 170px; margin-top: 20px; text-align: center; }
@@ -112,7 +112,7 @@ This component works reactively in a unidirectional fashion. When the `percentag
 
 ### Advanced usage with animation events
 
-By passing `even-id` as a prop, you can listen to events emitted by with the animation, and register callback functions for them. Please see [Demo 3](https://unpkg.com/progress-ring-component@1.0.12/demo/demo-03.html).
+By passing `even-id` as a prop, you can listen to events emitted by with the animation, and register callback functions for them. Please see [Demo 3](https://unpkg.com/progress-ring-component@1.0.13/demo/demo-03.html).
 
 ![Demo 3](docs/images/demo-3.gif)
 
@@ -137,7 +137,7 @@ Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-c
   <head>
     <script
       type="module"
-      src="https://unpkg.com/progress-ring-component@1.0.12/dist/progressring/progressring.esm.js"
+      src="https://unpkg.com/progress-ring-component@1.0.13/dist/progressring/progressring.esm.js"
     ></script>
   </head>
   <body>
