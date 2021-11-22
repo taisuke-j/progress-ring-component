@@ -23,7 +23,8 @@ export interface EventPayload {
 
 export interface ProgressEventPayload {
   id: string;
-  value: number;
+  progress: number;
+  percentage: number;
 }
 
 @Component({
@@ -219,11 +220,6 @@ export class ProgressRing {
       return;
     }
 
-    // Emits progress change event
-    if (this.eventId !== undefined) {
-      this.prcProgress.emit({ id: this.eventId, value: progress });
-    }
-
     this.progress = progress;
     this.resumeFrames = resumeFrames;
     this.restartFrames = restartFrames;
@@ -246,6 +242,15 @@ export class ProgressRing {
     if (this.complete) {
       // No color transitions for the initial animation
       this.setColors(currentPercentage);
+    }
+
+    // Emits progress change event
+    if (this.eventId !== undefined) {
+      this.prcProgress.emit({
+        id: this.eventId,
+        progress,
+        percentage: currentPercentage,
+      });
     }
   };
 

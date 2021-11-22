@@ -85,3 +85,7 @@
 - Added callback functions that emit events
 - Updated eslint and prettier settings
 - Updated easing-animation-frames version to 1.0.3
+
+## 1.0.15 (2021-11-22)
+
+- Updated progress event to include both progress and percentage values
