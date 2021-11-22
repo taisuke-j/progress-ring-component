@@ -1,20 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <title>Demo 1</title>
-  <script type="module" src="https://unpkg.com/progress-ring-component@1.0.15/dist/progressring/progressring.esm.js"></script>
-  <style>
-    progress-ring { margin-right: 10px; font-family: sans-serif; }
-    .completed-count { color: #30bf7a; font-size: 18px; }
-  </style>
-</head>
-<body>
-  <progress-ring percentage="30"></progress-ring>
-  <progress-ring percentage="60" round-linecap="true"></progress-ring>
-  <progress-ring percentage="90" disable-digits="true">
-    <p class="completed-count">9/10<br>Complete</p>
-  </progress-ring>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Demo 1</title>
+    <script
+      type="module"
+      src="https://unpkg.com/progress-ring-component@1.0.16/dist/progressring/progressring.esm.js"
+    ></script>
+    <style>
+      progress-ring {
+        margin-right: 10px;
+        font-family: sans-serif;
+      }
+      .completed-count {
+        color: #30bf7a;
+        font-size: 18px;
+      }
+    </style>
+  </head>
+  <body>
+    <progress-ring percentage="30"></progress-ring>
+    <progress-ring percentage="60" round-linecap="true"></progress-ring>
+    <progress-ring percentage="90" disable-digits="true">
+      <p class="completed-count">9/10<br />Complete</p>
+    </progress-ring>
+  </body>
 </html>

@@ -1,34 +1,53 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <title>Demo 2</title>
-  <script type="module" src="https://unpkg.com/progress-ring-component@1.0.15/dist/progressring/progressring.esm.js"></script>
-  <style>
-    progress-ring { font-family: sans-serif; }
-    .buttons { width: 220px; margin-top: 20px; }
-    button { margin-right: 10px; }
-  </style>
-</head>
-<body>
-  <progress-ring percentage="10"></progress-ring>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Demo 2</title>
+    <script
+      type="module"
+      src="https://unpkg.com/progress-ring-component@1.0.16/dist/progressring/progressring.esm.js"
+    ></script>
+    <style>
+      progress-ring {
+        font-family: sans-serif;
+      }
+      .buttons {
+        width: 220px;
+        margin-top: 20px;
+      }
+      button {
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <progress-ring percentage="10"></progress-ring>
 
-  <div class="buttons">
-    <button id="buttonOne">30%</button>
-    <button id="buttonTwo">60%</button>
-    <button id="buttonThree">90%</button>
-  </div>
-  
-  <script>
-    const ring = document.querySelector("progress-ring");
-    const buttonOne = document.querySelector("#buttonOne");
-    const buttonTwo = document.querySelector("#buttonTwo");
-    const buttonThree = document.querySelector("#buttonThree");
-  
-    buttonOne.addEventListener("click", () => { ring.setAttribute("percentage", 30) });
-    buttonTwo.addEventListener("click", () => { ring.setAttribute("percentage", 60) });
-    buttonThree.addEventListener("click", () => { ring.setAttribute("percentage", 90) });
-  </script>
-</body>
+    <div class="buttons">
+      <button id="buttonOne">30%</button>
+      <button id="buttonTwo">60%</button>
+      <button id="buttonThree">90%</button>
+    </div>
+
+    <script>
+      const ring = document.querySelector("progress-ring");
+      const buttonOne = document.querySelector("#buttonOne");
+      const buttonTwo = document.querySelector("#buttonTwo");
+      const buttonThree = document.querySelector("#buttonThree");
+
+      buttonOne.addEventListener("click", () => {
+        ring.setAttribute("percentage", 30);
+      });
+      buttonTwo.addEventListener("click", () => {
+        ring.setAttribute("percentage", 60);
+      });
+      buttonThree.addEventListener("click", () => {
+        ring.setAttribute("percentage", 90);
+      });
+    </script>
+  </body>
 </html>

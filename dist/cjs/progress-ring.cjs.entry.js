@@ -1,4 +1,8 @@
-import { r as registerInstance, e as createEvent, h } from './index-f850a45f.js';
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+const index = require('./index-2bc2e39b.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -386,13 +390,13 @@ const progressRingCss = ".root{display:inline-block;position:relative}circle{tra
 
 let ProgressRing = class {
   constructor(hostRef) {
-    registerInstance(this, hostRef);
-    this.prcProgress = createEvent(this, "prcProgress", 7);
-    this.prcStart = createEvent(this, "prcStart", 7);
-    this.prcComplete = createEvent(this, "prcComplete", 7);
-    this.prcStop = createEvent(this, "prcStop", 7);
-    this.prcResume = createEvent(this, "prcResume", 7);
-    this.prcRestart = createEvent(this, "prcRestart", 7);
+    index.registerInstance(this, hostRef);
+    this.prcProgress = index.createEvent(this, "prcProgress", 7);
+    this.prcStart = index.createEvent(this, "prcStart", 7);
+    this.prcComplete = index.createEvent(this, "prcComplete", 7);
+    this.prcStop = index.createEvent(this, "prcStop", 7);
+    this.prcResume = index.createEvent(this, "prcResume", 7);
+    this.prcRestart = index.createEvent(this, "prcRestart", 7);
     // SHAPE
     /**
      * Radius of the ring
@@ -643,11 +647,11 @@ let ProgressRing = class {
     this.isDisconnected = true;
   }
   render() {
-    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => (this.ringBackground = el), class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => (this.ring = el), class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => (this.percentageText = el), class: this.disableDigits ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => (this.intText = el), class: "intText" }), h("tspan", { "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
+    return (index.h("div", { class: "root" }, index.h("svg", { height: this.radius * 2, width: this.radius * 2 }, index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => (this.ringBackground = el), class: "background-ring" }), index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => (this.ring = el), class: "ring" }), index.h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => (this.percentageText = el), class: this.disableDigits ? "hide" : null }, index.h("tspan", { "font-size": this.intSize, ref: (el) => (this.intText = el), class: "intText" }), index.h("tspan", { "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
         ? "hide"
-        : "decimalPointText" }, "."), h("tspan", { "font-size": this.decimalSize, ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
+        : "decimalPointText" }, "."), index.h("tspan", { "font-size": this.decimalSize, ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
         ? "hide"
-        : "decimalText" }), h("tspan", { "font-size": this.decimalSize / 2 }, " "), h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), h("slot", null)));
+        : "decimalText" }), index.h("tspan", { "font-size": this.decimalSize / 2 }, " "), index.h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), index.h("slot", null)));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],
@@ -660,4 +664,4 @@ let ProgressRing = class {
 };
 ProgressRing.style = progressRingCss;
 
-export { ProgressRing as progress_ring };
+exports.progress_ring = ProgressRing;
