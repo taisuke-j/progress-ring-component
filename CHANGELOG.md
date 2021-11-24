@@ -89,3 +89,8 @@
 ## 1.0.15 (2021-11-22)
 
 - Updated progress event to include both progress and percentage values
+
+## 1.0.17 (2021-11-24)
+
+- Fixe the issue of start event not emitted
+- Fixed decimal size issue

@@ -23,10 +23,6 @@ export class ProgressRing {
      */
     this.intSize = 30;
     /**
-     * Font size of the decimal places
-     */
-    this.decimalSize = Math.floor(this.intSize * 0.7);
-    /**
      * Hide digits
      */
     this.disableDigits = false;
@@ -42,6 +38,11 @@ export class ProgressRing {
     };
     this.isZeroPercent = () => {
       return this.percentage === 0;
+    };
+    this.getDecimalSize = () => {
+      return this.decimalSize === undefined
+        ? Math.floor(this.intSize * 0.7)
+        : this.decimalSize;
     };
     // STYLE
     /**
@@ -228,6 +229,10 @@ export class ProgressRing {
   componentDidLoad() {
     this.isLoaded = true;
     this.setColors(this.percentage);
+    // Emits restart event
+    if (this.eventId !== undefined) {
+      this.prcStart.emit({ id: this.eventId });
+    }
     const animationSettings = {
       duration: this.duration,
       easingType: this.easingType,
@@ -262,11 +267,11 @@ export class ProgressRing {
           h("tspan", { "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
               ? "hide"
               : "decimalPointText" }, "."),
-          h("tspan", { "font-size": this.decimalSize, ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
+          h("tspan", { "font-size": this.getDecimalSize(), ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
               ? "hide"
               : "decimalText" }),
-          h("tspan", { "font-size": this.decimalSize / 2 }, " "),
-          h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))),
+          h("tspan", { "font-size": this.getDecimalSize() / 2 }, " "),
+          h("tspan", { "font-size": this.getDecimalSize(), class: "percentageText" }, "%"))),
       h("slot", null)));
   }
   static get is() { return "progress-ring"; }
@@ -347,8 +352,7 @@ export class ProgressRing {
         "text": "Font size of the decimal places"
       },
       "attribute": "decimal-size",
-      "reflect": false,
-      "defaultValue": "Math.floor(this.intSize * 0.7)"
+      "reflect": false
     },
     "disableDigits": {
       "type": "boolean",

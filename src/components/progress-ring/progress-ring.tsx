@@ -80,7 +80,7 @@ export class ProgressRing {
   /**
    * Font size of the decimal places
    */
-  @Prop() decimalSize: number = Math.floor(this.intSize * 0.7);
+  @Prop() decimalSize: number;
   /**
    * Hide digits
    */
@@ -99,6 +99,12 @@ export class ProgressRing {
 
   private isZeroPercent = () => {
     return this.percentage === 0;
+  };
+
+  private getDecimalSize = () => {
+    return this.decimalSize === undefined
+      ? Math.floor(this.intSize * 0.7)
+      : this.decimalSize;
   };
 
   // STYLE
@@ -355,6 +361,11 @@ export class ProgressRing {
     this.isLoaded = true;
     this.setColors(this.percentage);
 
+    // Emits restart event
+    if (this.eventId !== undefined) {
+      this.prcStart.emit({ id: this.eventId });
+    }
+
     const animationSettings: EasingAnimationFramesOptions = {
       duration: this.duration,
       easingType: this.easingType,
@@ -444,7 +455,7 @@ export class ProgressRing {
               .
             </tspan>
             <tspan
-              font-size={this.decimalSize}
+              font-size={this.getDecimalSize()}
               ref={(el: SVGTSpanElement) => (this.decimalText = el)}
               class={
                 this.isZeroPercent() || this.disableDecimals
@@ -452,8 +463,8 @@ export class ProgressRing {
                   : "decimalText"
               }
             ></tspan>
-            <tspan font-size={this.decimalSize / 2}> </tspan>
-            <tspan font-size={this.decimalSize} class="percentageText">
+            <tspan font-size={this.getDecimalSize() / 2}> </tspan>
+            <tspan font-size={this.getDecimalSize()} class="percentageText">
               %
             </tspan>
           </text>

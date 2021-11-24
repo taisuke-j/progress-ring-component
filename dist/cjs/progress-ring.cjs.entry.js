@@ -417,10 +417,6 @@ let ProgressRing = class {
      */
     this.intSize = 30;
     /**
-     * Font size of the decimal places
-     */
-    this.decimalSize = Math.floor(this.intSize * 0.7);
-    /**
      * Hide digits
      */
     this.disableDigits = false;
@@ -436,6 +432,11 @@ let ProgressRing = class {
     };
     this.isZeroPercent = () => {
       return this.percentage === 0;
+    };
+    this.getDecimalSize = () => {
+      return this.decimalSize === undefined
+        ? Math.floor(this.intSize * 0.7)
+        : this.decimalSize;
     };
     // STYLE
     /**
@@ -622,6 +623,10 @@ let ProgressRing = class {
   componentDidLoad() {
     this.isLoaded = true;
     this.setColors(this.percentage);
+    // Emits restart event
+    if (this.eventId !== undefined) {
+      this.prcStart.emit({ id: this.eventId });
+    }
     const animationSettings = {
       duration: this.duration,
       easingType: this.easingType,
@@ -649,9 +654,9 @@ let ProgressRing = class {
   render() {
     return (index.h("div", { class: "root" }, index.h("svg", { height: this.radius * 2, width: this.radius * 2 }, index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => (this.ringBackground = el), class: "background-ring" }), index.h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => (this.ring = el), class: "ring" }), index.h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => (this.percentageText = el), class: this.disableDigits ? "hide" : null }, index.h("tspan", { "font-size": this.intSize, ref: (el) => (this.intText = el), class: "intText" }), index.h("tspan", { "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
         ? "hide"
-        : "decimalPointText" }, "."), index.h("tspan", { "font-size": this.decimalSize, ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
+        : "decimalPointText" }, "."), index.h("tspan", { "font-size": this.getDecimalSize(), ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
         ? "hide"
-        : "decimalText" }), index.h("tspan", { "font-size": this.decimalSize / 2 }, " "), index.h("tspan", { "font-size": this.decimalSize, class: "percentageText" }, "%"))), index.h("slot", null)));
+        : "decimalText" }), index.h("tspan", { "font-size": this.getDecimalSize() / 2 }, " "), index.h("tspan", { "font-size": this.getDecimalSize(), class: "percentageText" }, "%"))), index.h("slot", null)));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],

@@ -43,7 +43,7 @@
     "easing-animation-frames": "1.0.3"
   },
   "devDependencies": {
-    "@stencil/core": "~2.10.0",
+    "@stencil/core": "~2.11.0",
     "@stencil/eslint-plugin": "^0.4.0",
     "@types/jest": "27.0.3",
     "@types/puppeteer": "5.4.4",
