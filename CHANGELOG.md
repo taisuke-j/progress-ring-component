@@ -94,3 +94,7 @@
 
 - Fixe the issue of start event not emitted
 - Fixed decimal size issue
+
+## 1.0.18 (2021-11-24)
+
+- Fixed the issue of complete event not emitted after restart

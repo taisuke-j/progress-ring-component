@@ -278,6 +278,9 @@ export class ProgressRing {
     this.progress = 0;
     this.start = currentPercentage;
 
+    // Reset the complete state
+    this.complete = false;
+
     // Restarts the template function
     const restartSettings: RestartFramesOptions = {
       restartDuration: this.duration,

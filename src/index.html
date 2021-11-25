@@ -14,8 +14,20 @@
 <body>
   <progress-ring percentage="30"></progress-ring>
   <progress-ring percentage="60" round-linecap="true"></progress-ring>
-  <progress-ring percentage="90" disable-digits="true">
+  <progress-ring percentage="90" disable-digits="true" event-id="ring1">
     <p class="completed-count">9/10<br>Complete</p>
   </progress-ring>
+  <script>
+    // Callback function to run when the animation finishes
+    const completeEventCallback = (event) => {
+      if (event.detail.id !== "ring1") {
+        return;
+      }
+      console.log("completed")
+    };
+
+    // Register eventLiteners
+    document.addEventListener("prcComplete", completeEventCallback);
+  </script>
 </body>
 </html>
