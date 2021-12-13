@@ -98,3 +98,7 @@
 ## 1.0.18 (2021-11-24)
 
 - Fixed the issue of complete event not emitted after restart
+
+## 1.0.19 (2021-12-13)
+
+Fixed iOS Safari issue with SVG tspan element positioning

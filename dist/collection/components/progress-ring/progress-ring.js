@@ -272,8 +272,7 @@ export class ProgressRing {
           h("tspan", { "font-size": this.getDecimalSize(), ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
               ? "hide"
               : "decimalText" }),
-          h("tspan", { "font-size": this.getDecimalSize() / 2 }, " "),
-          h("tspan", { "font-size": this.getDecimalSize(), class: "percentageText" }, "%"))),
+          h("tspan", { "font-size": this.getDecimalSize(), dx: "0.5ex", class: "percentageText" }, "%"))),
       h("slot", null)));
   }
   static get is() { return "progress-ring"; }

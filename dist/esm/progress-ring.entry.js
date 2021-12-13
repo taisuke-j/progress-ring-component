@@ -654,7 +654,7 @@ let ProgressRing = class {
         ? "hide"
         : "decimalPointText" }, "."), h("tspan", { "font-size": this.getDecimalSize(), ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
         ? "hide"
-        : "decimalText" }), h("tspan", { "font-size": this.getDecimalSize() / 2 }, " "), h("tspan", { "font-size": this.getDecimalSize(), class: "percentageText" }, "%"))), h("slot", null)));
+        : "decimalText" }), h("tspan", { "font-size": this.getDecimalSize(), dx: "0.5ex", class: "percentageText" }, "%"))), h("slot", null)));
   }
   static get watchers() { return {
     "radius": ["radiusUpdated"],

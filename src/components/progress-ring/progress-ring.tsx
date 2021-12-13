@@ -466,8 +466,11 @@ export class ProgressRing {
                   : "decimalText"
               }
             ></tspan>
-            <tspan font-size={this.getDecimalSize() / 2}> </tspan>
-            <tspan font-size={this.getDecimalSize()} class="percentageText">
+            <tspan
+              font-size={this.getDecimalSize()}
+              dx="0.5ex"
+              class="percentageText"
+            >
               %
             </tspan>
           </text>
