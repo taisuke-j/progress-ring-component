@@ -520,11 +520,6 @@ let ProgressRing = class {
       const parsedPercentageText = this.parsePercentageText(currentPercentage);
       this.intText.innerHTML = parsedPercentageText[0];
       this.decimalText.innerHTML = parsedPercentageText[1];
-      // Colors
-      if (this.complete) {
-        // No color transitions for the initial animation
-        this.setColors(currentPercentage);
-      }
       // Emits progress change event
       if (this.eventId !== undefined) {
         this.prcProgress.emit({
@@ -557,6 +552,7 @@ let ProgressRing = class {
         restartTemplate: this.setProgress,
         restartComplete: this.completeCallback,
       };
+      this.setColors(this.percentage);
       this.restartFrames(restartSettings);
     };
     this.completeCallback = () => {

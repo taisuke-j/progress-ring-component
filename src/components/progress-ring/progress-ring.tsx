@@ -244,12 +244,6 @@ export class ProgressRing {
     this.intText.innerHTML = parsedPercentageText[0];
     this.decimalText.innerHTML = parsedPercentageText[1];
 
-    // Colors
-    if (this.complete) {
-      // No color transitions for the initial animation
-      this.setColors(currentPercentage);
-    }
-
     // Emits progress change event
     if (this.eventId !== undefined) {
       this.prcProgress.emit({
@@ -288,6 +282,8 @@ export class ProgressRing {
       restartTemplate: this.setProgress,
       restartComplete: this.completeCallback,
     };
+
+    this.setColors(this.percentage);
     this.restartFrames(restartSettings);
   };
 

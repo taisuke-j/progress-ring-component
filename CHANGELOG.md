@@ -102,3 +102,7 @@
 ## 1.0.19 (2021-12-13)
 
 Fixed iOS Safari issue with SVG tspan element positioning
+
+## 1.0.20 (2021-12-26)
+
+Fixed color not being updated on restart
