@@ -666,7 +666,7 @@ export declare namespace JSXBase {
         use: JSXBase.SVGAttributes;
         view: JSXBase.SVGAttributes;
     }
-    interface SlotAttributes {
+    interface SlotAttributes extends JSXAttributes {
         name?: string;
         slot?: string;
         onSlotchange?: (event: Event) => void;
@@ -1427,9 +1427,7 @@ export declare namespace JSXBase {
         z?: number | string;
         zoomAndPan?: string;
     }
-    interface DOMAttributes<T = Element> {
-        key?: string | number;
-        ref?: (elm?: T) => void;
+    interface DOMAttributes<T> extends JSXAttributes<T> {
         slot?: string;
         part?: string;
         exportparts?: string;
@@ -1549,6 +1547,10 @@ export declare namespace JSXBase {
         onTransitionEnd?: (event: TransitionEvent) => void;
         onTransitionEndCapture?: (event: TransitionEvent) => void;
     }
+}
+export interface JSXAttributes<T = Element> {
+    key?: string | number;
+    ref?: (elm?: T) => void;
 }
 export interface CustomElementsDefineOptions {
     exclude?: string[];
