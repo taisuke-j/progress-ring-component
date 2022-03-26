@@ -775,7 +775,10 @@ const setValue = (ref, propName, newVal, cmpMeta) => {
     const flags = hostRef.$flags$;
     const instance = hostRef.$lazyInstance$ ;
     newVal = parsePropertyValue(newVal, cmpMeta.$members$[propName][0]);
-    if ((!(flags & 8 /* isConstructingInstance */) || oldVal === undefined) && newVal !== oldVal) {
+    // explicitly check for NaN on both sides, as `NaN === NaN` is always false
+    const areBothNaN = Number.isNaN(oldVal) && Number.isNaN(newVal);
+    const didValueChange = newVal !== oldVal && !areBothNaN;
+    if ((!(flags & 8 /* isConstructingInstance */) || oldVal === undefined) && didValueChange) {
         // gadzooks! the property's value has changed!!
         // set our new value!
         hostRef.$instanceValues$.set(propName, newVal);

@@ -110,3 +110,7 @@
 ## 1.0.21 (2022-02-17)
 
 - Updated libraries and added e2e test to github actions
+
+## 1.0.22 (2022-03-26)
+
+- Updated libraries and fixed a security alert

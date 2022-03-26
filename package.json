@@ -43,13 +43,13 @@
     "easing-animation-frames": "1.0.5"
   },
   "devDependencies": {
-    "@stencil/core": "~2.14.0",
+    "@stencil/core": "~2.14.2",
     "@stencil/eslint-plugin": "^0.4.0",
-    "@types/jest": "27.4.0",
-    "@types/puppeteer": "5.4.4",
+    "@types/jest": "27.4.1",
+    "@types/puppeteer": "5.4.5",
     "jest": "27.5.1",
     "jest-cli": "27.5.1",
-    "puppeteer": "13.3.2"
+    "puppeteer": "13.5.1"
   },
   "license": "MIT"
 }

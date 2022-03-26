@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-d35ee7d0.js');
+const index = require('./index-9ffd7864.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -388,7 +388,7 @@ const easingAnimationFrames = ({
 
 const progressRingCss = ".root{display:inline-block;position:relative}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}slot{display:flex;align-items:center;justify-content:center;position:absolute;left:0;top:0;width:100%;height:100%;text-align:center}.hide{display:none}";
 
-let ProgressRing = class {
+const ProgressRing = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
     this.prcProgress = index.createEvent(this, "prcProgress", 7);

@@ -1,4 +1,4 @@
-import { r as registerInstance, c as createEvent, h } from './index-21341179.js';
+import { r as registerInstance, c as createEvent, h } from './index-a1803bc6.js';
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -384,7 +384,7 @@ const easingAnimationFrames = ({
 
 const progressRingCss = ".root{display:inline-block;position:relative}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}slot{display:flex;align-items:center;justify-content:center;position:absolute;left:0;top:0;width:100%;height:100%;text-align:center}.hide{display:none}";
 
-let ProgressRing = class {
+const ProgressRing = class {
   constructor(hostRef) {
     registerInstance(this, hostRef);
     this.prcProgress = createEvent(this, "prcProgress", 7);
