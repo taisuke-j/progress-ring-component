@@ -114,3 +114,7 @@
 ## 1.0.22 (2022-03-26)
 
 - Updated libraries and fixed a security alert
+
+## 1.0.23 (2022-03-29)
+
+- Updated README

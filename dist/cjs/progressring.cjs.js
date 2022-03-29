@@ -3,7 +3,7 @@
 const index = require('./index-9ffd7864.js');
 
 /*
- Stencil Client Patch Browser v2.14.2 | MIT Licensed | https://stenciljs.com
+ Stencil Client Patch Browser v2.15.0 | MIT Licensed | https://stenciljs.com
  */
 const patchBrowser = () => {
     const importMeta = (typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('progressring.cjs.js', document.baseURI).href));
