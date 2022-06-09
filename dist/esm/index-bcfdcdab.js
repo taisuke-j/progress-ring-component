@@ -1,25 +1,3 @@
-'use strict';
-
-function _interopNamespace(e) {
-  if (e && e.__esModule) return e;
-  var n = Object.create(null);
-  if (e) {
-    Object.keys(e).forEach(function (k) {
-      if (k !== 'default') {
-        var d = Object.getOwnPropertyDescriptor(e, k);
-        Object.defineProperty(n, k, d.get ? d : {
-          enumerable: true,
-          get: function () {
-            return e[k];
-          }
-        });
-      }
-    });
-  }
-  n['default'] = e;
-  return Object.freeze(n);
-}
-
 const NAMESPACE = 'progressring';
 
 let scopeId;
@@ -76,7 +54,7 @@ const registerStyle = (scopeId, cssText, allowCS) => {
 };
 const addStyle = (styleContainerNode, cmpMeta, mode, hostElm) => {
     let scopeId = getScopeId(cmpMeta);
-    let style = styles.get(scopeId);
+    const style = styles.get(scopeId);
     // if an element is NOT connected then getRootNode() will return the wrong root node
     // so the fallback is to always use the document for the root node in those cases
     styleContainerNode = styleContainerNode.nodeType === 11 /* DocumentFragment */ ? styleContainerNode : doc;
@@ -161,7 +139,7 @@ const h = (nodeName, vnodeData, ...children) => {
     let child = null;
     let simple = false;
     let lastSimple = false;
-    let vNodeChildren = [];
+    const vNodeChildren = [];
     const walk = (c) => {
         for (let i = 0; i < c.length; i++) {
             child = c[i];
@@ -251,7 +229,7 @@ const setAccessor = (elm, memberName, oldValue, newValue, isSvg, flags) => {
             if ((isProp || (isComplex && newValue !== null)) && !isSvg) {
                 try {
                     if (!elm.tagName.includes('-')) {
-                        let n = newValue == null ? '' : newValue;
+                        const n = newValue == null ? '' : newValue;
                         // Workaround for Safari, moving the <input> caret when re-assigning the same valued
                         if (memberName === 'list') {
                             isProp = false;
@@ -308,7 +286,7 @@ const updateElement = (oldVnode, newVnode, isSvgMode, memberName) => {
 };
 const createElm = (oldParentVNode, newParentVNode, childIndex, parentElm) => {
     // tslint:disable-next-line: prefer-const
-    let newVNode = newParentVNode.$children$[childIndex];
+    const newVNode = newParentVNode.$children$[childIndex];
     let i = 0;
     let elm;
     let childNode;
@@ -1165,11 +1143,13 @@ const loadModule = (cmpMeta, hostRef, hmrVersionId) => {
     if (module) {
         return module[exportName];
     }
-    return Promise.resolve().then(function () { return /*#__PURE__*/_interopNamespace(require(
+    /*!__STENCIL_STATIC_IMPORT_SWITCH__*/
+    return import(
+    /* @vite-ignore */
     /* webpackInclude: /\.entry\.js$/ */
     /* webpackExclude: /\.system\.entry\.js$/ */
     /* webpackMode: "lazy" */
-    `./${bundleId}.entry.js${''}`)); }).then((importedModule) => {
+    `./${bundleId}.entry.js${''}`).then((importedModule) => {
         {
             cmpModules.set(bundleId, importedModule);
         }
@@ -1220,8 +1200,4 @@ const flush = () => {
 const nextTick = /*@__PURE__*/ (cb) => promiseResolve().then(cb);
 const writeTask = /*@__PURE__*/ queueTask(queueDomWrites, true);
 
-exports.bootstrapLazy = bootstrapLazy;
-exports.createEvent = createEvent;
-exports.h = h;
-exports.promiseResolve = promiseResolve;
-exports.registerInstance = registerInstance;
+export { bootstrapLazy as b, createEvent as c, h, promiseResolve as p, registerInstance as r };

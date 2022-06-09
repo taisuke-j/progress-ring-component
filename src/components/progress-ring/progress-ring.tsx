@@ -1,13 +1,5 @@
 /* eslint-disable @stencil/decorators-style */
-import {
-  Component,
-  Prop,
-  State,
-  Watch,
-  h,
-  Event,
-  EventEmitter,
-} from "@stencil/core";
+import { Component, Prop, Watch, h, Event, EventEmitter } from "@stencil/core";
 import easingAnimationFrames, {
   EasingType,
   RestartFramesFunction,
@@ -121,17 +113,29 @@ export class ProgressRing {
   // COLORS
 
   /**
+   * Color steps of the ring
+   */
+  @Prop() colors: string | Map<number, string> = new Map([
+    [0, "#ff4f40"], // red
+    [25, "#ffcd40"], // yellow
+    [50, "#66a0ff"], // blue
+    [75, "#30bf7a"], // green
+  ]);
+
+  /**
    * Inverts the color scheme
    */
   @Prop() invertColors = false;
-  @State() colors: string[];
-  private internalColors = [
-    "#ff4f40", // red
-    "#ffcd40", // yellow
-    "#66a0ff", // blue
-    "#30bf7a", // green
-  ];
-  private internalColorsReversed = [...this.internalColors].reverse();
+
+  private internalColors: Map<number, string>;
+
+  @Watch("colors")
+  colorsUpdated(newValue: string | Map<number, string>) {
+    this.setColorsSettings({
+      colors: newValue,
+    });
+    this.restartProgress();
+  }
 
   @Watch("invertColors")
   invertColorsUpdated(newValue: boolean) {
@@ -141,24 +145,40 @@ export class ProgressRing {
     this.restartProgress();
   }
 
-  private setColorsSettings = ({ invertColors = this.invertColors }) => {
-    // Caches calculation results
-    this.colors = invertColors
-      ? this.internalColorsReversed
-      : this.internalColors;
+  private setColorsSettings = ({
+    colors = this.colors,
+    invertColors = this.invertColors,
+  }) => {
+    const colorsMap: Map<number, string> =
+      colors instanceof Map ? colors : new Map(JSON.parse(colors));
+    if (!invertColors) {
+      this.internalColors = colorsMap;
+      return;
+    }
+
+    // If inverseColors prop is set to true
+    const colorsArray = [...colorsMap];
+    const colorsArrayReversed = [...colorsArray].reverse();
+    this.internalColors = new Map(
+      colorsArray.map((color, i) => [color[0], colorsArrayReversed[i][1]])
+    );
   };
 
   private setColors = (percentage: number) => {
     let color: string;
-    if (percentage <= 25) {
-      color = this.colors[0];
-    } else if (percentage <= 50) {
-      color = this.colors[1];
-    } else if (percentage <= 75) {
-      color = this.colors[2];
-    } else {
-      color = this.colors[3];
+    const colorsArray = [...this.internalColors];
+
+    for (let i = 0; i < colorsArray.length; i++) {
+      if (i === colorsArray.length - 1) {
+        color = colorsArray[i][1];
+        break;
+      }
+      if (percentage < colorsArray[i + 1][0]) {
+        color = colorsArray[i][1];
+        break;
+      }
     }
+
     this.ring.style.stroke = color;
     this.ringBackground.style.stroke = color;
     this.percentageText.style.fill = color;
@@ -353,6 +373,7 @@ export class ProgressRing {
 
     this.setColorsSettings({
       invertColors: this.invertColors,
+      colors: this.colors,
     });
   }
 

@@ -10,6 +10,10 @@ import { EventPayload, ProgressEventPayload } from "./components/progress-ring/p
 export namespace Components {
     interface ProgressRing {
         /**
+          * Color steps of the ring
+         */
+        "colors": string | Map<number, string>;
+        /**
           * Font size of the decimal places
          */
         "decimalSize": number;
@@ -59,6 +63,10 @@ export namespace Components {
         "strokeWidth": number;
     }
 }
+export interface ProgressRingCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLProgressRingElement;
+}
 declare global {
     interface HTMLProgressRingElement extends Components.ProgressRing, HTMLStencilElement {
     }
@@ -72,6 +80,10 @@ declare global {
 }
 declare namespace LocalJSX {
     interface ProgressRing {
+        /**
+          * Color steps of the ring
+         */
+        "colors"?: string | Map<number, string>;
         /**
           * Font size of the decimal places
          */
@@ -107,27 +119,27 @@ declare namespace LocalJSX {
         /**
           * OnComplete event of the animation
          */
-        "onPrcComplete"?: (event: CustomEvent<EventPayload>) => void;
+        "onPrcComplete"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
         /**
           * Animation progress value to be emitted (from 0 to 1)
          */
-        "onPrcProgress"?: (event: CustomEvent<ProgressEventPayload>) => void;
+        "onPrcProgress"?: (event: ProgressRingCustomEvent<ProgressEventPayload>) => void;
         /**
           * OnRestart event of the animation
          */
-        "onPrcRestart"?: (event: CustomEvent<EventPayload>) => void;
+        "onPrcRestart"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
         /**
           * OnResume event of the animation
          */
-        "onPrcResume"?: (event: CustomEvent<EventPayload>) => void;
+        "onPrcResume"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
         /**
           * OnStart event of the animation
          */
-        "onPrcStart"?: (event: CustomEvent<EventPayload>) => void;
+        "onPrcStart"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
         /**
           * OnStop event of the animation
          */
-        "onPrcStop"?: (event: CustomEvent<EventPayload>) => void;
+        "onPrcStop"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
         /**
           * Percentage value (mandatory)
          */

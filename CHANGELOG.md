@@ -118,3 +118,7 @@
 ## 1.0.23 (2022-03-29)
 
 - Updated README
+
+## 1.0.24 (2022-06-09)
+
+- Added colors option as a prop

@@ -2,7 +2,7 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-const index = require('./index-9ffd7864.js');
+const index = require('./index-8a6ebc8b.js');
 
 function backInOut(t) {
   var s = 1.70158 * 1.525;
@@ -448,35 +448,41 @@ const ProgressRing = class {
     };
     // COLORS
     /**
+     * Color steps of the ring
+     */
+    this.colors = new Map([
+      [0, "#ff4f40"],
+      [25, "#ffcd40"],
+      [50, "#66a0ff"],
+      [75, "#30bf7a"], // green
+    ]);
+    /**
      * Inverts the color scheme
      */
     this.invertColors = false;
-    this.internalColors = [
-      "#ff4f40",
-      "#ffcd40",
-      "#66a0ff",
-      "#30bf7a", // green
-    ];
-    this.internalColorsReversed = [...this.internalColors].reverse();
-    this.setColorsSettings = ({ invertColors = this.invertColors }) => {
-      // Caches calculation results
-      this.colors = invertColors
-        ? this.internalColorsReversed
-        : this.internalColors;
+    this.setColorsSettings = ({ colors = this.colors, invertColors = this.invertColors, }) => {
+      const colorsMap = colors instanceof Map ? colors : new Map(JSON.parse(colors));
+      if (!invertColors) {
+        this.internalColors = colorsMap;
+        return;
+      }
+      // If inverseColors prop is set to true
+      const colorsArray = [...colorsMap];
+      const colorsArrayReversed = [...colorsArray].reverse();
+      this.internalColors = new Map(colorsArray.map((color, i) => [color[0], colorsArrayReversed[i][1]]));
     };
     this.setColors = (percentage) => {
       let color;
-      if (percentage <= 25) {
-        color = this.colors[0];
-      }
-      else if (percentage <= 50) {
-        color = this.colors[1];
-      }
-      else if (percentage <= 75) {
-        color = this.colors[2];
-      }
-      else {
-        color = this.colors[3];
+      const colorsArray = [...this.internalColors];
+      for (let i = 0; i < colorsArray.length; i++) {
+        if (i === colorsArray.length - 1) {
+          color = colorsArray[i][1];
+          break;
+        }
+        if (percentage < colorsArray[i + 1][0]) {
+          color = colorsArray[i][1];
+          break;
+        }
       }
       this.ring.style.stroke = color;
       this.ringBackground.style.stroke = color;
@@ -581,6 +587,12 @@ const ProgressRing = class {
     });
     this.restartProgress();
   }
+  colorsUpdated(newValue) {
+    this.setColorsSettings({
+      colors: newValue,
+    });
+    this.restartProgress();
+  }
   invertColorsUpdated(newValue) {
     this.setColorsSettings({
       invertColors: newValue,
@@ -616,6 +628,7 @@ const ProgressRing = class {
     });
     this.setColorsSettings({
       invertColors: this.invertColors,
+      colors: this.colors,
     });
   }
   componentDidLoad() {
@@ -659,6 +672,7 @@ const ProgressRing = class {
   static get watchers() { return {
     "radius": ["radiusUpdated"],
     "strokeWidth": ["strokeWidthUpdated"],
+    "colors": ["colorsUpdated"],
     "invertColors": ["invertColorsUpdated"],
     "percentage": ["percentageUpdated"],
     "duration": ["durationtUpdated"],
