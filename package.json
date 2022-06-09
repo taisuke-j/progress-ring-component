@@ -45,10 +45,10 @@
   "devDependencies": {
     "@stencil/core": "~2.16.1",
     "@stencil/eslint-plugin": "^0.4.0",
-    "@types/jest": "28.1.1",
+    "@types/jest": "^27.0.3",
     "@types/puppeteer": "5.4.6",
-    "jest": "28.1.1",
-    "jest-cli": "28.1.1",
+    "jest": "^27.0.3",
+    "jest-cli": "^27.4.5",
     "puppeteer": "14.3.0"
   },
   "license": "MIT"
