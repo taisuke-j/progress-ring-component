@@ -7,9 +7,9 @@
 
 This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/), and is **framework agnostic**. It works with React, Vue, Angular or even without any Javascript framework (Please see [this section](#framework-integration) for the integration).
 
-1. [Demo 1](https://unpkg.com/progress-ring-component@1.0.24/demo/demo-01.html)
-1. [Demo 2](https://unpkg.com/progress-ring-component@1.0.24/demo/demo-02.html)
-1. [Demo 3](https://unpkg.com/progress-ring-component@1.0.24/demo/demo-03.html)
+1. [Demo 1](https://unpkg.com/progress-ring-component@1.0.25/demo/demo-01.html)
+1. [Demo 2](https://unpkg.com/progress-ring-component@1.0.25/demo/demo-02.html)
+1. [Demo 3](https://unpkg.com/progress-ring-component@1.0.25/demo/demo-03.html)
 
 ## How to use
 
@@ -19,8 +19,8 @@ This is an animated web component showing progress in percentage. It internally 
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.24/dist/progressring/progressring.esm.js"></script>
-    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.24/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.25/dist/progressring/progressring.esm.js"></script>
+    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.25/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { margin-right: 10px; font-family: sans-serif; }
       .completed-count { color: #30bf7a; font-size: 18px; }
@@ -51,8 +51,8 @@ This component works reactively in a unidirectional fashion. When the `percentag
 ```
 <custom-element-demo>
   <template>
-    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.24/dist/progressring/progressring.esm.js"></script>
-    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.24/dist/progressring/progressring.js"></script>
+    <script type="module" src="https://unpkg.com/progress-ring-component@1.0.25/dist/progressring/progressring.esm.js"></script>
+    <script nomodule src="https://unpkg.com/progress-ring-component@1.0.25/dist/progressring/progressring.js"></script>
     <style>
       progress-ring { margin-right: 10px; font-family: sans-serif; }
       .buttons { width: 170px; margin-top: 20px; text-align: center; }
@@ -93,21 +93,21 @@ This component works reactively in a unidirectional fashion. When the `percentag
 
 ### Properties
 
-| Property         | Type            | Default                                                             | Description                                                                                           |
-| ---------------- | --------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| percentage       | number          | 0                                                                   | Percentage value (mandatory)                                                                          |
-| radius           | number          | 80                                                                  | Radius of the ring                                                                                    |
-| stroke-width     | number          | 10                                                                  | Thickness of the ring                                                                                 |
-| round-linecap    | boolean         | false                                                               | Addes rounded linecap to the ring                                                                     |
-| duration         | number          | 4000                                                                | Animation duration in miliseconds                                                                     |
-| easing-type      | string          | "quartInOut"                                                        | Easing animation function name                                                                        |
-| int-size         | number          | 30                                                                  | Font size of integer                                                                                  |
-| decimal-size     | number          | intSize \* 0.7                                                      | Font size of decimals                                                                                 |
-| disable-digits   | boolean         | false                                                               | Hides digits                                                                                          |
-| disable-decimals | boolean         | false                                                               | Hides decimal places                                                                                  |
-| colors           | string (or Map) | `'[[0,"#ff4f40"],[25, "#ffcd40"],[50, "#66a0ff"],[75, "#30bf7a"]]'` | Color steps with percentage and color code (Map can be used within a framework such as React/Angular) |
-| invert-colors    | boolean         | false                                                               | Inverts the color scheme                                                                              |
-| event-id         | string          | undefined                                                           | Event Id to be used for animation callbacks                                                           |
+| Property         | Type    | Default                                                             | Description                                 |
+| ---------------- | ------- | ------------------------------------------------------------------- | ------------------------------------------- |
+| percentage       | number  | 0                                                                   | Percentage value (mandatory)                |
+| radius           | number  | 80                                                                  | Radius of the ring                          |
+| stroke-width     | number  | 10                                                                  | Thickness of the ring                       |
+| round-linecap    | boolean | false                                                               | Addes rounded linecap to the ring           |
+| duration         | number  | 4000                                                                | Animation duration in miliseconds           |
+| easing-type      | string  | "quartInOut"                                                        | Easing animation function name              |
+| int-size         | number  | 30                                                                  | Font size of integer                        |
+| decimal-size     | number  | intSize \* 0.7                                                      | Font size of decimals                       |
+| disable-digits   | boolean | false                                                               | Hides digits                                |
+| disable-decimals | boolean | false                                                               | Hides decimal places                        |
+| colors           | string  | `'[[0,"#ff4f40"],[25, "#ffcd40"],[50, "#66a0ff"],[75, "#30bf7a"]]'` | Color steps with percentage and color code  |
+| invert-colors    | boolean | false                                                               | Inverts the color scheme                    |
+| event-id         | string  | undefined                                                           | Event Id to be used for animation callbacks |
 
 #### Easing Types
 
@@ -115,7 +115,7 @@ This component works reactively in a unidirectional fashion. When the `percentag
 
 ### Advanced usage with animation events
 
-By passing `even-id` as a prop, you can listen to events emitted by with the animation, and register callback functions for them. Please see [Demo 3](https://unpkg.com/progress-ring-component@1.0.24/demo/demo-03.html).
+By passing `even-id` as a prop, you can listen to events emitted by with the animation, and register callback functions for them. Please see [Demo 3](https://unpkg.com/progress-ring-component@1.0.25/demo/demo-03.html).
 
 ![Demo 3](docs/images/demo-3.gif)
 
@@ -140,7 +140,7 @@ Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-c
   <head>
     <script
       type="module"
-      src="https://unpkg.com/progress-ring-component@1.0.24/dist/progressring/progressring.esm.js"
+      src="https://unpkg.com/progress-ring-component@1.0.25/dist/progressring/progressring.esm.js"
     ></script>
   </head>
   <body>
@@ -157,31 +157,23 @@ If you are integrating this component into a framework such as React or Vue, ple
 
 ```ts
 // index.js or index.tsx
-
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
+import React, { HTMLAttributes } from "react";
+import ReactDOM from "react-dom/client";
+import { JSX as LocalJSX } from "progress-ring-component";
 import {
   applyPolyfills,
   defineCustomElements,
 } from "progress-ring-component/dist/loader";
 
-ReactDOM.render(<App />, document.getElementById("root"));
-registerServiceWorker();
+import App from "./App";
+import "./index.css";
 
+// Just add this
 applyPolyfills().then(() => {
   defineCustomElements();
 });
-```
 
-For Typescript, you may need additional type definitions so that `<progress-ring>` tag gets recognized.
-
-```ts
-import { HTMLAttributes } from "react";
-import { JSX as LocalJSX } from "progress-ring-component";
-
+// And add these type definitions for Typescript
 type StencilToReact<T> = {
   [P in keyof T]?: T[P] &
     Omit<HTMLAttributes<Element>, "className"> & {
@@ -195,9 +187,34 @@ declare global {
       extends StencilToReact<LocalJSX.IntrinsicElements> {}
   }
 }
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 ```
 
 Now you should be able to use `<progress-ring>` tag in your JSX.
+
+```tsx
+// app.js or app.tsx
+import React from "react";
+import "./App.css";
+
+function App() {
+  return (
+    <div className="App">
+      <progress-ring percentage={70}></progress-ring>
+    </div>
+  );
+}
+
+export default App;
+```
 
 #### Vue
 
