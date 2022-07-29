@@ -126,3 +126,7 @@
 ## 1.0.25 (2022-06-13)
 
 - Updated README
+
+## 1.0.26 (2022-07-30)
+
+- Updated dependencies

@@ -16,10 +16,10 @@ const plt = {
     ce: (eventName, opts) => new CustomEvent(eventName, opts),
 };
 const promiseResolve = (v) => Promise.resolve(v);
-const supportsConstructibleStylesheets = /*@__PURE__*/ (() => {
+const supportsConstructableStylesheets = /*@__PURE__*/ (() => {
         try {
             new CSSStyleSheet();
-            return typeof new CSSStyleSheet().replace === 'function';
+            return typeof new CSSStyleSheet().replaceSync === 'function';
         }
         catch (e) { }
         return false;
@@ -43,9 +43,14 @@ const uniqueTime = (key, measureText) => {
 const rootAppliedStyles = new WeakMap();
 const registerStyle = (scopeId, cssText, allowCS) => {
     let style = styles.get(scopeId);
-    if (supportsConstructibleStylesheets && allowCS) {
+    if (supportsConstructableStylesheets && allowCS) {
         style = (style || new CSSStyleSheet());
-        style.replace(cssText);
+        if (typeof style === 'string') {
+            style = cssText;
+        }
+        else {
+            style.replaceSync(cssText);
+        }
     }
     else {
         style = cssText;
