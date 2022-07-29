@@ -130,3 +130,7 @@
 ## 1.0.26 (2022-07-30)
 
 - Updated dependencies
+
+## 1.0.27 (2022-07-30)
+
+- Updated dependencies
