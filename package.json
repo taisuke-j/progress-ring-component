@@ -40,10 +40,11 @@
   },
   "homepage": "https://github.com/taisuke-j/progress-ring-component#readme",
   "dependencies": {
+    "@stencil/react-output-target": "^0.3.1",
     "easing-animation-frames": "1.0.5"
   },
   "devDependencies": {
-    "@stencil/core": "~2.17.1",
+    "@stencil/core": "~2.17.3",
     "@stencil/eslint-plugin": "^0.4.0",
     "@types/jest": "^27.0.3",
     "@types/puppeteer": "5.4.6",

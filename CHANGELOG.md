@@ -134,3 +134,7 @@
 ## 1.0.27 (2022-07-30)
 
 - Updated dependencies
+
+## 1.0.28 (2022-08-08)
+
+- Integrated @stencil/react-output-target for react wrapper
