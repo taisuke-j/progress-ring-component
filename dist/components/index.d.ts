@@ -1,5 +1,5 @@
 /* ProgressRing custom elements */
-export { ProgressRing as ProgressRing } from '../types/components/progress-ring/progress-ring';
+export { ProgressRing as ProgressRing } from "../types/progress-ring-component/stencil/progress-ring";
 
 /**
  * Used to manually set the base path where assets can be found.
@@ -15,8 +15,18 @@ export declare const setAssetPath: (path: string) => void;
 
 export interface SetPlatformOptions {
   raf?: (c: FrameRequestCallback) => number;
-  ael?: (el: EventTarget, eventName: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) => void;
-  rel?: (el: EventTarget, eventName: string, listener: EventListenerOrEventListenerObject, options: boolean | AddEventListenerOptions) => void;
+  ael?: (
+    el: EventTarget,
+    eventName: string,
+    listener: EventListenerOrEventListenerObject,
+    options: boolean | AddEventListenerOptions
+  ) => void;
+  rel?: (
+    el: EventTarget,
+    eventName: string,
+    listener: EventListenerOrEventListenerObject,
+    options: boolean | AddEventListenerOptions
+  ) => void;
 }
 export declare const setPlatformOptions: (opts: SetPlatformOptions) => void;
-export * from '../types/components';
+export * from "../types/components";

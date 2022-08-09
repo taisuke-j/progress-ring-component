@@ -12,7 +12,6 @@ log.txt
 
 .stencil/
 .idea/
-.vscode/
 .sass-cache/
 .versions/
 node_modules/

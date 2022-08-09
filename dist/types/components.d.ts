@@ -6,166 +6,173 @@
  */
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { EasingType } from "easing-animation-frames";
-import { EventPayload, ProgressEventPayload } from "./components/progress-ring/progress-ring";
+import {
+  EventPayload,
+  ProgressEventPayload,
+} from "./progress-ring-component/stencil/progress-ring";
 export namespace Components {
-    interface ProgressRing {
-        /**
-          * Color steps of the ring
-         */
-        "colors": string | Map<number, string>;
-        /**
-          * Font size of the decimal places
-         */
-        "decimalSize": number;
-        /**
-          * Hide decimal places
-         */
-        "disableDecimals": boolean;
-        /**
-          * Hide digits
-         */
-        "disableDigits": boolean;
-        /**
-          * Animation duration in miliseconds           |
-         */
-        "duration": number;
-        /**
-          * Easing animation function name
-         */
-        "easingType": EasingType;
-        /**
-          * Unique ID for the event listeners
-         */
-        "eventId"?: string;
-        /**
-          * Font size of the integer
-         */
-        "intSize": number;
-        /**
-          * Inverts the color scheme
-         */
-        "invertColors": boolean;
-        /**
-          * Percentage value (mandatory)
-         */
-        "percentage": number;
-        /**
-          * Radius of the ring
-         */
-        "radius": number;
-        /**
-          * Addes rounded linecap to the ring
-         */
-        "roundLinecap": boolean;
-        /**
-          * Thickness of the ring
-         */
-        "strokeWidth": number;
-    }
+  interface ProgressRing {
+    /**
+     * Color steps of the ring
+     */
+    colors: string | Map<number, string>;
+    /**
+     * Font size of the decimal places
+     */
+    decimalSize: number;
+    /**
+     * Hide decimal places
+     */
+    disableDecimals: boolean;
+    /**
+     * Hide digits
+     */
+    disableDigits: boolean;
+    /**
+     * Animation duration in miliseconds           |
+     */
+    duration: number;
+    /**
+     * Easing animation function name
+     */
+    easingType: EasingType;
+    /**
+     * Unique ID for the event listeners
+     */
+    eventId?: string;
+    /**
+     * Font size of the integer
+     */
+    intSize: number;
+    /**
+     * Inverts the color scheme
+     */
+    invertColors: boolean;
+    /**
+     * Percentage value (mandatory)
+     */
+    percentage: number;
+    /**
+     * Radius of the ring
+     */
+    radius: number;
+    /**
+     * Addes rounded linecap to the ring
+     */
+    roundLinecap: boolean;
+    /**
+     * Thickness of the ring
+     */
+    strokeWidth: number;
+  }
 }
 export interface ProgressRingCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLProgressRingElement;
+  detail: T;
+  target: HTMLProgressRingElement;
 }
 declare global {
-    interface HTMLProgressRingElement extends Components.ProgressRing, HTMLStencilElement {
-    }
-    var HTMLProgressRingElement: {
-        prototype: HTMLProgressRingElement;
-        new (): HTMLProgressRingElement;
-    };
-    interface HTMLElementTagNameMap {
-        "progress-ring": HTMLProgressRingElement;
-    }
+  interface HTMLProgressRingElement
+    extends Components.ProgressRing,
+      HTMLStencilElement {}
+  var HTMLProgressRingElement: {
+    prototype: HTMLProgressRingElement;
+    new (): HTMLProgressRingElement;
+  };
+  interface HTMLElementTagNameMap {
+    "progress-ring": HTMLProgressRingElement;
+  }
 }
 declare namespace LocalJSX {
-    interface ProgressRing {
-        /**
-          * Color steps of the ring
-         */
-        "colors"?: string | Map<number, string>;
-        /**
-          * Font size of the decimal places
-         */
-        "decimalSize"?: number;
-        /**
-          * Hide decimal places
-         */
-        "disableDecimals"?: boolean;
-        /**
-          * Hide digits
-         */
-        "disableDigits"?: boolean;
-        /**
-          * Animation duration in miliseconds           |
-         */
-        "duration"?: number;
-        /**
-          * Easing animation function name
-         */
-        "easingType"?: EasingType;
-        /**
-          * Unique ID for the event listeners
-         */
-        "eventId"?: string;
-        /**
-          * Font size of the integer
-         */
-        "intSize"?: number;
-        /**
-          * Inverts the color scheme
-         */
-        "invertColors"?: boolean;
-        /**
-          * OnComplete event of the animation
-         */
-        "onPrcComplete"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
-        /**
-          * Animation progress value to be emitted (from 0 to 1)
-         */
-        "onPrcProgress"?: (event: ProgressRingCustomEvent<ProgressEventPayload>) => void;
-        /**
-          * OnRestart event of the animation
-         */
-        "onPrcRestart"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
-        /**
-          * OnResume event of the animation
-         */
-        "onPrcResume"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
-        /**
-          * OnStart event of the animation
-         */
-        "onPrcStart"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
-        /**
-          * OnStop event of the animation
-         */
-        "onPrcStop"?: (event: ProgressRingCustomEvent<EventPayload>) => void;
-        /**
-          * Percentage value (mandatory)
-         */
-        "percentage"?: number;
-        /**
-          * Radius of the ring
-         */
-        "radius"?: number;
-        /**
-          * Addes rounded linecap to the ring
-         */
-        "roundLinecap"?: boolean;
-        /**
-          * Thickness of the ring
-         */
-        "strokeWidth"?: number;
-    }
-    interface IntrinsicElements {
-        "progress-ring": ProgressRing;
-    }
+  interface ProgressRing {
+    /**
+     * Color steps of the ring
+     */
+    colors?: string | Map<number, string>;
+    /**
+     * Font size of the decimal places
+     */
+    decimalSize?: number;
+    /**
+     * Hide decimal places
+     */
+    disableDecimals?: boolean;
+    /**
+     * Hide digits
+     */
+    disableDigits?: boolean;
+    /**
+     * Animation duration in miliseconds           |
+     */
+    duration?: number;
+    /**
+     * Easing animation function name
+     */
+    easingType?: EasingType;
+    /**
+     * Unique ID for the event listeners
+     */
+    eventId?: string;
+    /**
+     * Font size of the integer
+     */
+    intSize?: number;
+    /**
+     * Inverts the color scheme
+     */
+    invertColors?: boolean;
+    /**
+     * OnComplete event of the animation
+     */
+    onPrcComplete?: (event: ProgressRingCustomEvent<EventPayload>) => void;
+    /**
+     * Animation progress value to be emitted (from 0 to 1)
+     */
+    onPrcProgress?: (
+      event: ProgressRingCustomEvent<ProgressEventPayload>
+    ) => void;
+    /**
+     * OnRestart event of the animation
+     */
+    onPrcRestart?: (event: ProgressRingCustomEvent<EventPayload>) => void;
+    /**
+     * OnResume event of the animation
+     */
+    onPrcResume?: (event: ProgressRingCustomEvent<EventPayload>) => void;
+    /**
+     * OnStart event of the animation
+     */
+    onPrcStart?: (event: ProgressRingCustomEvent<EventPayload>) => void;
+    /**
+     * OnStop event of the animation
+     */
+    onPrcStop?: (event: ProgressRingCustomEvent<EventPayload>) => void;
+    /**
+     * Percentage value (mandatory)
+     */
+    percentage?: number;
+    /**
+     * Radius of the ring
+     */
+    radius?: number;
+    /**
+     * Addes rounded linecap to the ring
+     */
+    roundLinecap?: boolean;
+    /**
+     * Thickness of the ring
+     */
+    strokeWidth?: number;
+  }
+  interface IntrinsicElements {
+    "progress-ring": ProgressRing;
+  }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
-    export namespace JSX {
-        interface IntrinsicElements {
-            "progress-ring": LocalJSX.ProgressRing & JSXBase.HTMLAttributes<HTMLProgressRingElement>;
-        }
+  export namespace JSX {
+    interface IntrinsicElements {
+      "progress-ring": LocalJSX.ProgressRing &
+        JSXBase.HTMLAttributes<HTMLProgressRingElement>;
     }
+  }
 }
