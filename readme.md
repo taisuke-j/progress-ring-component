@@ -5,11 +5,13 @@
 [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/progress-ring-component)
 ![Built With Stencil](https://img.shields.io/badge/-Built%20With%20Stencil-16161d.svg?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjIuMSwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI%2BCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI%2BCgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU%2BCjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00MjQuNywzNzMuOWMwLDM3LjYtNTUuMSw2OC42LTkyLjcsNjguNkgxODAuNGMtMzcuOSwwLTkyLjctMzAuNy05Mi43LTY4LjZ2LTMuNmgzMzYuOVYzNzMuOXoiLz4KPHBhdGggY2xhc3M9InN0MCIgZD0iTTQyNC43LDI5Mi4xSDE4MC40Yy0zNy42LDAtOTIuNy0zMS05Mi43LTY4LjZ2LTMuNkgzMzJjMzcuNiwwLDkyLjcsMzEsOTIuNyw2OC42VjI5Mi4xeiIvPgo8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNDI0LjcsMTQxLjdIODcuN3YtMy42YzAtMzcuNiw1NC44LTY4LjYsOTIuNy02OC42SDMzMmMzNy45LDAsOTIuNywzMC43LDkyLjcsNjguNlYxNDEuN3oiLz4KPC9zdmc%2BCg%3D%3D&colorA=16161d&style=flat-square)
 
-This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations. This component is compiled with [Stencil](https://stenciljs.com/), and is **framework agnostic**. It works with React, Vue, Angular or even without any Javascript framework (Please see [this section](#framework-integration) for the integration).
+This is an animated web component showing progress in percentage. It internally uses [easing-animation-frames](https://github.com/taisuke-j/easing-animation-frames) library to create CPU-friendly easing animations and compiled with [Stencil](https://stenciljs.com/).
 
 1. [Demo 1](https://unpkg.com/progress-ring-component@1.0.31/demo/demo-01.html)
 1. [Demo 2](https://unpkg.com/progress-ring-component@1.0.31/demo/demo-02.html)
 1. [Demo 3](https://unpkg.com/progress-ring-component@1.0.31/demo/demo-03.html)
+
+For **React** projects, please use [progress-ring-component-react](https://github.com/taisuke-j/progress-ring-component-react), which is a React version of the component, built with [Stencil's React wrapper](https://github.com/ionic-team/stencil-ds-output-targets).
 
 ## How to use
 
@@ -130,7 +132,7 @@ By passing `even-id` as a prop, you can listen to events emitted by with the ani
 
 You can either directly import the component in script tag or integrate it into the framework you're using for the project.
 
-### Script tag
+### How to use in your project
 
 Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` in the head of your `index.html`.
 
@@ -147,94 +149,4 @@ Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-c
     <progress-ring percentage="50"></progress-ring>
   </body>
 </html>
-```
-
-### Framework Integration
-
-If you are integrating this component into a framework such as React or Vue, please see [Stencil doc](https://stenciljs.com/docs/overview) for information.
-
-#### React
-
-```ts
-// index.js or index.tsx
-import React, { HTMLAttributes } from "react";
-import ReactDOM from "react-dom/client";
-import { JSX as LocalJSX } from "progress-ring-component";
-import {
-  applyPolyfills,
-  defineCustomElements,
-} from "progress-ring-component/dist/loader";
-
-import App from "./App";
-import "./index.css";
-
-// Just add this
-applyPolyfills().then(() => {
-  defineCustomElements();
-});
-
-// And add these type definitions for Typescript
-type StencilToReact<T> = {
-  [P in keyof T]?: T[P] &
-    Omit<HTMLAttributes<Element>, "className"> & {
-      class?: string;
-    };
-};
-
-declare global {
-  export namespace JSX {
-    interface IntrinsicElements
-      extends StencilToReact<LocalJSX.IntrinsicElements> {}
-  }
-}
-
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-```
-
-Now you should be able to use `<progress-ring>` tag in your JSX.
-
-```tsx
-// app.js or app.tsx
-import React from "react";
-import "./App.css";
-
-function App() {
-  return (
-    <div className="App">
-      <progress-ring percentage={70}></progress-ring>
-    </div>
-  );
-}
-
-export default App;
-```
-
-#### Vue
-
-```ts
-import Vue from "vue";
-import App from "./App.vue";
-
-import {
-  applyPolyfills,
-  defineCustomElements,
-} from "progress-ring-component/dist/loader";
-
-Vue.config.productionTip = false;
-
-// Bind the custom elements to the window object
-applyPolyfills().then(() => {
-  defineCustomElements();
-});
-
-new Vue({
-  render: (h) => h(App),
-}).$mount("#app");
 ```
