@@ -7,6 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "./stencil-public-runtime";
 import { EasingType } from "easing-animation-frames";
 import {
+  ColorChangeEventPayload,
   EventPayload,
   ProgressEventPayload,
 } from "./progress-ring-component/stencil/progress-ring";
@@ -29,7 +30,7 @@ export namespace Components {
      */
     disableDigits: boolean;
     /**
-     * Animation duration in miliseconds           |
+     * Animation duration in miliseconds
      */
     duration: number;
     /**
@@ -101,7 +102,7 @@ declare namespace LocalJSX {
      */
     disableDigits?: boolean;
     /**
-     * Animation duration in miliseconds           |
+     * Animation duration in miliseconds
      */
     duration?: number;
     /**
@@ -120,6 +121,12 @@ declare namespace LocalJSX {
      * Inverts the color scheme
      */
     invertColors?: boolean;
+    /**
+     * Color value to be emitted
+     */
+    onPrcColor?: (
+      event: ProgressRingCustomEvent<ColorChangeEventPayload>
+    ) => void;
     /**
      * OnComplete event of the animation
      */

@@ -8,6 +8,10 @@ export interface ProgressEventPayload {
   progress: number;
   percentage: number;
 }
+export interface ColorChangeEventPayload {
+  id: string;
+  color: string;
+}
 export declare class ProgressRing {
   /**
    * Radius of the ring
@@ -64,7 +68,7 @@ export declare class ProgressRing {
    */
   percentage: number;
   /**
-   * Animation duration in miliseconds           |
+   * Animation duration in miliseconds
    */
   duration: number;
   /**
@@ -93,6 +97,10 @@ export declare class ProgressRing {
    * Animation progress value to be emitted (from 0 to 1)
    */
   prcProgress: EventEmitter<ProgressEventPayload>;
+  /**
+   * Color value to be emitted
+   */
+  prcColor: EventEmitter<ColorChangeEventPayload>;
   /**
    * OnStart event of the animation
    */

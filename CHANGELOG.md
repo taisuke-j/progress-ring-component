@@ -142,3 +142,7 @@
 ## 1.0.32 (2022-08-11)
 
 - Updated README with the mention on [progress-ring-component-react](https://github.com/taisuke-j/progress-ring-component-react)
+
+## 1.0.33 (2022-08-18)
+
+- Added color change event (`prcColor`)

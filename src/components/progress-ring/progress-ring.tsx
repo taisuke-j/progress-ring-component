@@ -19,6 +19,11 @@ export interface ProgressEventPayload {
   percentage: number;
 }
 
+export interface ColorChangeEventPayload {
+  id: string;
+  color: string;
+}
+
 @Component({
   tag: "progress-ring",
   styleUrl: "progress-ring.css",
@@ -179,6 +184,14 @@ export class ProgressRing {
       }
     }
 
+    // Emits color change event
+    if (this.eventId !== undefined) {
+      this.prcColor.emit({
+        id: this.eventId,
+        color,
+      });
+    }
+
     this.ring.style.stroke = color;
     this.ringBackground.style.stroke = color;
     this.percentageText.style.fill = color;
@@ -192,7 +205,7 @@ export class ProgressRing {
   @Prop({ reflect: true, mutable: true }) percentage = 0;
 
   /**
-   * Animation duration in miliseconds           |
+   * Animation duration in miliseconds
    */
   @Prop() duration = 4000;
 
@@ -329,6 +342,11 @@ export class ProgressRing {
    */
   @Event({ bubbles: true, composed: true })
   prcProgress: EventEmitter<ProgressEventPayload>;
+  /**
+   * Color value to be emitted
+   */
+  @Event({ bubbles: true, composed: true })
+  prcColor: EventEmitter<ColorChangeEventPayload>;
   /**
    * OnStart event of the animation
    */

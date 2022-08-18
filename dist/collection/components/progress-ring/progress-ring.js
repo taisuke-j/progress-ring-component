@@ -90,6 +90,13 @@ export class ProgressRing {
           break;
         }
       }
+      // Emits color change event
+      if (this.eventId !== undefined) {
+        this.prcColor.emit({
+          id: this.eventId,
+          color,
+        });
+      }
       this.ring.style.stroke = color;
       this.ringBackground.style.stroke = color;
       this.percentageText.style.fill = color;
@@ -100,7 +107,7 @@ export class ProgressRing {
      */
     this.percentage = 0;
     /**
-     * Animation duration in miliseconds           |
+     * Animation duration in miliseconds
      */
     this.duration = 4000;
     /**
@@ -488,7 +495,7 @@ export class ProgressRing {
       "optional": false,
       "docs": {
         "tags": [],
-        "text": "Animation duration in miliseconds           |"
+        "text": "Animation duration in miliseconds"
       },
       "attribute": "duration",
       "reflect": false,
@@ -550,6 +557,25 @@ export class ProgressRing {
         "resolved": "ProgressEventPayload",
         "references": {
           "ProgressEventPayload": {
+            "location": "local"
+          }
+        }
+      }
+    }, {
+      "method": "prcColor",
+      "name": "prcColor",
+      "bubbles": true,
+      "cancelable": true,
+      "composed": true,
+      "docs": {
+        "tags": [],
+        "text": "Color value to be emitted"
+      },
+      "complexType": {
+        "original": "ColorChangeEventPayload",
+        "resolved": "ColorChangeEventPayload",
+        "references": {
+          "ColorChangeEventPayload": {
             "location": "local"
           }
         }

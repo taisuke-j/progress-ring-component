@@ -392,6 +392,7 @@ const ProgressRing = class {
   constructor(hostRef) {
     index.registerInstance(this, hostRef);
     this.prcProgress = index.createEvent(this, "prcProgress", 7);
+    this.prcColor = index.createEvent(this, "prcColor", 7);
     this.prcStart = index.createEvent(this, "prcStart", 7);
     this.prcComplete = index.createEvent(this, "prcComplete", 7);
     this.prcStop = index.createEvent(this, "prcStop", 7);
@@ -484,6 +485,13 @@ const ProgressRing = class {
           break;
         }
       }
+      // Emits color change event
+      if (this.eventId !== undefined) {
+        this.prcColor.emit({
+          id: this.eventId,
+          color,
+        });
+      }
       this.ring.style.stroke = color;
       this.ringBackground.style.stroke = color;
       this.percentageText.style.fill = color;
@@ -494,7 +502,7 @@ const ProgressRing = class {
      */
     this.percentage = 0;
     /**
-     * Animation duration in miliseconds           |
+     * Animation duration in miliseconds
      */
     this.duration = 4000;
     /**
