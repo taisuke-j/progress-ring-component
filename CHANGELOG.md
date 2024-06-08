@@ -146,3 +146,7 @@
 ## 1.0.33 (2022-08-18)
 
 - Added color change event (`prcColor`)
+
+## 1.0.35 (2024-06-08)
+
+- Updated dependencies

@@ -1,11 +1,11 @@
 {
   "entries": [
-    "./components/progress-ring/progress-ring.js"
+    "components/progress-ring/progress-ring.js"
   ],
   "compiler": {
     "name": "@stencil/core",
-    "version": "2.17.3",
-    "typescriptVersion": "4.5.4"
+    "version": "4.18.3",
+    "typescriptVersion": "5.4.5"
   },
   "collections": [],
   "bundles": []

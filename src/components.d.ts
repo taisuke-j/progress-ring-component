@@ -7,6 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { EasingType } from "easing-animation-frames";
 import { ColorChangeEventPayload, EventPayload, ProgressEventPayload } from "./components/progress-ring/progress-ring";
+export { EasingType } from "easing-animation-frames";
+export { ColorChangeEventPayload, EventPayload, ProgressEventPayload } from "./components/progress-ring/progress-ring";
 export namespace Components {
     interface ProgressRing {
         /**
@@ -68,7 +70,24 @@ export interface ProgressRingCustomEvent<T> extends CustomEvent<T> {
     target: HTMLProgressRingElement;
 }
 declare global {
+    interface HTMLProgressRingElementEventMap {
+        "prcProgress": ProgressEventPayload;
+        "prcColor": ColorChangeEventPayload;
+        "prcStart": EventPayload;
+        "prcComplete": EventPayload;
+        "prcStop": EventPayload;
+        "prcResume": EventPayload;
+        "prcRestart": EventPayload;
+    }
     interface HTMLProgressRingElement extends Components.ProgressRing, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLProgressRingElementEventMap>(type: K, listener: (this: HTMLProgressRingElement, ev: ProgressRingCustomEvent<HTMLProgressRingElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLProgressRingElementEventMap>(type: K, listener: (this: HTMLProgressRingElement, ev: ProgressRingCustomEvent<HTMLProgressRingElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLProgressRingElement: {
         prototype: HTMLProgressRingElement;

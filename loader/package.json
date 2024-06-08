@@ -1,5 +1,6 @@
 {
   "name": "progressring-loader",
+  "private": true,
   "typings": "./index.d.ts",
   "module": "./index.js",
   "main": "./index.cjs.js",

@@ -384,337 +384,311 @@ const easingAnimationFrames = ({
 
 const progressRingCss = ".root{display:inline-block;position:relative}circle{transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke 0.4s ease 0s}text{transition:fill 0.6s ease 0s}slot{display:flex;align-items:center;justify-content:center;position:absolute;left:0;top:0;width:100%;height:100%;text-align:center}.hide{display:none}";
 
-const ProgressRing$1 = /*@__PURE__*/ proxyCustomElement(class extends HTMLElement {
-  constructor() {
-    super();
-    this.__registerHost();
-    this.__attachShadow();
-    this.prcProgress = createEvent(this, "prcProgress", 7);
-    this.prcColor = createEvent(this, "prcColor", 7);
-    this.prcStart = createEvent(this, "prcStart", 7);
-    this.prcComplete = createEvent(this, "prcComplete", 7);
-    this.prcStop = createEvent(this, "prcStop", 7);
-    this.prcResume = createEvent(this, "prcResume", 7);
-    this.prcRestart = createEvent(this, "prcRestart", 7);
-    // SHAPE
-    /**
-     * Radius of the ring
-     */
-    this.radius = 80;
-    /**
-     * Thickness of the ring
-     */
-    this.strokeWidth = 10;
-    this.setShapeSettings = ({ radius = this.radius, strokeWidth = this.strokeWidth, }) => {
-      // Caches calculation results
-      this.normalizedRadius = radius - Math.floor(strokeWidth / 2);
-      this.circumference = this.normalizedRadius * 2 * Math.PI;
-    };
-    // TEXT
-    /**
-     * Font size of the integer
-     */
-    this.intSize = 30;
-    /**
-     * Hide digits
-     */
-    this.disableDigits = false;
-    /**
-     * Hide decimal places
-     */
-    this.disableDecimals = false;
-    this.parsePercentageText = (percentage) => {
-      if (percentage <= 0) {
-        return ["0", "0"];
-      }
-      return percentage.toFixed(1).split(".");
-    };
-    this.isZeroPercent = () => {
-      return this.percentage === 0;
-    };
-    this.getDecimalSize = () => {
-      return this.decimalSize === undefined
-        ? Math.floor(this.intSize * 0.7)
-        : this.decimalSize;
-    };
-    // STYLE
-    /**
-     * Addes rounded linecap to the ring
-     */
-    this.roundLinecap = false;
-    this.getLinecap = () => {
-      return this.roundLinecap ? "round" : "butt";
-    };
-    // COLORS
-    /**
-     * Color steps of the ring
-     */
-    this.colors = new Map([
-      [0, "#ff4f40"],
-      [25, "#ffcd40"],
-      [50, "#66a0ff"],
-      [75, "#30bf7a"], // green
-    ]);
-    /**
-     * Inverts the color scheme
-     */
-    this.invertColors = false;
-    this.setColorsSettings = ({ colors = this.colors, invertColors = this.invertColors, }) => {
-      const colorsMap = colors instanceof Map ? colors : new Map(JSON.parse(colors));
-      if (!invertColors) {
-        this.internalColors = colorsMap;
-        return;
-      }
-      // If inverseColors prop is set to true
-      const colorsArray = [...colorsMap];
-      const colorsArrayReversed = [...colorsArray].reverse();
-      this.internalColors = new Map(colorsArray.map((color, i) => [color[0], colorsArrayReversed[i][1]]));
-    };
-    this.setColors = (percentage) => {
-      let color;
-      const colorsArray = [...this.internalColors];
-      for (let i = 0; i < colorsArray.length; i++) {
-        if (i === colorsArray.length - 1) {
-          color = colorsArray[i][1];
-          break;
-        }
-        if (percentage < colorsArray[i + 1][0]) {
-          color = colorsArray[i][1];
-          break;
-        }
-      }
-      // Emits color change event
-      if (this.eventId !== undefined) {
-        this.prcColor.emit({
-          id: this.eventId,
-          color,
+const ProgressRing$1 = /*@__PURE__*/ proxyCustomElement(class ProgressRing extends HTMLElement {
+    constructor() {
+        super();
+        this.__registerHost();
+        this.__attachShadow();
+        this.prcProgress = createEvent(this, "prcProgress", 7);
+        this.prcColor = createEvent(this, "prcColor", 7);
+        this.prcStart = createEvent(this, "prcStart", 7);
+        this.prcComplete = createEvent(this, "prcComplete", 7);
+        this.prcStop = createEvent(this, "prcStop", 7);
+        this.prcResume = createEvent(this, "prcResume", 7);
+        this.prcRestart = createEvent(this, "prcRestart", 7);
+        this.setShapeSettings = ({ radius = this.radius, strokeWidth = this.strokeWidth, }) => {
+            // Caches calculation results
+            this.normalizedRadius = radius - Math.floor(strokeWidth / 2);
+            this.circumference = this.normalizedRadius * 2 * Math.PI;
+        };
+        this.parsePercentageText = (percentage) => {
+            if (percentage <= 0) {
+                return ["0", "0"];
+            }
+            return percentage.toFixed(1).split(".");
+        };
+        this.isZeroPercent = () => {
+            return this.percentage === 0;
+        };
+        this.getDecimalSize = () => {
+            return this.decimalSize === undefined
+                ? Math.floor(this.intSize * 0.7)
+                : this.decimalSize;
+        };
+        this.getLinecap = () => {
+            return this.roundLinecap ? "round" : "butt";
+        };
+        this.setColorsSettings = ({ colors = this.colors, invertColors = this.invertColors, }) => {
+            const colorsMap = colors instanceof Map ? colors : new Map(JSON.parse(colors));
+            if (!invertColors) {
+                this.internalColors = colorsMap;
+                return;
+            }
+            // If inverseColors prop is set to true
+            const colorsArray = [...colorsMap];
+            const colorsArrayReversed = [...colorsArray].reverse();
+            this.internalColors = new Map(colorsArray.map((color, i) => [color[0], colorsArrayReversed[i][1]]));
+        };
+        this.setColors = (percentage) => {
+            let color;
+            const colorsArray = [...this.internalColors];
+            for (let i = 0; i < colorsArray.length; i++) {
+                if (i === colorsArray.length - 1) {
+                    color = colorsArray[i][1];
+                    break;
+                }
+                if (percentage < colorsArray[i + 1][0]) {
+                    color = colorsArray[i][1];
+                    break;
+                }
+            }
+            // Emits color change event
+            if (this.eventId !== undefined) {
+                this.prcColor.emit({
+                    id: this.eventId,
+                    color,
+                });
+            }
+            this.ring.style.stroke = color;
+            this.ringBackground.style.stroke = color;
+            this.percentageText.style.fill = color;
+        };
+        this.start = 0;
+        this.progress = 0;
+        this.isLoaded = false;
+        this.isDisconnected = false;
+        this.complete = false;
+        // Called for every requestAnimationFrame
+        this.setProgress = ({ progress, stopFrames, resumeFrames, restartFrames, }) => {
+            // Stops the animation if the component is disconnected from the DOM
+            if (this.isDisconnected && typeof stopFrames === "function") {
+                stopFrames();
+                // Emits stop event
+                if (this.eventId !== undefined) {
+                    this.prcStop.emit({ id: this.eventId });
+                }
+                return;
+            }
+            this.progress = progress;
+            this.resumeFrames = resumeFrames;
+            this.restartFrames = restartFrames;
+            // Shape
+            const currentPercentage = (this.internalPercentage - this.start) * progress + this.start;
+            const offset = currentPercentage >= 100
+                ? 0
+                : this.circumference - (currentPercentage / 100) * this.circumference;
+            this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
+            // Text
+            const parsedPercentageText = this.parsePercentageText(currentPercentage);
+            this.intText.innerHTML = parsedPercentageText[0];
+            this.decimalText.innerHTML = parsedPercentageText[1];
+            // Emits progress change event
+            if (this.eventId !== undefined) {
+                this.prcProgress.emit({
+                    id: this.eventId,
+                    progress,
+                    percentage: currentPercentage,
+                });
+            }
+        };
+        // Called every time the percentage attribute gets updated
+        this.restartProgress = () => {
+            if (typeof this.restartFrames !== "function") {
+                return;
+            }
+            // Emits restart event
+            if (this.eventId !== undefined) {
+                this.prcRestart.emit({ id: this.eventId });
+            }
+            // Resets the progresss to 0 and set the start to be the previous percentage
+            const currentPercentage = (this.internalPercentage - this.start) * this.progress + this.start;
+            this.internalPercentage = this.percentage;
+            this.progress = 0;
+            this.start = currentPercentage;
+            // Reset the complete state
+            this.complete = false;
+            // Restarts the template function
+            const restartSettings = {
+                restartDuration: this.duration,
+                restartEasingType: this.easingType,
+                restartTemplate: this.setProgress,
+                restartComplete: this.completeCallback,
+            };
+            this.setColors(this.percentage);
+            this.restartFrames(restartSettings);
+        };
+        this.completeCallback = () => {
+            if (!this.complete) {
+                this.complete = true;
+                // Emits complete event
+                if (this.eventId !== undefined) {
+                    this.prcComplete.emit({ id: this.eventId });
+                }
+            }
+        };
+        this.radius = 80;
+        this.strokeWidth = 10;
+        this.intSize = 30;
+        this.decimalSize = undefined;
+        this.disableDigits = false;
+        this.disableDecimals = false;
+        this.roundLinecap = false;
+        this.colors = new Map([
+            [0, "#ff4f40"], // red
+            [25, "#ffcd40"], // yellow
+            [50, "#66a0ff"], // blue
+            [75, "#30bf7a"], // green
+        ]);
+        this.invertColors = false;
+        this.percentage = 0;
+        this.duration = 4000;
+        this.easingType = "quartInOut";
+        this.eventId = undefined;
+    }
+    radiusUpdated(newValue) {
+        this.setShapeSettings({
+            radius: newValue,
         });
-      }
-      this.ring.style.stroke = color;
-      this.ringBackground.style.stroke = color;
-      this.percentageText.style.fill = color;
-    };
-    // ANIMATION
-    /**
-     * Percentage value (mandatory)
-     */
-    this.percentage = 0;
-    /**
-     * Animation duration in miliseconds
-     */
-    this.duration = 4000;
-    /**
-     * Easing animation function name
-     */
-    this.easingType = "quartInOut";
-    this.start = 0;
-    this.progress = 0;
-    this.isLoaded = false;
-    this.isDisconnected = false;
-    this.complete = false;
-    // Called for every requestAnimationFrame
-    this.setProgress = ({ progress, stopFrames, resumeFrames, restartFrames, }) => {
-      // Stops the animation if the component is disconnected from the DOM
-      if (this.isDisconnected && typeof stopFrames === "function") {
-        stopFrames();
-        // Emits stop event
-        if (this.eventId !== undefined) {
-          this.prcStop.emit({ id: this.eventId });
-        }
-        return;
-      }
-      this.progress = progress;
-      this.resumeFrames = resumeFrames;
-      this.restartFrames = restartFrames;
-      // Shape
-      const currentPercentage = (this.internalPercentage - this.start) * progress + this.start;
-      const offset = currentPercentage >= 100
-        ? 0
-        : this.circumference - (currentPercentage / 100) * this.circumference;
-      this.ring.style.strokeDashoffset = String(offset); // strokeDashoffset value type is string
-      // Text
-      const parsedPercentageText = this.parsePercentageText(currentPercentage);
-      this.intText.innerHTML = parsedPercentageText[0];
-      this.decimalText.innerHTML = parsedPercentageText[1];
-      // Emits progress change event
-      if (this.eventId !== undefined) {
-        this.prcProgress.emit({
-          id: this.eventId,
-          progress,
-          percentage: currentPercentage,
+        this.restartProgress();
+    }
+    strokeWidthUpdated(newValue) {
+        this.setShapeSettings({
+            strokeWidth: newValue,
         });
-      }
-    };
-    // Called every time the percentage attribute gets updated
-    this.restartProgress = () => {
-      if (typeof this.restartFrames !== "function") {
-        return;
-      }
-      // Emits restart event
-      if (this.eventId !== undefined) {
-        this.prcRestart.emit({ id: this.eventId });
-      }
-      // Resets the progresss to 0 and set the start to be the previous percentage
-      const currentPercentage = (this.internalPercentage - this.start) * this.progress + this.start;
-      this.internalPercentage = this.percentage;
-      this.progress = 0;
-      this.start = currentPercentage;
-      // Reset the complete state
-      this.complete = false;
-      // Restarts the template function
-      const restartSettings = {
-        restartDuration: this.duration,
-        restartEasingType: this.easingType,
-        restartTemplate: this.setProgress,
-        restartComplete: this.completeCallback,
-      };
-      this.setColors(this.percentage);
-      this.restartFrames(restartSettings);
-    };
-    this.completeCallback = () => {
-      if (!this.complete) {
-        this.complete = true;
-        // Emits complete event
-        if (this.eventId !== undefined) {
-          this.prcComplete.emit({ id: this.eventId });
+        this.restartProgress();
+    }
+    colorsUpdated(newValue) {
+        this.setColorsSettings({
+            colors: newValue,
+        });
+        this.restartProgress();
+    }
+    invertColorsUpdated(newValue) {
+        this.setColorsSettings({
+            invertColors: newValue,
+        });
+        this.restartProgress();
+    }
+    percentageUpdated() {
+        if (this.percentage < 0) {
+            this.percentage = 0;
+            return;
         }
-      }
-    };
-  }
-  radiusUpdated(newValue) {
-    this.setShapeSettings({
-      radius: newValue,
-    });
-    this.restartProgress();
-  }
-  strokeWidthUpdated(newValue) {
-    this.setShapeSettings({
-      strokeWidth: newValue,
-    });
-    this.restartProgress();
-  }
-  colorsUpdated(newValue) {
-    this.setColorsSettings({
-      colors: newValue,
-    });
-    this.restartProgress();
-  }
-  invertColorsUpdated(newValue) {
-    this.setColorsSettings({
-      invertColors: newValue,
-    });
-    this.restartProgress();
-  }
-  percentageUpdated() {
-    if (this.percentage < 0) {
-      this.percentage = 0;
-      return;
+        this.restartProgress();
     }
-    this.restartProgress();
-  }
-  durationtUpdated() {
-    this.restartProgress();
-  }
-  easingTypeUpdated() {
-    this.restartProgress();
-  }
-  /**
-   * Lifecycle Methods
-   */
-  componentWillLoad() {
-    if (this.percentage < 0) {
-      this.percentage = 0;
-      return;
+    durationtUpdated() {
+        this.restartProgress();
     }
-    // We need internal percentage, which is not reactive to prop changes
-    this.internalPercentage = this.percentage;
-    this.setShapeSettings({
-      radius: this.radius,
-      strokeWidth: this.strokeWidth,
-    });
-    this.setColorsSettings({
-      invertColors: this.invertColors,
-      colors: this.colors,
-    });
-  }
-  componentDidLoad() {
-    this.isLoaded = true;
-    this.setColors(this.percentage);
-    // Emits restart event
-    if (this.eventId !== undefined) {
-      this.prcStart.emit({ id: this.eventId });
+    easingTypeUpdated() {
+        this.restartProgress();
     }
-    const animationSettings = {
-      duration: this.duration,
-      easingType: this.easingType,
-      template: this.setProgress,
-      complete: this.completeCallback,
-    };
-    easingAnimationFrames(animationSettings);
-  }
-  connectedCallback() {
-    if (this.isLoaded) {
-      // If the component is already loaded, that means it was loaded but
-      // disconnected from the DOM and then connected to the DOM again
-      this.isDisconnected = false;
-      // Emits complete event
-      if (this.eventId !== undefined) {
-        this.prcResume.emit({ id: this.eventId });
-      }
-      // Resumes animation that is still in progress
-      this.resumeFrames();
+    /**
+     * Lifecycle Methods
+     */
+    componentWillLoad() {
+        if (this.percentage < 0) {
+            this.percentage = 0;
+            return;
+        }
+        // We need internal percentage, which is not reactive to prop changes
+        this.internalPercentage = this.percentage;
+        this.setShapeSettings({
+            radius: this.radius,
+            strokeWidth: this.strokeWidth,
+        });
+        this.setColorsSettings({
+            invertColors: this.invertColors,
+            colors: this.colors,
+        });
     }
-  }
-  disconnectedCallback() {
-    this.isDisconnected = true;
-  }
-  render() {
-    return (h("div", { class: "root" }, h("svg", { height: this.radius * 2, width: this.radius * 2 }, h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => (this.ringBackground = el), class: "background-ring" }), h("circle", { cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => (this.ring = el), class: "ring" }), h("text", { x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => (this.percentageText = el), class: this.disableDigits ? "hide" : null }, h("tspan", { "font-size": this.intSize, ref: (el) => (this.intText = el), class: "intText" }), h("tspan", { "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
-        ? "hide"
-        : "decimalPointText" }, "."), h("tspan", { "font-size": this.getDecimalSize(), ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
-        ? "hide"
-        : "decimalText" }), h("tspan", { "font-size": this.getDecimalSize(), dx: "0.5ex", class: "percentageText" }, "%"))), h("slot", null)));
-  }
-  static get watchers() { return {
-    "radius": ["radiusUpdated"],
-    "strokeWidth": ["strokeWidthUpdated"],
-    "colors": ["colorsUpdated"],
-    "invertColors": ["invertColorsUpdated"],
-    "percentage": ["percentageUpdated"],
-    "duration": ["durationtUpdated"],
-    "easingType": ["easingTypeUpdated"]
-  }; }
-  static get style() { return progressRingCss; }
+    componentDidLoad() {
+        this.isLoaded = true;
+        this.setColors(this.percentage);
+        // Emits restart event
+        if (this.eventId !== undefined) {
+            this.prcStart.emit({ id: this.eventId });
+        }
+        const animationSettings = {
+            duration: this.duration,
+            easingType: this.easingType,
+            template: this.setProgress,
+            complete: this.completeCallback,
+        };
+        easingAnimationFrames(animationSettings);
+    }
+    connectedCallback() {
+        if (this.isLoaded) {
+            // If the component is already loaded, that means it was loaded but
+            // disconnected from the DOM and then connected to the DOM again
+            this.isDisconnected = false;
+            // Emits complete event
+            if (this.eventId !== undefined) {
+                this.prcResume.emit({ id: this.eventId });
+            }
+            // Resumes animation that is still in progress
+            this.resumeFrames();
+        }
+    }
+    disconnectedCallback() {
+        this.isDisconnected = true;
+    }
+    render() {
+        return (h("div", { key: 'dc6fa79b9d0c0691e1c3bf71dd3fb6f014587504', class: "root" }, h("svg", { key: '221dd3d20387ff7b0fa52c70ee38b98baa7907fc', height: this.radius * 2, width: this.radius * 2 }, h("circle", { key: '7f67d59118398f5b01ed0f821e7282c9e3611c20', cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, fill: "transparent", opacity: "0.1", ref: (el) => (this.ringBackground = el), class: "background-ring" }), h("circle", { key: 'ffc7caf286a723a9324f22055570ec361498b5b2', cx: this.radius, cy: this.radius, r: this.normalizedRadius, "stroke-width": this.strokeWidth, "stroke-dasharray": `${this.circumference} ${this.circumference}`, fill: "transparent", "stroke-linecap": this.getLinecap(), ref: (el) => (this.ring = el), class: "ring" }), h("text", { key: '4300647b46d344d2ea9ba908b9222721db355a3e', x: "50%", y: "50%", "text-anchor": "middle", dy: "0.5ex", "font-size": this.intSize, ref: (el) => (this.percentageText = el), class: this.disableDigits ? "hide" : null }, h("tspan", { key: '0229a043a68cbf9d58f43604354722eccecacdde', "font-size": this.intSize, ref: (el) => (this.intText = el), class: "intText" }), h("tspan", { key: '50f340a8a97f3f04409055f358a03cf5e7130475', "font-size": this.intSize, class: this.isZeroPercent() || this.disableDecimals
+                ? "hide"
+                : "decimalPointText" }, "."), h("tspan", { key: 'a782c10ad6d4b427d3df46db36e2b0059a591619', "font-size": this.getDecimalSize(), ref: (el) => (this.decimalText = el), class: this.isZeroPercent() || this.disableDecimals
+                ? "hide"
+                : "decimalText" }), h("tspan", { key: 'c377354751cda0ef46c2193cec00a67c271f79ca', "font-size": this.getDecimalSize(), dx: "0.5ex", class: "percentageText" }, "%"))), h("slot", { key: 'd4e372d7ca7c6fd5053c34e1163b97878678abbf' })));
+    }
+    static get watchers() { return {
+        "radius": ["radiusUpdated"],
+        "strokeWidth": ["strokeWidthUpdated"],
+        "colors": ["colorsUpdated"],
+        "invertColors": ["invertColorsUpdated"],
+        "percentage": ["percentageUpdated"],
+        "duration": ["durationtUpdated"],
+        "easingType": ["easingTypeUpdated"]
+    }; }
+    static get style() { return progressRingCss; }
 }, [1, "progress-ring", {
-    "radius": [2],
-    "strokeWidth": [2, "stroke-width"],
-    "intSize": [2, "int-size"],
-    "decimalSize": [2, "decimal-size"],
-    "disableDigits": [4, "disable-digits"],
-    "disableDecimals": [4, "disable-decimals"],
-    "roundLinecap": [4, "round-linecap"],
-    "colors": [1],
-    "invertColors": [4, "invert-colors"],
-    "percentage": [1538],
-    "duration": [2],
-    "easingType": [1, "easing-type"],
-    "eventId": [1, "event-id"]
-  }]);
+        "radius": [2],
+        "strokeWidth": [2, "stroke-width"],
+        "intSize": [2, "int-size"],
+        "decimalSize": [2, "decimal-size"],
+        "disableDigits": [4, "disable-digits"],
+        "disableDecimals": [4, "disable-decimals"],
+        "roundLinecap": [4, "round-linecap"],
+        "colors": [1],
+        "invertColors": [4, "invert-colors"],
+        "percentage": [1538],
+        "duration": [2],
+        "easingType": [1, "easing-type"],
+        "eventId": [1, "event-id"]
+    }, undefined, {
+        "radius": ["radiusUpdated"],
+        "strokeWidth": ["strokeWidthUpdated"],
+        "colors": ["colorsUpdated"],
+        "invertColors": ["invertColorsUpdated"],
+        "percentage": ["percentageUpdated"],
+        "duration": ["durationtUpdated"],
+        "easingType": ["easingTypeUpdated"]
+    }]);
 function defineCustomElement$1() {
-  if (typeof customElements === "undefined") {
-    return;
-  }
-  const components = ["progress-ring"];
-  components.forEach(tagName => { switch (tagName) {
-    case "progress-ring":
-      if (!customElements.get(tagName)) {
-        customElements.define(tagName, ProgressRing$1);
-      }
-      break;
-  } });
+    if (typeof customElements === "undefined") {
+        return;
+    }
+    const components = ["progress-ring"];
+    components.forEach(tagName => { switch (tagName) {
+        case "progress-ring":
+            if (!customElements.get(tagName)) {
+                customElements.define(tagName, ProgressRing$1);
+            }
+            break;
+    } });
 }
 
 const ProgressRing = ProgressRing$1;
 const defineCustomElement = defineCustomElement$1;
 
 export { ProgressRing, defineCustomElement };
+
+//# sourceMappingURL=progress-ring.js.map
