@@ -150,3 +150,7 @@
 ## 1.0.35 (2024-06-08)
 
 - Updated dependencies
+
+## 1.0.36 (2024-06-10)
+
+- Updated README
