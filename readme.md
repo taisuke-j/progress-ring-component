@@ -111,7 +111,7 @@ This component works reactively in a unidirectional fashion. When the `percentag
 
 #### Easing Types
 
-`backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn`, `sineOut`
+Easing Types refer to **Robert Penner's Easing Function** names: `backInOut`, `backIn`, `backOut`, `bounceInOut`, `bounceIn`, `bounceOut`, `circInOut`, `circIn`, `circOut`, `cubicInOut`, `cubicIn`, `cubicOut`, `elasticInOut`, `elasticIn`, `elasticOut`, `expoInOut`, `expoIn`, `expoOut`, `linear`, `quadInOut`, `quadIn`, `quadOut`, `quartInOut`, `quartIn`, `quartOut`, `quintInOut`, `quintIn`, `quintOut`, `sineInOut`, `sineIn` and `sineOut`.
 
 ### Advanced usage with animation events
 
@@ -131,9 +131,9 @@ By passing `even-id` as a prop, you can listen to events emitted by with the ani
 
 You can either directly import the component in script tag or integrate it into the framework you're using for the project.
 
-### How to use in your project
+## How to load in your project
 
-Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` in the head of your `index.html`.
+Simply place a script tag `<script type="module" src="https://unpkg.com/progress-ring-component/dist/progressring/progressring.esm.js"></script>` in the head of your `index.html`.
 
 ```html
 <!DOCTYPE html>
@@ -148,4 +148,35 @@ Place a script tag `<script type="module" src="https://unpkg.com/progress-ring-c
     <progress-ring percentage="50"></progress-ring>
   </body>
 </html>
+```
+
+If you're using Typescript, you may need additional types. The example below is a React component.
+
+```tsx
+import { JSX as LocalJSX } from "progress-ring-component/loader";
+import { HTMLAttributes } from "react";
+
+type StencilToReact<T> = {
+  [P in keyof T]?: T[P] &
+    Omit<HTMLAttributes<Element>, "className"> & {
+      class?: string;
+    };
+};
+
+declare global {
+  export namespace JSX {
+    interface IntrinsicElements
+      extends StencilToReact<LocalJSX.IntrinsicElements> {}
+  }
+}
+
+function App() {
+  return (
+    <div>
+      <progress-ring percentage={30}></progress-ring>
+    </div>
+  );
+}
+
+export default App;
 ```
